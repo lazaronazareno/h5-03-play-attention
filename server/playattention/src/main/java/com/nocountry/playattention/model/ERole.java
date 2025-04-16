@@ -1,8 +1,8 @@
 package com.nocountry.playattention.model;
 
-/**
- * Enumeración que define los roles disponibles en el sistema
- */
+
+ // Enum que define los roles disponibles en el sistema
+
 public enum ERole {
     ROLE_USER,       // Usuario regular
     ROLE_PROFESSIONAL, // Profesional (médicos, terapeutas, etc.)

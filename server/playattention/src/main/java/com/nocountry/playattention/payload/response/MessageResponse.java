@@ -1,8 +1,8 @@
 package com.nocountry.playattention.payload.response;
 
-/**
- * Clase que representa una respuesta simple con un mensaje
- */
+
+ //Clase que representa una respuesta simple con un mensaje
+
 public class MessageResponse {
     private String message;
 

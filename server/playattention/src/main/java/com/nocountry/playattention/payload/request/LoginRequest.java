@@ -3,9 +3,9 @@ package com.nocountry.playattention.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-/**
- * Clase que representa la solicitud de inicio de sesión
- */
+
+ // Clase que representa la solicitud de inicio de sesión
+
 public class LoginRequest {
     @NotBlank
     private String username;

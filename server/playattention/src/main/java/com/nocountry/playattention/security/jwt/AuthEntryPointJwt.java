@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-/**
- * Clase que maneja la excepción de autenticación no autorizada
- */
+
+ //Clase que maneja la excepción de autenticación no autorizada
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 

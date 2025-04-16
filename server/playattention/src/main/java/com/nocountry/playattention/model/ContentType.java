@@ -1,8 +1,8 @@
 package com.nocountry.playattention.model;
 
-/**
- * Enumeración que define los tipos de contenido disponibles en la plataforma
- */
+
+ // Enum que define los tipos de contenido disponibles en la plataforma
+
 public enum ContentType {
     DOCUMENT,       // Documentos PDF, Word, etc.
     VIDEO,          // Videos tutoriales o demostrativos

@@ -18,9 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-/**
- * Filtro que se ejecuta una vez por cada solicitud para validar el token JWT
- */
+
+ // Filtro que se ejecuta una vez por cada solicitud para validar el token JWT
+
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;

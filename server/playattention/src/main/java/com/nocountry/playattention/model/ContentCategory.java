@@ -1,8 +1,8 @@
 package com.nocountry.playattention.model;
 
-/**
- * Enumeración que define las categorías de contenido disponibles en la plataforma
- */
+
+//  Enum que define las categorías de contenido disponibles en la plataforma
+
 public enum ContentCategory {
     EDUCATIONAL_MATERIAL, // Material educativo
     TUTORIAL,            // Tutoriales de uso

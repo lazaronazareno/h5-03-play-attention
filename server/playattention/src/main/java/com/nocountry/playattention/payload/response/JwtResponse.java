@@ -8,9 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
-/**
- * Clase que representa la respuesta con el token JWT y la información del usuario
- */
+
+ // Clase que representa la respuesta con el token JWT y la información del usuario
+
 @Getter
 @Setter
 @NoArgsConstructor

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * Utilidad para manejar operaciones con JWT
- */
+
+ // Utilidad para manejar operaciones con JWT
+
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -23,9 +23,9 @@ public class JwtUtils {
     @Value("${jwt.expiration}")
     private int jwtExpirationMs;
 
-    /**
-     * Genera un token JWT a partir de la autenticación
-     */
+
+     // Genera un token JWT a partir de la autenticación
+
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -37,16 +37,16 @@ public class JwtUtils {
                 .compact();
     }
 
-    /**
-     * Obtiene el nombre de usuario del token JWT
-     */
+
+     // Obtiene el nombre de usuario del token JWT
+
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    /**
-     * Valida el token JWT
-     */
+
+     // Valida el token JWT
+
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

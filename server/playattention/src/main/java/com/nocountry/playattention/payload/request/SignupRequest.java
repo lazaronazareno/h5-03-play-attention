@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-/**
- * Clase que representa la solicitud de registro de usuario
- */
+
+ // Clase que representa la solicitud de registro de usuario
+
 @Getter
 @Setter
 @NoArgsConstructor
