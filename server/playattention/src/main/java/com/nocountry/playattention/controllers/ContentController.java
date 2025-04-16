@@ -43,7 +43,7 @@ public class ContentController {
     }
 
 
-    // Obtiene todo el contenido activo (acceso público)
+    // Obtiene el contenido activo (acceso público)
 
     @GetMapping("/public")
     public ResponseEntity<List<Content>> getAllPublicContent() {
@@ -52,7 +52,7 @@ public class ContentController {
     }
 
 
-    // Obtiene todo el contenido (solo para administradores)
+    // Obtiene el contenido completo (solo para administradores)
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")

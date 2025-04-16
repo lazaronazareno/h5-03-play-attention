@@ -33,7 +33,7 @@ public class ContentService {
     }
 
 
-     //Obtiene todo el contenido
+     //Obtiene el contenido completo
 
     public List<Content> findAll() {
         return contentRepository.findAll();
