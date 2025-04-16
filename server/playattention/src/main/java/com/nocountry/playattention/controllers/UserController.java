@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Controlador para la gestión de usuarios
- */
+
+ // Controlador para la gestión de usuarios
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/users")
@@ -24,9 +24,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * Obtiene el perfil del usuario autenticado
-     */
+
+    //  Obtiene el perfil del usuario autenticado
+
     @GetMapping("/profile")
     public ResponseEntity<?> getUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -40,9 +40,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    /**
-     * Actualiza el perfil del usuario autenticado
-     */
+
+     // Actualiza el perfil del usuario autenticado
+
     @PutMapping("/profile")
     public ResponseEntity<?> updateUserProfile(@RequestBody User userRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,9 +53,9 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("Perfil actualizado exitosamente"));
     }
 
-    /**
-     * Obtiene todos los usuarios (solo para administradores)
-     */
+
+     // Obtiene todos los usuarios (solo para administradores)
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -67,9 +67,9 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    /**
-     * Obtiene un usuario por su ID (solo para administradores)
-     */
+
+    //  Obtiene un usuario por su ID (solo para administradores)
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
@@ -82,9 +82,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    /**
-     * Actualiza un usuario (solo para administradores)
-     */
+
+    //  Actualiza un usuario (solo para administradores)
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
@@ -93,9 +93,9 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("Usuario actualizado exitosamente"));
     }
 
-    /**
-     * Elimina un usuario (solo para administradores)
-     */
+
+    //  Elimina un usuario (solo para administradores)
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {

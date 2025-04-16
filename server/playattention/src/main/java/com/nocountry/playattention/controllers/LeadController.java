@@ -16,9 +16,9 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Controlador para la gestión de leads
- */
+
+ //Controlador para la gestión de leads
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/leads")
@@ -27,18 +27,18 @@ public class LeadController {
     @Autowired
     private LeadService leadService;
 
-    /**
-     * Crea un nuevo lead (acceso público para formularios de contacto)
-     */
+
+     // Crea un nuevo lead (acceso público para formularios de contacto)
+
     @PostMapping
     public ResponseEntity<?> createLead(@Valid @RequestBody Lead lead) {
         Lead savedLead = leadService.saveLead(lead);
         return ResponseEntity.ok(new MessageResponse("Lead registrado exitosamente"));
     }
 
-    /**
-     * Obtiene todos los leads (solo para administradores y profesionales)
-     */
+
+     // Obtiene todos los leads (solo para administradores y profesionales)
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> getAllLeads() {
@@ -46,9 +46,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Obtiene un lead por su ID (solo para administradores y profesionales)
-     */
+
+     // Obtiene un lead por su ID (solo para administradores y profesionales)
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> getLeadById(@PathVariable Long id) {
@@ -57,9 +57,9 @@ public class LeadController {
         return ResponseEntity.ok(lead);
     }
 
-    /**
-     * Actualiza un lead (solo para administradores y profesionales)
-     */
+
+     // Actualiza un lead (solo para administradores y profesionales)
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> updateLead(@PathVariable Long id, @RequestBody Lead leadDetails) {
@@ -67,9 +67,9 @@ public class LeadController {
         return ResponseEntity.ok(new MessageResponse("Lead actualizado exitosamente"));
     }
 
-    /**
-     * Actualiza el estado de un lead (solo para administradores y profesionales)
-     */
+
+     // Actualiza el estado de un lead (solo para administradores y profesionales)
+
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> updateLeadStatus(@PathVariable Long id, @RequestParam LeadStatus status) {
@@ -77,9 +77,9 @@ public class LeadController {
         return ResponseEntity.ok(new MessageResponse("Estado del lead actualizado exitosamente"));
     }
 
-    /**
-     * Elimina un lead (solo para administradores)
-     */
+
+     // Elimina un lead (solo para administradores)
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> deleteLead(@PathVariable Long id) {
@@ -87,9 +87,9 @@ public class LeadController {
         return ResponseEntity.ok(new MessageResponse("Lead eliminado exitosamente"));
     }
 
-    /**
-     * Busca leads por tipo (solo para administradores y profesionales)
-     */
+
+     // Busca leads por tipo (solo para administradores y profesionales)
+
     @GetMapping("/by-type/{leadType}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> getLeadsByType(@PathVariable UserType leadType) {
@@ -97,9 +97,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Busca leads por estado (solo para administradores y profesionales)
-     */
+
+     // Busca leads por estado (solo para administradores y profesionales)
+
     @GetMapping("/by-status/{status}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> getLeadsByStatus(@PathVariable LeadStatus status) {
@@ -107,9 +107,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Busca leads por rango de fechas (solo para administradores y profesionales)
-     */
+
+     // Busca leads por rango de fechas (solo para administradores y profesionales)
+
     @GetMapping("/by-date-range")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> getLeadsByDateRange(
@@ -119,9 +119,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Busca leads por email (solo para administradores y profesionales)
-     */
+
+     // Busca leads por email (solo para administradores y profesionales)
+
     @GetMapping("/search/email")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> searchLeadsByEmail(@RequestParam String email) {
@@ -129,9 +129,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Busca leads por nombre (solo para administradores y profesionales)
-     */
+
+     // Busca leads por nombre (solo para administradores y profesionales)
+
     @GetMapping("/search/name")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> searchLeadsByName(@RequestParam String name) {
@@ -139,9 +139,9 @@ public class LeadController {
         return ResponseEntity.ok(leads);
     }
 
-    /**
-     * Busca leads por institución (solo para administradores y profesionales)
-     */
+
+     // Busca leads por institución (solo para administradores y profesionales)
+
     @GetMapping("/search/institution")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<List<Lead>> searchLeadsByInstitution(@RequestParam String institution) {
