@@ -12,18 +12,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Servicio para la gestión de leads
- */
+
+ // Servicio para la gestión de leads
+
 @Service
 public class LeadService {
 
     @Autowired
     private LeadRepository leadRepository;
 
-    /**
-     * Guarda un nuevo lead
-     */
+
+     // Guarda un nuevo lead
+
     public Lead saveLead(Lead lead) {
         // Asegurar que el lead tenga un estado inicial
         if (lead.getStatus() == null) {
@@ -32,23 +32,23 @@ public class LeadService {
         return leadRepository.save(lead);
     }
 
-    /**
-     * Encuentra un lead por su ID
-     */
+
+     // Encuentra un lead por su ID
+
     public Optional<Lead> findById(Long id) {
         return leadRepository.findById(id);
     }
 
-    /**
-     * Obtiene todos los leads
-     */
+
+     // Obtiene todos los leads
+
     public List<Lead> findAll() {
         return leadRepository.findAll();
     }
 
-    /**
-     * Actualiza un lead existente
-     */
+
+     // Actualiza un lead existente
+
     public Lead updateLead(Long id, Lead leadDetails) {
         Lead lead = leadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Lead no encontrado."));
@@ -69,9 +69,9 @@ public class LeadService {
         return leadRepository.save(lead);
     }
 
-    /**
-     * Actualiza el estado de un lead
-     */
+
+     // Actualiza el estado de un lead
+
     public Lead updateLeadStatus(Long id, LeadStatus status) {
         Lead lead = leadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Lead no encontrado."));
@@ -80,9 +80,9 @@ public class LeadService {
         return leadRepository.save(lead);
     }
 
-    /**
-     * Elimina un lead
-     */
+
+     // Elimina un lead
+
     public void deleteLead(Long id) {
         Lead lead = leadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Lead no encontrado."));
@@ -90,44 +90,44 @@ public class LeadService {
         leadRepository.delete(lead);
     }
 
-    /**
-     * Busca leads por tipo
-     */
+
+     // Busca leads por tipo
+
     public List<Lead> findByLeadType(UserType leadType) {
         return leadRepository.findByLeadType(leadType);
     }
 
-    /**
-     * Busca leads por estado
-     */
+
+     // Busca leads por estado
+
     public List<Lead> findByStatus(LeadStatus status) {
         return leadRepository.findByStatus(status);
     }
 
-    /**
-     * Busca leads creados en un rango de fechas
-     */
+
+     // Busca leads creados en un rango de fechas
+
     public List<Lead> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end) {
         return leadRepository.findByCreatedAtBetween(start, end);
     }
 
-    /**
-     * Busca leads por email
-     */
+
+     // Busca leads por email
+
     public List<Lead> findByEmailContaining(String email) {
         return leadRepository.findByEmailContaining(email);
     }
 
-    /**
-     * Busca leads por nombre
-     */
+
+     // Busca leads por nombre
+
     public List<Lead> findByFullNameContaining(String name) {
         return leadRepository.findByFullNameContaining(name);
     }
 
-    /**
-     * Busca leads por institución
-     */
+
+     // Busca leads por institución
+
     public List<Lead> findByInstitutionContaining(String institution) {
         return leadRepository.findByInstitutionContaining(institution);
     }

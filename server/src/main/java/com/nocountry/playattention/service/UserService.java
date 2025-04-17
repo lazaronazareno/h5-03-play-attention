@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Servicio para la gestión de usuarios
- */
+
+ // Servicio para la gestión de usuarios
+
 @Service
 public class UserService {
 
@@ -22,23 +22,23 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     * Encuentra un usuario por su ID
-     */
+
+     // Encuentra un usuario por su ID
+
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    /**
-     * Obtiene todos los usuarios
-     */
+
+     // Obtiene todos los usuarios
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    /**
-     * Actualiza el perfil de un usuario
-     */
+
+     // Actualiza el perfil de un usuario
+
     public User updateProfile(Long id, User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado."));
@@ -59,9 +59,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /**
-     * Actualiza un usuario (para administradores)
-     */
+
+     //Actualiza un usuario (para administradores)
+
     public User updateUser(Long id, User userDetails) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado."));
@@ -85,9 +85,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /**
-     * Elimina un usuario
-     */
+
+     // Elimina un usuario
+
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado."));
