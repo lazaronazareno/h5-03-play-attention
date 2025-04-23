@@ -63,12 +63,9 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/landing/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll() // Solo para desarrollo
                         .anyRequest().authenticated()
                 );
 
-        // Para H2 Console (solo desarrollo)
-        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

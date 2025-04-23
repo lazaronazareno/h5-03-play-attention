@@ -23,10 +23,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-     // Encuentra un usuario por su ID
+     // Encuentra un usuario por su ID con roles
 
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findByIdWithRoles(id);
     }
 
 
