@@ -60,9 +60,9 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/landing/**").permitAll()
-                        .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/landing/**").permitAll()
+                        .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // Solo para desarrollo
                         .anyRequest().authenticated()
                 );
