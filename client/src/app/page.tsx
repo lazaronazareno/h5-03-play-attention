@@ -1,8 +1,9 @@
+import HeroSection from "@/components/landing/HeroSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Bienvenidos a Play Attention Argentina</h1>
+    <main className="flex min-h-screen p-20 bg-white text-black">
+      <HeroSection />
     </main>
   );
 }
