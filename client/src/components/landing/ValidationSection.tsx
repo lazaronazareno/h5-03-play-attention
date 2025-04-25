@@ -15,10 +15,10 @@ const VALIDATION_ITEMS = [
 const ValidationSection = () => {
   return (
     <>
-      <div className="h-full flex flex-col items-center lg:flex-row bg-[#23B6CA] overflow-hidden">
-        <div className='flex flex-col gap-7 lg:min-w-[590px] max-w-[560px] lg:max-w-full pt-12 lg:ps-32'>
-          <h2 className="text-4xl uppercase lg:normal-case text-white text-center font-bold">Clínicamente validado para mejorar:</h2>
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-10">
+      <div className="h-full flex flex-col items-center lg:flex-row bg-green-300 overflow-hidden">
+        <div className='flex flex-col gap-7 lg:min-w-[620px] max-w-[560px] lg:max-w-full pt-12 lg:ps-32'>
+          <h2 className="text-4xl lg:text-5xl uppercase lg:normal-case text-white text-center font-bold font-roboto">Clínicamente validado para mejorar:</h2>
+          <div className="flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-10">
             {VALIDATION_ITEMS.map((item, index) => (
               <ItemValidation
                 key={index}

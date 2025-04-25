@@ -8,15 +8,15 @@ interface ItemValidationProps {
 
 const ItemValidation = ({ name, icon }: ItemValidationProps) => {
   return (
-    <div className='bg-white text-[#6A49F6] flex gap-2.5 py-2 px-4 rounded-md'>
+    <div className='bg-white text-violet-main flex gap-2.5 py-2 px-4 rounded-md text-xl font-poppins'>
       {icon ? (
         <span className='text-2xl'>{icon}</span>
       ) : (
-        <span className='bg-[#6A49F6] rounded-full size-5'>
+        <span className='bg-violet-main rounded-full size-5'>
           <CheckIcon size={20} color='white' />
         </span>
       )}
-      <p className='uppercase font-medium'>{name}</p>
+      <p className='font-medium'>{name}</p>
     </div>
   );
 };
