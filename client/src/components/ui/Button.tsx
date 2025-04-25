@@ -18,8 +18,8 @@ const Button = ({ text, disabled, variant, icon, iconPosition, className, onClic
         onClick={onClick}
         disabled={disabled}
         className={
-          `px-6 py-4 rounded flex drop-shadow-md
-          ${variant === 'primary' ? 'bg-[#6A49F6] text-white hover:bg-violet-700' : 'bg-white text-[#6A49F6] hover:bg-violet-200'}
+          `px-6 py-4 rounded flex drop-shadow-md cursor-pointer font-poppins
+          ${variant === 'primary' ? 'bg-violet-main text-white hover:bg-violet-700' : 'bg-white text-violet-main hover:bg-violet-200'}
           ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
           ${className ? className : ''}
           `
