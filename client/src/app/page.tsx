@@ -2,9 +2,7 @@
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <form action="/api/" method="POST">
-      </div>
+      <h1 className="text-4xl font-bold">Bienvenidos a Play Attention Argentina</h1>
     </main>
   );
 }
