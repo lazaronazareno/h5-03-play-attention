@@ -17,7 +17,7 @@ const HeroSection = () => {
         />
       </div>
       <HeroImage
-        imageUrl='/landing/heroImage.jpg'
+        imageUrl='/landing/heroimage.jpg'
         title='Hero Image'
       />
     </div>

@@ -1,7 +1,9 @@
 import {
-  ChevronRight
+  ChevronRight,
+  Check
 } from "lucide-react";
 
 export {
-  ChevronRight as RightArrow
+  ChevronRight as RightArrow,
+  Check as CheckIcon
 };
