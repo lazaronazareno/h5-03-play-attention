@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
+@theme {
+  /* Font Families */
+  --font-roboto: "Roboto", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  /* Violet Colors */
+  --color-violet-main: #6a49f6;
+  --color-violet-secondary: #8266f6;
+  --color-violet-text: #1d2041;
+  --color-violet-extra: #261a2a;
+  --color-violet-darkblue: #102c43;
+
+  /* Green Colors */
+  --color-green-100: #d6f6fe;
+  --color-green-200: #2ee0f9;
+  --color-green-300: #23b6ca;
+  --color-green-main: #198d9d;
+  --color-green-500: #0f6672;
+  --color-green-600: #07424a;
+  --color-green-700: #022126;
+
+  /* Light Blue Colors */
+  --color-lightblue-100: #c4d9fc;
+  --color-lightblue-200: #7cb4f9;
+  --color-lightblue-main: #2d8fe2;
+  --color-lightblue-400: #1f6aa9;
+  --color-lightblue-500: #124774;
+  --color-lightblue-600: #062743;
+  --color-lightblue-700: #021222;
+
+  /* Neutral Colors */
+  --color-neutral-white: #e7f0f0;
+  --color-neutral-white2: #f5f4eb;
+  --color-neutral-gray: #e8e7ee;
+
+  /* Black Neutral Colors */
+  --color-blackneutral-100: #d0dede;
+  --color-blackneutral-200: #aab6b6;
+  --color-blackneutral-300: #869090;
+  --color-blackneutral-400: #646b6b;
+  --color-blackneutral-500: #434949;
+  --color-blackneutral-600: #252929;
+  --color-blackneutral-main: #060707;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@theme inline {
+  --font-roboto: "Roboto", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto);
+  --font-heading: var(--font-poppins);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
