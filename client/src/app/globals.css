@@ -43,6 +43,8 @@
   --color-blackneutral-500: #434949;
   --color-blackneutral-600: #252929;
   --color-blackneutral-main: #060707;
+
+  --text-3.5xl: 1.875rem;
 }
 
 :root {
@@ -56,6 +58,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-roboto);
   --font-heading: var(--font-poppins);
+
+  --text-3xl: 1.75rem;
+  --text-6xl: 3.25rem;
 }
 
 .dark {
