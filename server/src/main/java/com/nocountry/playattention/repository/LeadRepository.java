@@ -19,7 +19,7 @@ public interface LeadRepository extends JpaRepository<Lead, Long> {
 
     List<Lead> findByEmailContaining(String email);
 
-    List<Lead> findByFullNameContaining(String name);
+    List<Lead> findByNameContaining(String name);
 
     List<Lead> findByInstitutionContaining(String institution);
 }

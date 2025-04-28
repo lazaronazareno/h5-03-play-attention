@@ -1,10 +1,13 @@
 package com.nocountry.playattention.service;
 
 
+import com.nocountry.playattention.dto.lead.RequestCreateLeadDTO;
+import com.nocountry.playattention.mappers.LeadMapper;
 import com.nocountry.playattention.model.Lead;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.repository.LeadRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +19,19 @@ import java.util.Optional;
  // Servicio para la gestión de leads
 
 @Service
+@RequiredArgsConstructor
 public class LeadService {
 
-    @Autowired
-    private LeadRepository leadRepository;
+    private final LeadRepository leadRepository;
 
+    private final LeadMapper leadMapper;
 
      // Guarda un nuevo lead
 
-    public Lead saveLead(Lead lead) {
+    public Lead saveLead(RequestCreateLeadDTO leadDTO) {
         // Asegurar que el lead tenga un estado inicial
+        Lead lead = leadMapper.mapToEntity(leadDTO);
+
         if (lead.getStatus() == null) {
             lead.setStatus(LeadStatus.NEW);
         }
@@ -54,7 +60,8 @@ public class LeadService {
                 .orElseThrow(() -> new RuntimeException("Error: Lead no encontrado."));
 
         // Actualizar los campos del lead
-        lead.setFullName(leadDetails.getFullName());
+        lead.setName(leadDetails.getName());
+        lead.setLastName(leadDetails.getLastName());
         lead.setEmail(leadDetails.getEmail());
         lead.setInstitution(leadDetails.getInstitution());
         lead.setPhoneNumber(leadDetails.getPhoneNumber());
@@ -122,7 +129,7 @@ public class LeadService {
      // Busca leads por nombre
 
     public List<Lead> findByFullNameContaining(String name) {
-        return leadRepository.findByFullNameContaining(name);
+        return leadRepository.findByNameContaining(name);
     }
 
 
