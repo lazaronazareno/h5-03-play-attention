@@ -42,7 +42,7 @@ const ValidationSection = () => {
           alt='Validation Image'
           width={1130}
           height={900}
-          className="relative min-w-[435px] max-w-[1130px] -bottom-4 lg:left-16 lg:-bottom-9"
+          className="relative min-w-[435px] lg:max-w-[1130px] -bottom-4 lg:left-16 lg:-bottom-9"
         />
       </div>
       <NasaValidationSection />
