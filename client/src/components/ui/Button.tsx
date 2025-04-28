@@ -13,13 +13,13 @@ interface ButtonProps {
 
 const Button = ({ text, disabled, variant, icon, iconPosition, className, onClick }: ButtonProps) => {
   return (
-    <div>
+    <>
       <button
         onClick={onClick}
         disabled={disabled}
         className={
-          `px-6 py-4 rounded flex drop-shadow-md cursor-pointer font-poppins
-          ${variant === 'primary' ? 'bg-violet-main text-white hover:bg-violet-700' : 'bg-white text-violet-main hover:bg-violet-200'}
+          `px-6 py-4 rounded-md flex shadow-main cursor-pointer font-poppins
+          ${variant === 'primary' ? 'bg-violet-main text-white hover:bg-violet-700' : 'bg-white text-violet-main border border-violet-main hover:bg-violet-200'}
           ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
           ${className ? className : ''}
           `
@@ -29,7 +29,7 @@ const Button = ({ text, disabled, variant, icon, iconPosition, className, onClic
         {text}
         {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
       </button>
-    </div>
+    </>
   );
 };
 

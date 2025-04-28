@@ -45,6 +45,8 @@
   --color-blackneutral-main: #060707;
 
   --text-3.5xl: 1.875rem;
+
+  --shadow-main: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 :root {
