@@ -60,7 +60,7 @@
 //   );
 // }
 
-import { Mail, Phone, Instagram, Facebook, Youtube } from 'lucide-react';
+/* import { Mail, Phone, Instagram, Facebook, Youtube } from 'lucide-react'; */
 import Image from 'next/image';
 
 export default function Footer() {
