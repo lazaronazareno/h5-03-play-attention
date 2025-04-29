@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 
 public record RequestCreateLeadDTO(
         @Schema(description = "Lead's first name", example = "John")
-        @NotBlank(message = "Nombre es requerido")
         String name,
         @Schema(description = "Lead's last name", example = "Doe")
         String lastName,
@@ -18,7 +17,7 @@ public record RequestCreateLeadDTO(
         String institution,
         @Schema(description = "Lead's phone number", example = "54 11 1234-5678")
         String phoneNumber,
-        @Schema(description = "Complementary treatment type", example = "Cognitive Therapy")
+        @Schema(description = "Complementary treatment type", example = "NEUROFEEDBACK")
         ComplementTreatment complementTreatment,
         @Schema(description = "Lead's profession or occupation", example = "Software Engineer")
         String profession,
@@ -28,7 +27,7 @@ public record RequestCreateLeadDTO(
         boolean newsletterSubscription,
         @Schema(description = "Context in which the service will be used", example = "Educational Setting")
         String usageContext,
-        @Schema(description = "Type of lead (e.g., student, parent)", example = "STUDENT")
+        @Schema(description = "Type of lead (e.g., student, parent)", example = "INDIVIDUAL")
         UserType leadType,
         @Schema(description = "Current status of the lead (e.g., new, contacted, converted)", example = "NEW")
         LeadStatus status,

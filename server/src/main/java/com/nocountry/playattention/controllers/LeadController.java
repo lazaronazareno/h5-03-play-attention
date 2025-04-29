@@ -7,19 +7,24 @@ import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.service.LeadService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
- //Controlador para la gestión de leads
+//Controlador para la gestión de leads
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -30,8 +35,18 @@ public class LeadController {
     private LeadService leadService;
 
 
-     // Crea un nuevo lead (acceso público para formularios de contacto)
+    // Crea un nuevo lead (acceso público para formularios de contacto)
 
+    @Operation(summary = "Crea un nuevo lead",
+            description =
+                    "leadType: PROFESSIONAL, INDIVIDUAL, CORPORATE, ADMIN\n"+
+                    "status: NEW, CONTACTED, INTERESTED, MEETING_SCHEDULED, PROPOSAL_SENT, NEGOTIATION, CLOSED_WON, CLOSED_LOST, FOLLOW_UP")
+    @RequestBody(description = "Detalles del lead a crear", required = true,
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = RequestCreateLeadDTO.class)))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lead registrado exitosamente")
+    })
     @PostMapping
     public ResponseEntity<?> createLead(@Valid @RequestBody RequestCreateLeadDTO lead) {
         Lead savedLead = leadService.saveLead(lead);
