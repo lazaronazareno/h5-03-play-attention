@@ -1,6 +1,8 @@
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import HeroSection from "@/components/landing/HeroSection";
 import ValidationSection from "@/components/landing/ValidationSection";
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
 
 const HEROSECTION_PROPS = {
   imageUrl: "/landing/heroimage.jpg",
@@ -14,6 +16,7 @@ const HEROSECTION_PROPS = {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black">
+      <Navbar />
       <HeroSection
         imageUrl={HEROSECTION_PROPS.imageUrl}
         title={HEROSECTION_PROPS.title}
@@ -23,6 +26,8 @@ export default function Home() {
       />
       <ValidationSection />
       <BenefitsSection />
+      <ValidationSection />
+      <Footer />
     </main>
   );
 }
