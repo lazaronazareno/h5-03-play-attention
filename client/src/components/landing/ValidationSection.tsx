@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ItemValidation from "../ui/ItemValidation";
 import NasaValidationSection from "./NasaValidatedSection";
+import Typography from "../ui/Typography";
 
 const VALIDATION_ITEMS = [
   "Función ejecutiva",
@@ -15,14 +16,23 @@ const VALIDATION_ITEMS = [
 const ValidationSection = () => {
   return (
     <>
-      <div className="h-full flex flex-col items-center lg:flex-row bg-green-300 overflow-hidden">
-        <div className='flex flex-col gap-7 lg:min-w-[620px] max-w-[560px] lg:max-w-full pt-12 lg:ps-32'>
-          <h2 className="text-4xl lg:text-5xl uppercase lg:normal-case text-white text-center font-bold font-roboto">Clínicamente validado para mejorar:</h2>
-          <div className="flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-10">
+      <div className="h-full flex flex-col items-center lg:flex-row overflow-hidden relative">
+        <div className="bg-green-300 absolute z-0 w-full h-full 2xl:h-10/12 bottom-0" />
+        <div className='flex flex-col gap-7 lg:gap-12 max-w-[500px] mt-[7%] lg:ms-auto z-10'>
+          <Typography
+            variant='h2'
+            size='subtitle'
+            color='white'
+            weight='bold'
+            text='Clínicamente validado para mejorar:'
+            className="text-center"
+          />
+          <div className="flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-2 lg:gap-y-10 px-5 lg:px-0">
             {VALIDATION_ITEMS.map((item, index) => (
               <ItemValidation
                 key={index}
                 name={item}
+                className="w-full lg:w-fit"
               />
             ))}
           </div>
@@ -30,9 +40,9 @@ const ValidationSection = () => {
         <Image
           src='/landing/validationImage.png'
           alt='Validation Image'
-          width={1000}
-          height={1000}
-          className="w-full max-w-[1050px] relative left-9 -bottom-5 lg:left-16 lg:-bottom-9"
+          width={1130}
+          height={900}
+          className="relative min-w-[435px] lg:max-w-[1130px] -bottom-4 lg:left-16 lg:-bottom-9"
         />
       </div>
       <NasaValidationSection />

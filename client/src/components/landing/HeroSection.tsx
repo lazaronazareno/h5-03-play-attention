@@ -4,21 +4,39 @@ import { RightArrow } from '../ui/icons';
 import HeroImage from '../ui/HeroImage';
 import Typography from '../ui/Typography';
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  imageUrl: string;
+  title: string;
+  description: string;
+  button1Text: string;
+  button2Text?: string;
+}
+
+const HeroSection = ({ imageUrl, title, description, button1Text, button2Text }: HeroSectionProps) => {
   return (
-    <div className="h-full p-20 flex flex-col items-center justify-center lg:flex-row gap-16 mx-auto">
-      <div className='flex flex-col gap-7 max-w-[560px]'>
-        <Typography variant='h1' size='5xl' color='violet' weight='medium' text='Tecnología que entrena tu atención, transforma tu mente y potencia tu vida' />
-        <Typography variant='p' size='xl' color='default' weight='normal' text='Play Attention es un sistema de neuroentrenamiento para mejorar el desarrollo de habilidades cognitivas que impactan directamente en el rendimiento académico, laboral, deportivo y personal.' />
-        <Button
-          text='Realiza tu TEST de TDAH '
-          variant='primary'
-          icon={<RightArrow />}
-          iconPosition='right'
-        />
+    <div className="h-full p-8 lg:p-20 flex flex-col items-start lg:items-center justify-center lg:flex-row gap-8 lg:gap-24 mx-auto">
+      <div className='flex flex-col gap-7 max-w-[568px]'>
+        <Typography variant='h1' size='title' color='violet' weight='medium' text={title} />
+        <Typography variant='p' size='base' color='default' weight='medium' text={description} />
+        <div className='flex flex-wrap gap-4 lg:gap-8'>
+          <Button
+            text={button1Text}
+            variant='primary'
+            icon={<RightArrow />}
+            iconPosition='right'
+          />
+          {button2Text && (
+            <Button
+              text={button2Text}
+              variant='secondary'
+              icon={<RightArrow />}
+              iconPosition='right'
+            />
+          )}
+        </div>
       </div>
       <HeroImage
-        imageUrl='/landing/heroimage.jpg'
+        imageUrl={imageUrl}
         title='Hero Image'
       />
     </div>
