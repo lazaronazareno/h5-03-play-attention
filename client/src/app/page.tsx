@@ -1,5 +1,6 @@
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import HeroSection from "@/components/landing/HeroSection";
+import TechologySection from "@/components/landing/TechologySection";
 import ValidationSection from "@/components/landing/ValidationSection";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
@@ -26,7 +27,7 @@ export default function Home() {
       />
       <ValidationSection />
       <BenefitsSection />
-      <ValidationSection />
+      <TechologySection />
       <Footer />
     </main>
   );
