@@ -1,3 +1,4 @@
+import AboutUsSection from "@/components/landing/AboutUsSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import HeroSection from "@/components/landing/HeroSection";
 import TechologySection from "@/components/landing/TechologySection";
@@ -28,6 +29,7 @@ export default function Home() {
       <ValidationSection />
       <BenefitsSection />
       <TechologySection />
+      <AboutUsSection />
       <Footer />
     </main>
   );
