@@ -10,18 +10,21 @@ const BenefitsSection = () => {
         description2='Utilizando el software de Play Attention, el sistema ofrece retroalimentación inmediata que permite desarrollar conciencia, foco, disciplina mental y autorregulación emocional.'
         imageUrl='/landing/benefits/benefits1.png'
         position='left'
+        centerImages={false}
       />
       <BenefitsItem
         title='La clave es la repetición: Cuanto más repetimos una habilidad, más fuerte se vuelve.'
         description='Practica solo 10 minutos al día para desarrollar tu capacidad de atención, planificar y completar tareas, mejorar tu memoria y regular tus emociones de forma consciente.'
         imageUrl='/landing/benefits/benefits2.png'
         position='right'
+        centerImages={false}
       />
       <BenefitsItem
         title='Haz seguimiento de tu progreso mediante datos y gráficos en tiempo real.'
         description='Los avances pueden observarse en pocas semanas y se adaptan a cualquier edad, necesidad o contexto. Play Attention puede utilizarse desde casa, en consultorios, instituciones educativas o empresas.'
         imageUrl='/landing/benefits/benefits3.png'
         position='left'
+        centerImages={false}
       />
     </div>
   );
