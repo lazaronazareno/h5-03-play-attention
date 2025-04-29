@@ -17,7 +17,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -41,9 +40,6 @@ public class LeadController {
             description =
                     "leadType: PROFESSIONAL, INDIVIDUAL, CORPORATE, ADMIN\n"+
                     "status: NEW, CONTACTED, INTERESTED, MEETING_SCHEDULED, PROPOSAL_SENT, NEGOTIATION, CLOSED_WON, CLOSED_LOST, FOLLOW_UP")
-    @RequestBody(description = "Detalles del lead a crear", required = true,
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = RequestCreateLeadDTO.class)))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lead registrado exitosamente")
     })
