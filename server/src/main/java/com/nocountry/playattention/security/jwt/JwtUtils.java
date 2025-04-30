@@ -5,6 +5,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,12 @@ public class JwtUtils {
 
     @Value("${jwt.expiration}")
     private int jwtExpirationMs;
+
+    @Autowired
+    private JwtTokenBlacklist tokenBlacklist;
+
+    @Autowired
+    private JwtTokenValidator tokenValidator;
 
 
      // Genera un token JWT a partir de la autenticación
@@ -52,6 +59,12 @@ public class JwtUtils {
      // Valida el token JWT
 
     public boolean validateJwtToken(String authToken) {
+        // Primero verificamos si el token está en la lista negra usando el validador
+        if (!tokenValidator.validateToken(authToken)) {
+            logger.error("Token JWT en lista negra o inválido");
+            return false;
+        }
+
         try {
             SecretKey key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
@@ -67,5 +80,37 @@ public class JwtUtils {
         }
 
         return false;
+    }
+
+     // Obtiene la fecha de expiración del token JWT
+
+    public Date getExpirationDateFromJwtToken(String token) {
+        try {
+            return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getExpiration();
+        } catch (Exception e) {
+            logger.error("Error al obtener la fecha de expiración del token: {}", e.getMessage());
+            return null;
+        }
+    }
+
+
+     // Invalida un token JWT añadiéndolo a la lista negra
+
+    public void invalidateToken(String token) {
+        Date expirationDate = getExpirationDateFromJwtToken(token);
+        if (expirationDate != null) {
+            tokenValidator.invalidateToken(token, expirationDate.getTime());
+            logger.info("Token invalidado y añadido a la lista negra");
+        }
+    }
+
+
+     // Extrae el token JWT del encabezado de autorización
+
+    public String extractTokenFromBearer(String bearerToken) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }

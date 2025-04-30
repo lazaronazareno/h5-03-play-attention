@@ -142,6 +142,16 @@
             <version>${lombok-mapstruct-binding.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -156,7 +166,7 @@
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
-                        {{ Incluir ambos procesadores y el binding en una sola sección }}
+                        {{Incluir ambos procesadores y el binding en una sola sección}}
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>

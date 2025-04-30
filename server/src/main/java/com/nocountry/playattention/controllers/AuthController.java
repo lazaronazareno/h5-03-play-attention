@@ -12,6 +12,7 @@ import com.nocountry.playattention.repository.RoleRepository;
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -159,5 +160,19 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente"));
+    }
+
+    // Endpoint para cerrar sesión
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+        String token = jwtUtils.extractTokenFromBearer(headerAuth);
+
+        if (token != null) {
+            jwtUtils.invalidateToken(token);
+        }
+
+        return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!"));
     }
 }
