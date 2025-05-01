@@ -2,6 +2,7 @@ import AboutUsSection from "@/components/landing/AboutUsSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import HeroSection from "@/components/landing/HeroSection";
 import TechologySection from "@/components/landing/TechologySection";
+import TestimonySection from "@/components/landing/TestimonySection";
 import ValidationSection from "@/components/landing/ValidationSection";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
@@ -30,6 +31,10 @@ export default function Home() {
       <BenefitsSection />
       <TechologySection />
       <AboutUsSection />
+      <TestimonySection
+        title="Testimonios de usuarios"
+        type="home"
+      />
       <Footer />
     </main>
   );
