@@ -20,7 +20,7 @@ type LeadFormData = {
 	newsletterSubscription: boolean;
 };
 
-const API_URL = "http://144.33.15.219:8080/api/leads";
+const API_URL = process.env.NEXT_PUBLIC_BASE_URL + "/leads";
 
 const defaultOptions = {
 	country: [
@@ -66,12 +66,12 @@ export function LeadForm() {
 	} = useForm<LeadFormData>();
 
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
-    data.leadType = "INDIVIDUAL"; // Set leadType to "INDIVIDUAL" by default
-    data.complementTreatment = "NEUROFEEDBACK";
-    data.targetUsers = "Children"; // Set targetUsers to "Children" by default
-    data.usageContext = "Investigation"; // Set usageContext to "Investigation" by default
+		data.leadType = "INDIVIDUAL"; // Set leadType to "INDIVIDUAL" by default
+		data.complementTreatment = "NEUROFEEDBACK";
+		data.targetUsers = "Children"; // Set targetUsers to "Children" by default
+		data.usageContext = "Investigation"; // Set usageContext to "Investigation" by default
 		console.log("Form data:", data);
-// Set phoneNumber to undefined if not provided
+		// Set phoneNumber to undefined if not provided
 		setIsLoading(true);
 		try {
 			const response = await fetch(API_URL, {
@@ -93,16 +93,17 @@ export function LeadForm() {
 					newsletterSubscription: data.newsletterSubscription,
 					leadType: "INDIVIDUAL",
 				}),
-      });
+			});
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 			const result = await response.json();
-			if (result.success) {
-				alert(`Formulario enviado con éxito: ${result.message}`);
-			} else {
-				alert(`Error al enviar formulario: ${result.message}`);
-			}
+			alert(`Formulario enviado con éxito: ${result.message}`);
+			/* 			if (result.ok) {
+						} else {
+							alert(`Error al enviar formulario: ${result.message}`);
+						} 
+			*/
 		} catch (error) {
 			console.error("Error:", error);
 			alert("Hubo un problema al enviar el formulario. Intenta nuevamente.");
@@ -126,24 +127,23 @@ export function LeadForm() {
 						name === "name"
 							? "Nombre"
 							: name === "lastName"
-							? "Apellido"
-							: name === "email"
-							? "Correo electrónico"
-							: name === "phoneNumber"
-							? "Teléfono"
-							: name
+								? "Apellido"
+								: name === "email"
+									? "Correo electrónico"
+									: name === "phoneNumber"
+										? "Teléfono"
+										: name
 					}
-					placeholder={`Escriba aquí su ${
-						name === "name"
-							? "nombre"
-							: name === "lastName"
+					placeholder={`Escriba aquí su ${name === "name"
+						? "nombre"
+						: name === "lastName"
 							? "apellido"
 							: name === "email"
-							? "correo electrónico"
-							: name === "phoneNumber"
-							? "teléfono"
-							: name
-					}`}
+								? "correo electrónico"
+								: name === "phoneNumber"
+									? "teléfono"
+									: name
+						}`}
 					name={name}
 					register={register}
 					required={name !== "institution" && name !== "phoneNumber"}
@@ -161,10 +161,10 @@ export function LeadForm() {
 							name === "targetUsers"
 								? "¿Para quién estás buscando información de Play Attention?"
 								: name === "usageContext"
-								? "¿En qué situación se encuentra?"
-								: name === "complementTreatment"
-								? "¿Has probado algún otro programa?"
-								: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
+									? "¿En qué situación se encuentra?"
+									: name === "complementTreatment"
+										? "¿Has probado algún otro programa?"
+										: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
 						}
 						name={name}
 						register={register}
