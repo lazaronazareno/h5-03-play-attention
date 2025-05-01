@@ -5,11 +5,11 @@ import ItemTechnology from '../ui/ItemTechnology';
 const TECHNOLOGY_ITEMS = [
   {
     name: 'TDAH',
-    image: '/landing/technology/tdah.png'
+    image: '/landing/technology/TDAH.png'
   },
   {
     name: 'Transtorno del Aprendizaje',
-    image: '/landing/technology/trastornos_del_aprendizaje.png'
+    image: '/landing/technology/TRASTORNOS_DEL_APRENDIZAJE.png'
   },
   {
     name: 'Transtornos de la Comunicación',
@@ -17,11 +17,11 @@ const TECHNOLOGY_ITEMS = [
   },
   {
     name: 'Déficits Cognitivos',
-    image: '/landing/technology/deficits_cognitivos.png'
+    image: '/landing/technology/DEFICITS_COGNITIVOS.png'
   },
   {
     name: 'Discapacidad Intelectual',
-    image: '/landing/technology/discapacidad_intelectual.png'
+    image: '/landing/technology/DISCAPACIDAD_INTELECTUAL.png'
   },
 ]
 
