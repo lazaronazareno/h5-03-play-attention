@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 
 const roboto = Roboto({
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: "Developed by NoCountry",
 };
 
-export default function RootLayout({
+export default function LandingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
