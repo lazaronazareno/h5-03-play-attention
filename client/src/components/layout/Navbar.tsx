@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Menu, X, ChevronRight, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { navLinks, logoLinks } from '@/constants/navLinks'
@@ -12,6 +13,7 @@ export default function Navbar() {
 	const [isMobile, setIsMobile] = useState(false)
 	const navbarRef = useRef<HTMLDivElement>(null)
 	const dropdownTimers = useRef<{ [key: string]: NodeJS.Timeout }>({})
+	const router = useRouter()
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -215,7 +217,7 @@ export default function Navbar() {
 								icon={<User size={18} />}
 								iconPosition='left'
 								className='border border-violet-main rounded-lg w-full lg:w-auto items-center justify-center lg:justify-start text-[12px]  h-[45px] '
-								onClick={handleLinkClick}
+								onClick={() => router.push('/auth')}
 							/>
 							<Button
 								text='Solicitar información'
