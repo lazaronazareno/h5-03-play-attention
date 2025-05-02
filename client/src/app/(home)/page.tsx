@@ -1,5 +1,8 @@
+import AboutUsSection from "@/components/landing/AboutUsSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import HeroSection from "@/components/landing/HeroSection";
+import TechologySection from "@/components/landing/TechologySection";
+import TestimonySection from "@/components/landing/TestimonySection";
 import ValidationSection from "@/components/landing/ValidationSection";
 
 const HEROSECTION_PROPS = {
@@ -24,6 +27,12 @@ export default function Home() {
       <ValidationSection />
       <BenefitsSection />
       <ValidationSection />
+      <TechologySection />
+      <AboutUsSection />
+      <TestimonySection
+        title="Testimonios de usuarios"
+        type="home"
+      />
     </main>
   );
 }

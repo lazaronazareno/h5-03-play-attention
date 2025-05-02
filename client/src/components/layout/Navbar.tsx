@@ -6,6 +6,7 @@ import { Menu, X, ChevronRight, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { navLinks, logoLinks } from '@/constants/navLinks'
 import Button from '../ui/Button'
+import { LeadForm } from '../form-leads/LeadsForm'
 
 export default function Navbar() {
 	const [openDropdown, setOpenDropdown] = useState<string | null>(null)
@@ -14,6 +15,7 @@ export default function Navbar() {
 	const navbarRef = useRef<HTMLDivElement>(null)
 	const dropdownTimers = useRef<{ [key: string]: NodeJS.Timeout }>({})
 	const router = useRouter()
+	const [openLead, serOpenLead] = useState(false)
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -70,6 +72,10 @@ export default function Navbar() {
 			setMenuOpen(false)
 		}
 		setOpenDropdown(null)
+	}
+
+	const handleLeadClick = () => {
+		serOpenLead(!openLead)
 	}
 
 	return (
@@ -223,12 +229,22 @@ export default function Navbar() {
 								text='Solicitar información'
 								variant='primary'
 								className='border border-violet-main rounded-lg w-full lg:w-auto items-center justify-center lg:justify-start text-[12px] h-[45px]'
-								onClick={handleLinkClick}
+								onClick={handleLeadClick}
 							/>
 						</div>
 					</div>
 				</div>
 			</nav>
+			{openLead && (
+				<div className='fixed top-0 left-0 w-full h-full z-50 bg-black/20 overflow-auto' onClick={handleLeadClick}>
+					<div className='absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-[450px]' onClick={e => e.stopPropagation()}>
+						<button className='absolute top-0 right-0 m-2 rounded-full border border-violet-main cursor-pointer' onClick={handleLeadClick}>
+							<X size={24} strokeWidth={1} />
+						</button>
+						<LeadForm />
+					</div>
+				</div>
+			)}
 		</header>
 	)
 }

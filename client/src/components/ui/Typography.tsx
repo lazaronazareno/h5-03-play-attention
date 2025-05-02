@@ -4,7 +4,7 @@ interface TypographyProps {
   text: string;
   variant: 'h1' | 'h2' | 'h3' | 'p' | 'span';
   className?: string;
-  color: 'default' | 'violet' | 'white';
+  color: 'default' | 'violet' | 'white' | 'green';
   size: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'subtitle' | 'title';
   weight: 'normal' | 'bold' | 'bolder' | 'lighter' | 'thin' | 'extralight' | 'light' | 'medium' | 'semibold' | 'extrabold' | 'black';
 }
@@ -20,7 +20,7 @@ const createTagComponent = (Tag: keyof JSX.IntrinsicElements) => {
 };
 
 const sizeClasses = {
-  sm: 'text-xs',
+  sm: 'text-xs lg:text-lg',
   base: 'text-base lg:text-2xl',
   lg: 'text-lg',
   xl: 'text-xl',
@@ -46,7 +46,7 @@ const weightClasses = {
 }
 
 const Typography = ({ text, variant, className, color, size, weight }: TypographyProps) => {
-  const colorClass = color === 'white' ? 'text-white' : color === 'violet' ? `text-violet-main` : '';
+  const colorClass = color === 'white' ? 'text-white' : color === 'green' ? 'text-green-main' : color === 'violet' ? `text-violet-main` : '';
   const sizeClass = sizeClasses[size] || 'text-base';
   const weightClass = weightClasses[weight] || 'font-normal';
   const fontClass = variant === 'p' || variant === 'span' ? 'font-poppins' : 'font-roboto';
