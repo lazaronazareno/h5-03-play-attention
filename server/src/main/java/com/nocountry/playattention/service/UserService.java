@@ -96,7 +96,8 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public void recoverPassword(RecoverPasswordRequestDTO recoverPasswordRequest) {
-        
+    public User fintUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Error: No se encontro el mail del usuario"));
     }
 }
