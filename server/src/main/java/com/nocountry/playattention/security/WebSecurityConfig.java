@@ -63,7 +63,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/landing/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
-                        .requestMatchers("/mail/recover-password").permitAll()
+                        .requestMatchers("/mail/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

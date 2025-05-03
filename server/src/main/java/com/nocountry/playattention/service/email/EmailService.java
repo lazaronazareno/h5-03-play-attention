@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class EmailService implements IEmailService {
 
             mailSender.send(message);
         } catch (MessagingException e) {
+            System.out.println("NO SE POR QUE DA ERROR DE AUTENTICACION");
             throw new RuntimeException(e);
         }
     }
@@ -52,15 +54,16 @@ public class EmailService implements IEmailService {
         String[] email = {recoverPasswordRequest.email()};
         User user = userService.fintUserByEmail(recoverPasswordRequest.email());
 
-        Map<String, Object> variables = Map.of(
-                "name", user.getFullName(),
-                "tokenUrl","http://localhost:8080/api/swagger-ui/index.html#"
-        );
+        Map<String, Object> variables = new HashMap<>();
+
+        variables.put("name", user.getFullName());
+        variables.put("tokenUrl", "https://www.youtube.com/watch?v=cKouCOONkDA&list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVMNRkHvLaWhHg&index=28");
 
         sendTemplateEmail(
                 email,
                 "Recuperación de contraseña",
                 variables,
                 "recover-password");
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 }
