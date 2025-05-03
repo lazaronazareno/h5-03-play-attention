@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Contraseña</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #8255e6;
+          color: #222;
+          margin: 0;
+          padding: 0;
+        }
+
+        .container {
+          max-width: 600px;
+          margin: 0 auto;
+          background-color: #fff;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+
+        .logo img {
+          max-width: 200px;
+          height: auto;
+        }
+
+        .header {
+          text-align: center;
+          color: #8255e6;
+        }
+
+        .content {
+          margin-top: 1.5rem;
+        }
+
+        .content p {
+          margin-bottom: 1rem;
+        }
+
+        .btn {
+          display: inline-block;
+          padding: 0.75rem 1.5rem;
+          background-color: #8255e6;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 8px;
+          font-weight: 600;
+          margin-top: 1rem;
+        }
+
+        .footer {
+          margin-top: 2rem;
+          font-size: 0.9rem;
+          color: #666;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<!--    <div class="logo">-->
+<!--        <img src="https://framerusercontent.com/images/jhXEwk0PeDpLgoJ5PZFagA5OpQ.svg" alt="Play Attention Argentina">-->
+<!--    </div>-->
+    <h2 class="header">Recuperá tu acceso</h2>
+    <div class="content">
+        <p>Hola! <strong th:text="${name}"></strong>,</p>
+        <p>Recibimos una solicitud para restablecer tu contraseña. Si fuiste vos quien lo solicitó, hacé clic en el siguiente botón para continuar:</p>
+        <p style="text-align: center;">
+<!--            usar th: como prefijo de un atributo para que thymeleaf lo cambie por las variables definidas-->
+<!--            https://www.thymeleaf.org/index.html-->
+            <a class="btn" th:href="${tokenUrl}">Restablecer Contraseña</a>
+        </p>
+        <p>Si no realizaste esta solicitud, podés ignorar este correo. Tu contraseña actual seguirá siendo válida.</p>
+    </div>
+    <div class="footer">
+        <p>Este correo fue enviado por el sistema de Play Attention. Si tenés dudas, contactanos.</p>
+    </div>
+</div>
+</body>
+</html>

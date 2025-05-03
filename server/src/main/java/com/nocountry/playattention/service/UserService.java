@@ -1,6 +1,7 @@
 package com.nocountry.playattention.service;
 
 
+import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
 import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +94,9 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado."));
 
         userRepository.delete(user);
+    }
+
+    public void recoverPassword(RecoverPasswordRequestDTO recoverPasswordRequest) {
+        
     }
 }
