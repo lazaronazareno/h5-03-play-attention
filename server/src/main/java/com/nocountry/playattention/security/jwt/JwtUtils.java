@@ -1,17 +1,18 @@
 package com.nocountry.playattention.security.jwt;
 
 import com.nocountry.playattention.security.services.UserDetailsImpl;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import io.jsonwebtoken.security.InvalidKeyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Date;
-
 
  // Utilidad para manejar operaciones con JWT
 
@@ -26,9 +27,6 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     @Autowired
-    private JwtTokenBlacklist tokenBlacklist;
-
-    @Autowired
     private JwtTokenValidator tokenValidator;
 
 
@@ -37,13 +35,13 @@ public class JwtUtils {
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        SecretKey key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
+        Key key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(key)
                 .compact();
     }
 
@@ -51,7 +49,7 @@ public class JwtUtils {
      // Obtiene el nombre de usuario del token JWT
 
     public String getUserNameFromJwtToken(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
+        Key key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
     }
 
@@ -66,27 +64,40 @@ public class JwtUtils {
         }
 
         try {
-            SecretKey key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
+            Key key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(authToken);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {
+        } catch (SignatureException e) {
             logger.error("Firma JWT inválida: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("Token JWT expirado: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("Token JWT no soportado: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("La cadena claims JWT está vacía: {}", e.getMessage());
+            return false;
+        } catch (Exception e) {
+            logger.error("Error al validar el token JWT: {}", e.getMessage());
+            return false;
         }
-
-        return false;
     }
 
      // Obtiene la fecha de expiración del token JWT
 
     public Date getExpirationDateFromJwtToken(String token) {
         try {
-            return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getExpiration();
+            try {
+            Key key = Keys.hmacShaKeyFor(java.util.Base64.getDecoder().decode(jwtSecret));
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getExpiration();
+        } catch (SignatureException | InvalidKeyException e) {
+            logger.error("Error de seguridad al procesar el token JWT: {}", e.getMessage());
+            return null;
+        } catch (Exception e) {
+            logger.error("Error inesperado al procesar el token JWT: {}", e.getMessage());
+            return null;
+        }
         } catch (Exception e) {
             logger.error("Error al obtener la fecha de expiración del token: {}", e.getMessage());
             return null;

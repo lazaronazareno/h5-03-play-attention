@@ -3,6 +3,7 @@ package com.nocountry.playattention.security;
 import com.nocountry.playattention.security.jwt.AuthEntryPointJwt;
 import com.nocountry.playattention.security.jwt.AuthTokenFilter;
 import com.nocountry.playattention.security.services.UserDetailsServiceImpl;
+import com.nocountry.playattention.exception.NotFoundFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,17 +61,18 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/landing/**").permitAll()
-                        .requestMatchers("/public/**").permitAll()
-                        .requestMatchers(HttpMethod.POST , "/leads").permitAll()
+                        .requestMatchers("/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/auth/**",
+                                "/landing/**",
+                                "/public/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/leads").permitAll()
                         .anyRequest().authenticated()
                 );
 
-
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new NotFoundFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

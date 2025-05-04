@@ -2,6 +2,7 @@ package com.nocountry.playattention.controllers;
 
 import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.payload.response.MessageResponse;
+import com.nocountry.playattention.payload.response.UserResponse;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
 import com.nocountry.playattention.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,10 @@ public class UserController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         User updatedUser = userService.updateProfile(userDetails.getId(), userRequest);
-
-        return ResponseEntity.ok(new MessageResponse("Perfil actualizado exitosamente"));
+        
+        // Remove password from response
+        updatedUser.setPassword(null);
+        return ResponseEntity.ok(new UserResponse("Perfil actualizado exitosamente", updatedUser));
     }
 
 
@@ -90,7 +93,9 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
 
-        return ResponseEntity.ok(new MessageResponse("Usuario actualizado exitosamente"));
+        // No devolver la contraseña
+        updatedUser.setPassword(null);
+        return ResponseEntity.ok(new UserResponse("Usuario actualizado exitosamente", updatedUser));
     }
 
 

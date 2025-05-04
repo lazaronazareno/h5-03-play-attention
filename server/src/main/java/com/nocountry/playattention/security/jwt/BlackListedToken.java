@@ -1,19 +1,19 @@
 package com.nocountry.playattention.security.jwt;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Date;
 
-
  // Entidad JPA para almacenar tokens invalidados en la base de datos
-
 
 @Entity
 @Table(name = "blacklisted_tokens")
+@NamedQueries({
+    @NamedQuery(name = "BlackListedToken.deleteAllExpiredTokens.count",
+               query = "SELECT COUNT(b) FROM BlackListedToken b WHERE b.expiryDate < :expiryDate"),
+    @NamedQuery(name = "BlackListedToken.deleteByTokenValue",
+               query = "DELETE FROM BlackListedToken b WHERE b.tokenValue = :tokenValue")
+})
 public class BlackListedToken {
 
     @Id

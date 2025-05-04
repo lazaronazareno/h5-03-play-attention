@@ -7,14 +7,14 @@ import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.service.LeadService;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class LeadController {
 
     @PostMapping
     public ResponseEntity<?> createLead(@Valid @RequestBody RequestCreateLeadDTO lead) {
-        Lead savedLead = leadService.saveLead(lead);
+        leadService.saveLead(lead);
         return ResponseEntity.ok(new MessageResponse("Lead registrado exitosamente"));
     }
 
@@ -66,7 +66,7 @@ public class LeadController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> updateLead(@PathVariable Long id, @RequestBody Lead leadDetails) {
         Lead updatedLead = leadService.updateLead(id, leadDetails);
-        return ResponseEntity.ok(new MessageResponse("Lead actualizado exitosamente"));
+        return ResponseEntity.ok(updatedLead);
     }
 
 
@@ -75,7 +75,7 @@ public class LeadController {
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> updateLeadStatus(@PathVariable Long id, @RequestParam LeadStatus status) {
-        Lead updatedLead = leadService.updateLeadStatus(id, status);
+        leadService.updateLeadStatus(id, status);
         return ResponseEntity.ok(new MessageResponse("Estado del lead actualizado exitosamente"));
     }
 

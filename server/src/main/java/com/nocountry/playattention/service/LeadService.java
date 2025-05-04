@@ -8,13 +8,12 @@ import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.repository.LeadRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 
  // Servicio para la gestión de leads
 

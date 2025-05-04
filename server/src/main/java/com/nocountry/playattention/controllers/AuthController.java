@@ -9,10 +9,12 @@ import com.nocountry.playattention.payload.request.SignupRequest;
 import com.nocountry.playattention.payload.response.JwtResponse;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.repository.RoleRepository;
+
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,12 +104,13 @@ public class AuthController {
 
         // Establecer tipo de usuario
         try {
-            UserType userType = UserType.valueOf(signUpRequest.getUserType());
+            UserType userType = UserType.valueOf(signUpRequest.getUserType().toUpperCase());
             user.setUserType(userType);
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Tipo de usuario inválido"));
+                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: " + 
+                            String.join(", ", UserType.values().toString())));
         }
 
         // Establecer información adicional

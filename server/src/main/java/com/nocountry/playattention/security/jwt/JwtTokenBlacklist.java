@@ -1,6 +1,5 @@
 package com.nocountry.playattention.security.jwt;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,41 +9,30 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-
- // Clase que gestiona la lista negra de tokens JWT
- //Almacena los tokens invalidados en MySQL para persistencia y en Redis para caché distribuida
+// Clase que gestiona la lista negra de tokens JWT
+// Utiliza Redis y MySQL para almacenar tokens invalidados
 
 @Component
 public class JwtTokenBlacklist {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenBlacklist.class);
 
-    // Mantenemos el mapa en memoria como caché local para consultas rápidas
-    // Sincronizará con la base de datos y Redis
-    private final Map<String, Long> localTokenCache = new ConcurrentHashMap<>();
-
     @Autowired
-    private BlacklistedTokenRepository tokenRepository;
+    private RedisTokenService redisTokenService;
 
+
+
+    // Añade un token a la lista negra
 
      // Añade un token a la lista negra
 
     @CacheEvict(value = "tokenBlacklist", key = "#token")
     @Transactional
     public void addToBlacklist(String token, long expiryTimeInMillis) {
-        // Añadir a la caché local
-        localTokenCache.put(token, expiryTimeInMillis);
-
-        // Persistir en la base de datos
         try {
-            BlackListedToken blacklistedToken = new BlackListedToken(token, new Date(expiryTimeInMillis));
-            tokenRepository.save(blacklistedToken);
-            logger.info("Token añadido a la lista negra y persistido en la base de datos");
+            redisTokenService.addToBlacklist(token, expiryTimeInMillis);
+            logger.info("Token añadido a la lista negra en Redis y MySQL");
         } catch (Exception e) {
-            logger.error("Error al persistir token en la base de datos: {}", e.getMessage());
+            logger.error("Error al añadir token a la lista negra: {}", e.getMessage());
         }
     }
 
@@ -53,22 +41,10 @@ public class JwtTokenBlacklist {
 
     @Cacheable(value = "tokenBlacklist", key = "#token", unless = "#result == false")
     public boolean isBlacklisted(String token) {
-        // Primero verificamos en la caché local para respuesta rápida
-        if (localTokenCache.containsKey(token)) {
-            return true;
-        }
-
-        // Si no está en la caché local, verificamos en la base de datos
         try {
-            boolean exists = tokenRepository.existsByTokenValue(token);
-            if (exists) {
-                // Si existe en la base de datos pero no en la caché local, lo añadimos a la caché
-                tokenRepository.findByTokenValue(token).ifPresent(blacklistedToken ->
-                        localTokenCache.put(token, blacklistedToken.getExpiryDate().getTime()));
-            }
-            return exists;
+            return redisTokenService.isBlacklisted(token);
         } catch (Exception e) {
-            logger.error("Error al verificar token en la base de datos: {}", e.getMessage());
+            logger.error("Error al verificar token en la lista negra: {}", e.getMessage());
             return false;
         }
     }
@@ -81,17 +57,11 @@ public class JwtTokenBlacklist {
     @CacheEvict(value = "tokenBlacklist", allEntries = true)
     @Transactional
     public void cleanupExpiredTokens() {
-        long currentTimeMillis = System.currentTimeMillis();
-
-        // Limpiar caché local
-        localTokenCache.entrySet().removeIf(entry -> entry.getValue() < currentTimeMillis);
-
-        // Limpiar base de datos
         try {
-            int deletedCount = tokenRepository.deleteAllExpiredTokens(new Date());
-            logger.info("Se eliminaron {} tokens expirados de la base de datos", deletedCount);
+            redisTokenService.cleanupExpiredTokens();
+            logger.info("Se limpiaron tokens expirados de Redis y MySQL");
         } catch (Exception e) {
-            logger.error("Error al limpiar tokens expirados de la base de datos: {}", e.getMessage());
+            logger.error("Error al limpiar tokens expirados: {}", e.getMessage());
         }
     }
 }
