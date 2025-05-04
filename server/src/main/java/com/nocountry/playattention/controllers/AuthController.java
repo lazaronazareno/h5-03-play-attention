@@ -16,6 +16,7 @@ import com.nocountry.playattention.security.services.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,7 +53,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthController.class);
      // Endpoint para iniciar sesión
 
     @PostMapping("/signin")
@@ -170,12 +171,21 @@ public class AuthController {
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
+        if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado"));
+        }
         String token = jwtUtils.extractTokenFromBearer(headerAuth);
-
-        if (token != null) {
-            jwtUtils.invalidateToken(token);
+        if (token == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido"));
         }
 
-        return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!"));
+        try {
+            jwtUtils.invalidateToken(token);
+            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!"));
+        } catch (Exception e) {
+            logger.error("Error al cerrar sesión: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error al cerrar sesión"));
+        }
     }
 }
