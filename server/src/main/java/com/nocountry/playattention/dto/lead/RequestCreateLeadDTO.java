@@ -4,7 +4,9 @@ import com.nocountry.playattention.model.ComplementTreatment;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -17,6 +19,9 @@ public class RequestCreateLeadDTO {
     private String lastName;
 
     @Schema(description = "Lead's email address", example = "john.doe@example.com")
+    @NotBlank(message = "Email es requerido")
+    @Size(max = 50)
+    @Email
     private String email;
 
     @Schema(description = "Lead's institution or company", example = "Example University")

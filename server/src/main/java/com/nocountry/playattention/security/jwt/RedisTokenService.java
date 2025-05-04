@@ -30,14 +30,14 @@ public class RedisTokenService {
     public void addToBlacklist(String token, long expiryTimeInMillis) {
         try {
             // Añadir a Redis con TTL
-            redisTemplate.opsForValue().set("token:" + token, token,
+            redisTemplate.opsForValue().set("tokenBlacklist:" + token, token,
                     Duration.ofMillis(expiryTimeInMillis));
 
             // Persistir en MySQL
             BlackListedToken blacklistedToken = new BlackListedToken(token, new Date(expiryTimeInMillis));
             tokenRepository.save(blacklistedToken);
 
-        logger.info("Añadiendo token a la lista negra: {}", token);
+            logger.info("Añadiendo token a la lista negra: {}", token);
 
         } catch (Exception e) {
             logger.error("Error al añadir token a la lista negra: {}", e.getMessage());
@@ -46,11 +46,11 @@ public class RedisTokenService {
 
     }
 
-    @Cacheable(value = CACHE_NAME, key = "#token", unless = "#result == false")
+    @Cacheable(value = CACHE_NAME)
     public boolean isBlacklisted(String token) {
         try {
             // Primero busca en Redis
-            Object cachedToken = redisTemplate.opsForValue().get("token:" + token);
+            Object cachedToken = redisTemplate.opsForValue().get("tokenBlacklist:" + token);
             if (cachedToken != null) {
                 return true;
             }
@@ -63,14 +63,13 @@ public class RedisTokenService {
         }
     }
 
-    
-     // Elimina un token de la lista negra
-     
+    // Elimina un token de la lista negra
+
     @CacheEvict(value = CACHE_NAME, key = "#token")
     public void removeFromBlacklist(String token) {
         try {
             // Eliminar de Redis
-            redisTemplate.delete("token:" + token);
+            redisTemplate.delete("tokenBlacklist:" + token);
             // Eliminar de MySQL
             tokenRepository.deleteByTokenValue(token);
         } catch (Exception e) {
@@ -78,13 +77,13 @@ public class RedisTokenService {
             throw e;
         }
     }
-     // Limpia los tokens expirados de Redis y MySQL
+    // Limpia los tokens expirados de Redis y MySQL
 
     @Transactional
     public void cleanupExpiredTokens() {
         try {
             // Limpiar tokens expirados de Redis
-            Set<String> keys = redisTemplate.keys("token:*");
+            Set<String> keys = redisTemplate.keys("tokenBlacklist:*");
             if (keys != null) {
                 redisTemplate.delete(keys);
             }
