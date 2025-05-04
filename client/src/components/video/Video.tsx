@@ -1,15 +1,28 @@
 'use client'
 import { VideoProps } from '@/interfaces/IVideo.interfaces';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-function Video({ name, description, url, languagues, subs }: VideoProps) {
-  const [currentLanguage, setCurrentLanguage] = useState<string>(languagues[0]);
-
-  const currentLangIndex = languagues.indexOf(currentLanguage);
-
+//TO DO: HACER QUE EL VIDEO SOLO CARGUE CUANDO SE ABRE, PASARLE UNA PROP O ALGO QUE LO HAGA CARGAR
+function Video({ name, description, url, apiResponse }: VideoProps) {
+  const [languagues, setLanguages] = useState<string[]>([]);
+  const [subs, setSubs] = useState<string[]>([]);
+  const [currentLanguage, setCurrentLanguage] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  //esto solo funciona con 2 subs 
+  useEffect(() => {
+    const transcriptionLanguages = apiResponse.transcription.languages;
+    const translationLanguages = apiResponse.translation.languages;
+    const allLanguages = [...transcriptionLanguages, ...translationLanguages];
+
+    const transcriptionSubs = apiResponse.transcription.subtitles.map(sub => sub.subtitles);
+    const translationSubs = apiResponse.translation.subtitles.map(sub => sub.subtitles);
+    const allSubs = [...transcriptionSubs, ...translationSubs];
+
+    setLanguages(allLanguages);
+    setSubs(allSubs);
+    setCurrentLanguage(allLanguages[0]);
+  }, [apiResponse]);
+
   const toggleSubtitleLanguage = () => {
     const currentIndex = languagues.indexOf(currentLanguage);
     const nextIndex = (currentIndex + 1) % languagues.length;
@@ -18,7 +31,7 @@ function Video({ name, description, url, languagues, subs }: VideoProps) {
     if (videoRef.current && videoRef.current.textTracks) {
       const textTracks = videoRef.current.textTracks;
       for (let i = 0; i < textTracks.length; i++) {
-        textTracks[i].mode = (i === nextIndex) ? 'showing' : 'hidden';
+        textTracks[i].mode = i === nextIndex ? 'showing' : 'hidden';
       }
     }
   };
@@ -32,26 +45,28 @@ function Video({ name, description, url, languagues, subs }: VideoProps) {
           <track
             key={index}
             kind="subtitles"
-            src={subUrl}
+            src={`data:text/vtt;charset=utf-8,${encodeURIComponent(subUrl)}`}
             srcLang={languagues[index]}
             label={languagues[index]}
-            default={index === currentLangIndex}
+            default={index === languagues.indexOf(currentLanguage)}
           />
         ))}
 
         Your browser does not support the video tag. It´s a video of {name}: {description}
       </video>
 
-      <div className="controls">
-        <button
-          onClick={toggleSubtitleLanguage}
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-        >
-          Subtítulos: {currentLanguage}
-        </button>
-      </div>
+      {subs.length > 0 && (
+        <div className="controls absolute top-0 right-0">
+          <button
+            onClick={toggleSubtitleLanguage}
+            className="bg-violet-main capitalize cursor-pointer text-white font-bold py-2 px-4 rounded"
+          >
+            {currentLanguage}
+          </button>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default Video;
