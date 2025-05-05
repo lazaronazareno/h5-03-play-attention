@@ -2,13 +2,16 @@ package com.nocountry.playattention.service;
 
 
 import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
+import com.nocountry.playattention.dto.recover.ResetPasswordRequestDTO;
 import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.repository.UserRepository;
+import com.nocountry.playattention.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -99,5 +102,15 @@ public class UserService {
     public User fintUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Error: No se encontro el mail del usuario"));
+    }
+
+    public void resetPassword(ResetPasswordRequestDTO resetPassword, UserDetailsImpl userDetails) {
+        if(Objects.equals(resetPassword.password(), resetPassword.repeatPassword())){
+            User user=fintUserByEmail(userDetails.getEmail());
+            user.setPassword(passwordEncoder.encode(resetPassword.password()));
+        } else {
+            throw new RuntimeException( "Error: Las contraseñas no coinciden");
+        }
+
     }
 }

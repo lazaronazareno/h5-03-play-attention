@@ -3,10 +3,12 @@ package com.nocountry.playattention.service.email;
 import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
 import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.repository.UserRepository;
+import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class EmailService implements IEmailService {
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
     private final UserService userService;
+    private final JwtUtils jwtUtils;
+    @Value("${frontend.url}")
+    private String FRONTEND_URL;
 
     public void sendTemplateEmail(String[] to, String subject, Map<String, Object> variables, String templateName) {
         try {
@@ -44,7 +49,6 @@ public class EmailService implements IEmailService {
 
             mailSender.send(message);
         } catch (MessagingException e) {
-            System.out.println("NO SE POR QUE DA ERROR DE AUTENTICACION");
             throw new RuntimeException(e);
         }
     }
@@ -53,17 +57,17 @@ public class EmailService implements IEmailService {
     public void recoverPassword(RecoverPasswordRequestDTO recoverPasswordRequest) {
         String[] email = {recoverPasswordRequest.email()};
         User user = userService.fintUserByEmail(recoverPasswordRequest.email());
+        String token = jwtUtils.generateJwtToken(user.getUsername());
 
         Map<String, Object> variables = new HashMap<>();
 
         variables.put("name", user.getFullName());
-        variables.put("tokenUrl", "https://www.youtube.com/watch?v=cKouCOONkDA&list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVMNRkHvLaWhHg&index=28");
+        variables.put("tokenUrl", FRONTEND_URL + "recover-password/" + token);
 
         sendTemplateEmail(
                 email,
                 "Recuperación de contraseña",
                 variables,
                 "recover-password");
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 }

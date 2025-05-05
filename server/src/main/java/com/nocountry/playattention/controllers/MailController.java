@@ -20,9 +20,4 @@ public class MailController {
         emailService.recoverPassword(recoverPasswordRequest);
         return ResponseEntity.ok(new MessageResponse("Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña."));
     }
-
-    @GetMapping("/test")
-    public ResponseEntity<MessageResponse> test() {
-        return ResponseEntity.ok(new MessageResponse("Mail controller working"));
-    }
 }
