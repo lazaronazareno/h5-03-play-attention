@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 
@@ -38,7 +38,7 @@ public class ContentController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         content.setCreatedBy(userDetails.getId());
 
-        Content savedContent = contentService.saveContent(content);
+        contentService.saveContent(content);
         return ResponseEntity.ok(new MessageResponse("Contenido creado exitosamente"));
     }
 
@@ -88,7 +88,7 @@ public class ContentController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> updateContent(@PathVariable Long id, @RequestBody Content contentDetails) {
         Content updatedContent = contentService.updateContent(id, contentDetails);
-        return ResponseEntity.ok(new MessageResponse("Contenido actualizado exitosamente"));
+        return ResponseEntity.ok(updatedContent);
     }
 
 
@@ -97,7 +97,7 @@ public class ContentController {
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> updateContentStatus(@PathVariable Long id, @RequestParam boolean active) {
-        Content updatedContent = contentService.updateContentActiveStatus(id, active);
+        contentService.updateContentActiveStatus(id, active);
         return ResponseEntity.ok(new MessageResponse("Estado del contenido actualizado exitosamente"));
     }
 

@@ -9,10 +9,14 @@ import com.nocountry.playattention.payload.request.SignupRequest;
 import com.nocountry.playattention.payload.response.JwtResponse;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.repository.RoleRepository;
+
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +53,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthController.class);
      // Endpoint para iniciar sesión
 
     @PostMapping("/signin")
@@ -101,12 +105,13 @@ public class AuthController {
 
         // Establecer tipo de usuario
         try {
-            UserType userType = UserType.valueOf(signUpRequest.getUserType());
+            UserType userType = UserType.valueOf(signUpRequest.getUserType().toUpperCase());
             user.setUserType(userType);
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Tipo de usuario inválido"));
+                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: " + 
+                            String.join(", ", UserType.values().toString())));
         }
 
         // Establecer información adicional
@@ -159,5 +164,28 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente"));
+    }
+
+    // Endpoint para cerrar sesión
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+        if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado"));
+        }
+        String token = jwtUtils.extractTokenFromBearer(headerAuth);
+        if (token == null) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido"));
+        }
+
+        try {
+            jwtUtils.invalidateToken(token);
+            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!"));
+        } catch (Exception e) {
+            logger.error("Error al cerrar sesión: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error al cerrar sesión"));
+        }
     }
 }

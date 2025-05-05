@@ -1,7 +1,7 @@
 package com.nocountry.playattention.payload.request;
 
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 
  // Clase que representa la solicitud de inicio de sesión

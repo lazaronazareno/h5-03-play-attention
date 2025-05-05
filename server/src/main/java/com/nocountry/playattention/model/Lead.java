@@ -1,14 +1,13 @@
 package com.nocountry.playattention.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -49,17 +48,17 @@ public class Lead {
     @Column(name = "usage_context", length = 500)
     private String usageContext; // Contexto de uso
 
-    @Enumerated(EnumType.STRING)
-    private UserType leadType; // Tipo de lead (PROFESSIONAL, INDIVIDUAL, CORPORATE)
-
-    @Enumerated(EnumType.STRING)
-    private LeadStatus status; // Estado del lead en el pipeline
-
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "last_updated")
+    @Column(name = "last_updated", nullable = false)
     private LocalDateTime lastUpdated;
+
+    @Enumerated(EnumType.STRING)
+    private LeadStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private UserType leadType;
 
     @Column(name = "notes", length = 1000)
     private String notes; // Notas de seguimiento
