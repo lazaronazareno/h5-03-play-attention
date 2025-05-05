@@ -79,10 +79,10 @@ export default function Navbar() {
 	}
 
 	return (
-		<header className='w-full px-4 lg:px-10 pt-[120px]'>
+		<header className='flex justify-center w-full px-4 lg:px-10 pt-[120px]'>
 			<nav
 				ref={navbarRef}
-				className='flex flex-col lg:flex-row bg-neutral-white2 items-center justify-between p-4 rounded-xl shadow-xl'
+				className='flex flex-col lg:flex-row bg-neutral-white2 items-center justify-between p-4 rounded-xl shadow-xl fixed top-4 w-[96%] z-50'
 			>
 				{/* Logo and main navigation container */}
 				<div className='w-full flex flex-col lg:flex-row lg:items-center lg:justify-between'>
