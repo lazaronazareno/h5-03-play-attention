@@ -5,7 +5,7 @@ interface TypographyProps {
   variant: 'h1' | 'h2' | 'h3' | 'p' | 'span';
   className?: string;
   color: 'default' | 'violet' | 'white' | 'green';
-  size: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'subtitle' | 'title';
+  size: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'subtitle' | 'title' | 'small-title';
   weight: 'normal' | 'bold' | 'bolder' | 'lighter' | 'thin' | 'extralight' | 'light' | 'medium' | 'semibold' | 'extrabold' | 'black';
 }
 
@@ -29,6 +29,7 @@ const sizeClasses = {
   '4xl': 'text-4xl',
   'subtitle': 'text-3xl lg:text-5xl',
   'title': 'text-3.5xl lg:text-6xl',
+  'small-title': 'text-xl lg:text-2xl',
 }
 
 const weightClasses = {

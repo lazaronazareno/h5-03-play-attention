@@ -9,9 +9,10 @@ interface ButtonProps {
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   className?: string;
+  iconResponsive?: boolean;
 }
 
-const Button = ({ text, disabled, variant, icon, iconPosition, className, onClick }: ButtonProps) => {
+const Button = ({ text, disabled, variant, icon, iconPosition, className, onClick, iconResponsive }: ButtonProps) => {
   return (
     <>
       <button
@@ -25,9 +26,11 @@ const Button = ({ text, disabled, variant, icon, iconPosition, className, onClic
           `
         }
       >
-        {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
-        {text}
-        {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
+        {icon && iconPosition === 'left' && <span className={`${iconResponsive ? 'content-center lg:mr-2' : 'mr-2'}`}>{icon}</span>}
+        <span className={`content-center ${iconResponsive ? 'hidden lg:block' : ''}`}>
+          {text}
+        </span>
+        {icon && iconPosition === 'right' && <span className={`${iconResponsive ? 'content-center lg:ml-2' : 'ml-2'}`}>{icon}</span>}
       </button>
     </>
   );
