@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/landing/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers(HttpMethod.POST , "/leads").permitAll()
+                        .requestMatchers("/mail/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
