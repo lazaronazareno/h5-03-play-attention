@@ -11,7 +11,7 @@ interface ItemInfoProps {
 const ItemInfo = ({ title, description, icon }: ItemInfoProps) => {
   return (
     <>
-      <div className='flex bg-white shadow-main border-2 border-green-main rounded-md p-2 lg:px-3 lg:py-2.5 gap-2.5'>
+      <div className='flex bg-white shadow-main border-2 border-green-main rounded-md p-2 lg:px-3 lg:py-2.5 gap-2.5 w-full'>
         {
           icon
             ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
