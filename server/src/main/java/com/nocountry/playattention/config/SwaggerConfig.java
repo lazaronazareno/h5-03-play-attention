@@ -1,19 +1,33 @@
 package com.nocountry.playattention.config;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.http.HttpHeaders;
 
-@Configuration
+//http://localhost:8080/api/swagger-ui/index.html
+@OpenAPIDefinition(
+        info = @Info(
+                title = "API PLAY ATTENTION",
+                description = "Esta API forma parte del proyecto Play Attention",
+                version = "1.0.0"
+        ),
+        security = @SecurityRequirement(
+                name = "Security Token"
+        )
+)
+
+@SecurityScheme(
+        name = "Security Token",
+        description = "Access Token For My API",
+        type = SecuritySchemeType.HTTP,
+        paramName = HttpHeaders.AUTHORIZATION,
+        in = SecuritySchemeIn.HEADER,
+        scheme = "Bearer",
+        bearerFormat = "JWT"
+)
 public class SwaggerConfig {
-    
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Play Attention API")
-                        .description("API para el proyecto Play Attention")
-                        .version("1.0.0"));
-    }
 }

@@ -61,13 +61,12 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                       
-                        .requestMatchers("/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/auth/**",
-                                "/landing/**",
-                                "/public/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/leads").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/landing/**").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers(HttpMethod.POST , "/leads").permitAll()
+                        .requestMatchers("/mail/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
