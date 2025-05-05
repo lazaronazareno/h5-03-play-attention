@@ -173,6 +173,7 @@
         </dependency>
 
         <dependency>
+
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>4.0.1</version>
@@ -181,6 +182,17 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
         </dependency>
+
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!--		para un html con variables dinamicas-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

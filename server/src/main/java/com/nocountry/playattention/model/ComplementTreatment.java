@@ -4,5 +4,6 @@ public enum ComplementTreatment {
     NEUROFEEDBACK,
     THERAPY,
     BRAINAPP,
-    OTHER
+    OTHER;
+
 }

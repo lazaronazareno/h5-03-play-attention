@@ -1,14 +1,17 @@
 package com.nocountry.playattention.controllers;
 
+import com.nocountry.playattention.dto.recover.ResetPasswordRequestDTO;
 import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.payload.response.UserResponse;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
 import com.nocountry.playattention.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -107,5 +110,15 @@ public class UserController {
         userService.deleteUser(id);
 
         return ResponseEntity.ok(new MessageResponse("Usuario eliminado exitosamente"));
+    }
+
+    @PutMapping("/reset-password")
+    @Transactional
+    public ResponseEntity<?> resetPassword(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestBody ResetPasswordRequestDTO resetPassword) {
+
+        userService.resetPassword(resetPassword, userDetails);
+        return ResponseEntity.ok(new MessageResponse("Contraseña restablecida exitosamente"));
     }
 }

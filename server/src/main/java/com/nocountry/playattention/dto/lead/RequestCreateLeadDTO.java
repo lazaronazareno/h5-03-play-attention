@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+
 @Data
 public class RequestCreateLeadDTO {
     @Schema(description = "Lead's first name", example = "John")
