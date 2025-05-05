@@ -3,7 +3,6 @@ import { Poppins, Roboto } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "../globals.css";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -35,7 +34,6 @@ export default function LandingLayout({
         <Navbar />
         {children}
         <Footer />
-        <WhatsAppButton phoneNumber="1112341234" message="Quiero contactarme con Play Attention" size={60} />
       </body>
     </html>
   );
