@@ -99,9 +99,9 @@ export default function Navbar() {
 									<Image
 										src='/branding/LogoFullAR.png'
 										alt='Logo'
-										width={200}
-										height={35}
-										className='w-[160px] lg:w-[180px]'
+										width={180}
+										height={50}
+										className='w-auto h-auto'
 									/>
 								</Link>
 

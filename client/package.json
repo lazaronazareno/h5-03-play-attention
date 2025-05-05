@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "client": "file:",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.503.0",
     "next": "15.3.0",
     "react": "^19.0.0",
