@@ -1,11 +1,17 @@
 package com.nocountry.playattention.controllers;
 
 
+import com.nocountry.playattention.dto.lead.RequestCreateLeadDTO;
 import com.nocountry.playattention.model.Lead;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.service.LeadService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
- //Controlador para la gestión de leads
+//Controlador para la gestión de leads
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -28,16 +34,23 @@ public class LeadController {
     private LeadService leadService;
 
 
-     // Crea un nuevo lead (acceso público para formularios de contacto)
+    // Crea un nuevo lead (acceso público para formularios de contacto)
 
+    @Operation(summary = "Crea un nuevo lead",
+            description =
+                    "leadType: PROFESSIONAL, INDIVIDUAL, CORPORATE, ADMIN\n"+
+                    "status: NEW, CONTACTED, INTERESTED, MEETING_SCHEDULED, PROPOSAL_SENT, NEGOTIATION, CLOSED_WON, CLOSED_LOST, FOLLOW_UP")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lead registrado exitosamente")
+    })
     @PostMapping
-    public ResponseEntity<?> createLead(@Valid @RequestBody Lead lead) {
+    public ResponseEntity<?> createLead(@Valid @RequestBody RequestCreateLeadDTO lead) {
         Lead savedLead = leadService.saveLead(lead);
         return ResponseEntity.ok(new MessageResponse("Lead registrado exitosamente"));
     }
 
 
-     // Obtiene todos los leads (solo para administradores y profesionales)
+    // Obtiene todos los leads (solo para administradores y profesionales)
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -47,7 +60,7 @@ public class LeadController {
     }
 
 
-     // Obtiene un lead por su ID (solo para administradores y profesionales)
+    // Obtiene un lead por su ID (solo para administradores y profesionales)
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -58,7 +71,7 @@ public class LeadController {
     }
 
 
-     // Actualiza un lead (solo para administradores y profesionales)
+    // Actualiza un lead (solo para administradores y profesionales)
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -68,7 +81,7 @@ public class LeadController {
     }
 
 
-     // Actualiza el estado de un lead (solo para administradores y profesionales)
+    // Actualiza el estado de un lead (solo para administradores y profesionales)
 
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -78,7 +91,7 @@ public class LeadController {
     }
 
 
-     // Elimina un lead (solo para administradores)
+    // Elimina un lead (solo para administradores)
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
@@ -88,7 +101,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por tipo (solo para administradores y profesionales)
+    // Busca leads por tipo (solo para administradores y profesionales)
 
     @GetMapping("/by-type/{leadType}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -98,7 +111,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por estado (solo para administradores y profesionales)
+    // Busca leads por estado (solo para administradores y profesionales)
 
     @GetMapping("/by-status/{status}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -108,7 +121,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por rango de fechas (solo para administradores y profesionales)
+    // Busca leads por rango de fechas (solo para administradores y profesionales)
 
     @GetMapping("/by-date-range")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -120,7 +133,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por email (solo para administradores y profesionales)
+    // Busca leads por email (solo para administradores y profesionales)
 
     @GetMapping("/search/email")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -130,7 +143,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por nombre (solo para administradores y profesionales)
+    // Busca leads por nombre (solo para administradores y profesionales)
 
     @GetMapping("/search/name")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
@@ -140,7 +153,7 @@ public class LeadController {
     }
 
 
-     // Busca leads por institución (solo para administradores y profesionales)
+    // Busca leads por institución (solo para administradores y profesionales)
 
     @GetMapping("/search/institution")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")

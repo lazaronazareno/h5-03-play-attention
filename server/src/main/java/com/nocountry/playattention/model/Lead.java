@@ -22,8 +22,10 @@ public class Lead {
     private Long id;
 
     @NotBlank
-    @Size(max = 100)
-    private String fullName;
+    @Size(max = 50)
+    private String name;
+
+    private String lastName;
 
     @NotBlank
     @Size(max = 50)
@@ -33,6 +35,9 @@ public class Lead {
     private String institution;
 
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private ComplementTreatment complementTreatment;
 
     private String profession;
 
