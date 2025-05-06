@@ -42,7 +42,7 @@ public record ResponseCreateLeadDTO(
         boolean newsletterSubscription,
 
         @Schema(description = "Context in which the service will be used", example = "INVESTIGATING")
-        String usageContext,
+        UsageContext usageContext,
 
         @Schema(description = "Type of lead (e.g., student, parent)", example = "INDIVIDUAL")
         UserType leadType,
