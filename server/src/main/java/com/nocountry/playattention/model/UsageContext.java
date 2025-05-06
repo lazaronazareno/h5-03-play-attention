@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum CurrentSituation {
+public enum UsageContext {
 
     INVESTIGATING("Solo estoy investigando", "Investigating"),
     ADHD_DIAGNOSED("TDAH diagnosticado", "ADHD Diagnosed"),
@@ -17,8 +17,8 @@ public enum CurrentSituation {
     private final String spanishText;
     private final String englishText;
 
-    public static CurrentSituation fromEnglishText(String englishText) {
-        for (CurrentSituation situation : values()) {
+    public static UsageContext fromEnglishText(String englishText) {
+        for (UsageContext situation : values()) {
             if (situation.getEnglishText().equalsIgnoreCase(englishText)) {
                 return situation;
             }
