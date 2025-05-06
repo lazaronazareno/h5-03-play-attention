@@ -2,6 +2,8 @@ package com.nocountry.playattention.service;
 
 
 import com.nocountry.playattention.dto.lead.RequestCreateLeadDTO;
+import com.nocountry.playattention.dto.lead.ResponseCreateLeadDTO;
+import com.nocountry.playattention.dto.recover.ResetPasswordRequestDTO;
 import com.nocountry.playattention.mappers.LeadMapper;
 import com.nocountry.playattention.model.Lead;
 import com.nocountry.playattention.model.LeadStatus;
@@ -27,14 +29,17 @@ public class LeadService {
 
      // Guarda un nuevo lead
 
-    public Lead saveLead(RequestCreateLeadDTO leadDTO) {
+    public ResponseCreateLeadDTO saveLead(RequestCreateLeadDTO leadDTO) {
         // Asegurar que el lead tenga un estado inicial
         Lead lead = leadMapper.mapToEntity(leadDTO);
 
         if (lead.getStatus() == null) {
             lead.setStatus(LeadStatus.NEW);
         }
-        return leadRepository.save(lead);
+
+        Lead savedLead = leadRepository.save(lead);
+
+        return leadMapper.mapToDTO(savedLead);
     }
 
 

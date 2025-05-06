@@ -86,14 +86,14 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: El nombre de usuario ya está en uso"));
+                    .body(new MessageResponse("Error: El nombre de usuario ya está en uso",""));
         }
 
         // Validar si el email ya existe
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: El email ya está en uso"));
+                    .body(new MessageResponse("Error: El email ya está en uso",""));
         }
 
         // Crear nueva cuenta de usuario
@@ -110,8 +110,8 @@ public class AuthController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: " + 
-                            String.join(", ", UserType.values().toString())));
+                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: "+
+                            String.join(", ", UserType.values().toString()),""));
         }
 
         // Establecer información adicional
@@ -163,7 +163,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente",""));
     }
 
     // Endpoint para cerrar sesión
@@ -172,20 +172,20 @@ public class AuthController {
     public ResponseEntity<?> logoutUser(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado",""));
         }
         String token = jwtUtils.extractTokenFromBearer(headerAuth);
         if (token == null) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido",""));
         }
 
         try {
             jwtUtils.invalidateToken(token);
-            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!"));
+            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!",""));
         } catch (Exception e) {
             logger.error("Error al cerrar sesión: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse("Error al cerrar sesión"));
+                    .body(new MessageResponse("Error al cerrar sesión",""));
         }
     }
 }

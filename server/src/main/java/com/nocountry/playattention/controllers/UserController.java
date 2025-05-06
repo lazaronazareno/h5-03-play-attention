@@ -109,7 +109,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
 
-        return ResponseEntity.ok(new MessageResponse("Usuario eliminado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Usuario eliminado exitosamente",""));
     }
 
     @PutMapping("/reset-password")
@@ -119,6 +119,6 @@ public class UserController {
             @RequestBody ResetPasswordRequestDTO resetPassword) {
 
         userService.resetPassword(resetPassword, userDetails);
-        return ResponseEntity.ok(new MessageResponse("Contraseña restablecida exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Contraseña restablecida exitosamente",""));
     }
 }

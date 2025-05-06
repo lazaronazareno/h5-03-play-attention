@@ -63,6 +63,11 @@ public class Lead {
     @Column(name = "notes", length = 1000)
     private String notes; // Notas de seguimiento
 
+    private String country;
+
+    @Enumerated(EnumType.STRING)
+    private CurrentSituation currentSituation;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

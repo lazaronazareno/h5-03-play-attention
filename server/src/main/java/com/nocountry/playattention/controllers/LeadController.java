@@ -2,6 +2,7 @@ package com.nocountry.playattention.controllers;
 
 
 import com.nocountry.playattention.dto.lead.RequestCreateLeadDTO;
+import com.nocountry.playattention.dto.lead.ResponseCreateLeadDTO;
 import com.nocountry.playattention.model.Lead;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
@@ -36,17 +37,19 @@ public class LeadController {
 
     // Crea un nuevo lead (acceso público para formularios de contacto)
 
-    @Operation(summary = "Crea un nuevo lead",
-            description =
-                    "leadType: PROFESSIONAL, INDIVIDUAL, CORPORATE, ADMIN\n"+
-                    "status: NEW, CONTACTED, INTERESTED, MEETING_SCHEDULED, PROPOSAL_SENT, NEGOTIATION, CLOSED_WON, CLOSED_LOST, FOLLOW_UP")
+    @Operation(summary = "Crea un nuevo lead")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lead registrado exitosamente")
     })
     @PostMapping
-    public ResponseEntity<?> createLead(@Valid @RequestBody RequestCreateLeadDTO lead) {
-        leadService.saveLead(lead);
-        return ResponseEntity.ok(new MessageResponse("Lead registrado exitosamente"));
+    public ResponseEntity<MessageResponse<ResponseCreateLeadDTO>> createLead(@Valid @RequestBody RequestCreateLeadDTO lead) {
+        ResponseCreateLeadDTO leadResponse= leadService.saveLead(lead);
+        return ResponseEntity.ok(
+                new MessageResponse<>(
+                        "Lead registrado exitosamente",
+                        leadResponse
+                )
+        );
     }
 
 
@@ -87,7 +90,7 @@ public class LeadController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('PROFESSIONAL')")
     public ResponseEntity<?> updateLeadStatus(@PathVariable Long id, @RequestParam LeadStatus status) {
         leadService.updateLeadStatus(id, status);
-        return ResponseEntity.ok(new MessageResponse("Estado del lead actualizado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Estado del lead actualizado exitosamente",""));
     }
 
 
@@ -97,7 +100,7 @@ public class LeadController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> deleteLead(@PathVariable Long id) {
         leadService.deleteLead(id);
-        return ResponseEntity.ok(new MessageResponse("Lead eliminado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Lead eliminado exitosamente",""));
     }
 
 

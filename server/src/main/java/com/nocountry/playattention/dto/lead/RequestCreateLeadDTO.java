@@ -1,6 +1,7 @@
 package com.nocountry.playattention.dto.lead;
 
 import com.nocountry.playattention.model.ComplementTreatment;
+import com.nocountry.playattention.model.CurrentSituation;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +32,7 @@ public class RequestCreateLeadDTO {
     @Schema(description = "Lead's phone number", example = "54 11 1234-5678")
     private String phoneNumber;
 
-    @Schema(description = "Complementary treatment type", example = "Cognitive Therapy")
+    @Schema(description = "Complementary treatment type", example = "THERAPY")
     private ComplementTreatment complementTreatment;
 
     @Schema(description = "Lead's profession or occupation", example = "Software Engineer")
@@ -46,7 +47,7 @@ public class RequestCreateLeadDTO {
     @Schema(description = "Context in which the service will be used", example = "Educational Setting")
     private String usageContext;
 
-    @Schema(description = "Type of lead (e.g., student, parent)", example = "STUDENT")
+    @Schema(description = "Type of lead (e.g., student, parent)", example = "INDIVIDUAL")
     private UserType leadType;
 
     @Schema(description = "Current status of the lead (e.g., new, contacted, converted)", example = "NEW")
@@ -54,4 +55,10 @@ public class RequestCreateLeadDTO {
 
     @Schema(description = "Additional notes about the lead", example = "Interested in the cognitive therapy program.")
     private String notes;
+
+    @Schema(description = "Lead's Country", example = "Argentina")
+    private String country;
+
+    @Schema(description = "Lead's current situation", example = "IN_TREATMENT")
+    private CurrentSituation currentSituation;
 }
