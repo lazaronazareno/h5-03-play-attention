@@ -11,6 +11,7 @@ interface ImpactSectionProps {
   imageUrl2: string
   imagesPosition: 'left' | 'right'
   color: 'violet' | 'green'
+  bgColor?: 'violet' | 'green' | 'white'
   type: 'text' | 'list'
   text1?: string
   text2?: string
@@ -20,9 +21,9 @@ interface ImpactSectionProps {
   }[]
 }
 
-const ImpactSection = ({ title, description, titlePosition, imageUrl, imageUrl2, imagesPosition, color, type, text1, text2, listItems }: ImpactSectionProps) => {
+const ImpactSection = ({ title, description, titlePosition, imageUrl, imageUrl2, imagesPosition, color, bgColor, type, text1, text2, listItems }: ImpactSectionProps) => {
   return (
-    <div className='flex flex-col p-8 lg:p-20 mx-auto'>
+    <div className={`flex flex-col p-8 lg:p-20 mx-auto ${bgColor === 'violet' ? 'bg-violet-secondary/20' : bgColor === 'green' ? 'bg-green-300/20' : 'bg-white'}`}>
       <div className={`flex ${titlePosition === 'up' ? 'flex-col' : 'flex-col-reverse'} gap-2`}>
         <Typography variant='h2' size='subtitle' color='green' weight='semibold' text={title} />
         <Typography variant='p' size='base' color='default' weight='normal' text={description} />
@@ -39,7 +40,7 @@ const ImpactSection = ({ title, description, titlePosition, imageUrl, imageUrl2,
           {type === 'text' && (
             <>
               {text1 && (
-                <Typography variant='p' size='base' color='default' weight='normal' text={text1} />
+                <Typography variant='p' size='base' color='default' weight='normal' className='mb-4' text={text1} />
               )}
               {text2 && (
                 <Typography variant='p' size='base' color='default' weight='normal' text={text2} />
