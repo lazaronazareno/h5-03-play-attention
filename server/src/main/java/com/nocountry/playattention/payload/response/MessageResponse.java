@@ -1,20 +1,16 @@
 package com.nocountry.playattention.payload.response;
 
+import lombok.Getter;
+import lombok.Setter;
 
- //Clase que representa una respuesta simple con un mensaje
-
-public class MessageResponse {
+@Getter
+@Setter
+public class MessageResponse<T> {
     private String message;
+    private T data;
 
-    public MessageResponse(String message) {
+    public MessageResponse(String message, T data) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+        this.data = data;
     }
 }

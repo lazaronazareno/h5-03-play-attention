@@ -1,6 +1,7 @@
 package com.nocountry.playattention.mappers;
 
 import com.nocountry.playattention.dto.lead.RequestCreateLeadDTO;
+import com.nocountry.playattention.dto.lead.ResponseCreateLeadDTO;
 import com.nocountry.playattention.model.Lead;
 import org.mapstruct.Mapper;
 import com.nocountry.playattention.model.UserType;
@@ -52,4 +53,6 @@ public interface LeadMapper {
         }
         return lead;
     }
+
+    ResponseCreateLeadDTO mapToDTO(Lead savedLead);
 }

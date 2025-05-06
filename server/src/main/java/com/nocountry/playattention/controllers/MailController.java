@@ -18,6 +18,6 @@ public class MailController {
     @PostMapping("/recover-password")
     public ResponseEntity<MessageResponse> recoverPassword(@RequestBody RecoverPasswordRequestDTO recoverPasswordRequest) {
         emailService.recoverPassword(recoverPasswordRequest);
-        return ResponseEntity.ok(new MessageResponse("Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña."));
+        return ResponseEntity.ok(new MessageResponse("Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña.",""));
     }
 }

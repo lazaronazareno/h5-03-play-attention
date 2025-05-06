@@ -39,7 +39,7 @@ public class ContentController {
         content.setCreatedBy(userDetails.getId());
 
         contentService.saveContent(content);
-        return ResponseEntity.ok(new MessageResponse("Contenido creado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Contenido creado exitosamente",""));
     }
 
 
@@ -75,7 +75,7 @@ public class ContentController {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_SUPER_ADMIN"));
 
         if (!content.isActive() && !isAdmin) {
-            return ResponseEntity.status(403).body(new MessageResponse("No tiene acceso a este contenido"));
+            return ResponseEntity.status(403).body(new MessageResponse("No tiene acceso a este contenido",""));
         }
 
         return ResponseEntity.ok(content);
@@ -98,7 +98,7 @@ public class ContentController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> updateContentStatus(@PathVariable Long id, @RequestParam boolean active) {
         contentService.updateContentActiveStatus(id, active);
-        return ResponseEntity.ok(new MessageResponse("Estado del contenido actualizado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Estado del contenido actualizado exitosamente",""));
     }
 
 
@@ -108,7 +108,7 @@ public class ContentController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> deleteContent(@PathVariable Long id) {
         contentService.deleteContent(id);
-        return ResponseEntity.ok(new MessageResponse("Contenido eliminado exitosamente"));
+        return ResponseEntity.ok(new MessageResponse("Contenido eliminado exitosamente",""));
     }
 
 
