@@ -1,7 +1,7 @@
 package com.nocountry.playattention.dto.lead;
 
 import com.nocountry.playattention.model.ComplementTreatment;
-import com.nocountry.playattention.model.CurrentSituation;
+import com.nocountry.playattention.model.UsageContext;
 import com.nocountry.playattention.model.LeadStatus;
 import com.nocountry.playattention.model.UserType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -60,5 +60,5 @@ public class RequestCreateLeadDTO {
     private String country;
 
     @Schema(description = "Lead's current situation", example = "IN_TREATMENT")
-    private CurrentSituation currentSituation;
+    private UsageContext currentSituation;
 }

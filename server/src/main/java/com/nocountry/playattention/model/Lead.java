@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -46,7 +47,7 @@ public class Lead {
     private boolean newsletterSubscription;
 
     @Column(name = "usage_context", length = 500)
-    private String usageContext; // Contexto de uso
+    private UsageContext usageContext; // Contexto de uso
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -64,9 +65,6 @@ public class Lead {
     private String notes; // Notas de seguimiento
 
     private String country;
-
-    @Enumerated(EnumType.STRING)
-    private CurrentSituation currentSituation;
 
     @PrePersist
     protected void onCreate() {
