@@ -6,11 +6,7 @@ package com.nocountry.playattention.model;
 public enum LeadStatus {
     NEW,             // Lead recién ingresado
     CONTACTED,       // Se ha establecido contacto inicial
-    INTERESTED,      // Lead muestra interés
-    MEETING_SCHEDULED, // Reunión agendada
-    PROPOSAL_SENT,   // Propuesta enviada
-    NEGOTIATION,     // En negociación
-    CLOSED_WON,      // Venta cerrada exitosamente
-    CLOSED_LOST,     // Oportunidad perdida
-    FOLLOW_UP        // Seguimiento pendiente
+    AFTER_SALES,
+    CLIENT,
+    CANCELED
 }
