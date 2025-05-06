@@ -1,9 +1,11 @@
 import LeadsTable from "@/components/admin/LeadsTable";
+import Stats from "@/components/admin/Stats";
 import Typography from "@/components/ui/Typography";
 import { ILeads } from "@/interfaces/IAdmin.interfaces";
 import { ChevronDown, Search } from "lucide-react";
 
 export default function LeadsPage() {
+  //TODO: llamado a la API para obtener todos los leads
   const Leads: ILeads[] = [
     {
       id: "1",
@@ -101,10 +103,24 @@ export default function LeadsPage() {
       country: "Colombia",
     },
   ]
+  //TODO: llamado a la API para obtener todos los clientes y obtener TOTAL CLIENTS y TOTAL USERS Y ACTIVE USERS
+  const totalClients = 5423
+  const totalUsers = 1893
+  //hacer calculo para obtener porcentaje de la cantidad de suscriptos en el ultimo tiempo y el total de clientes
+  const porcentageClients = 16
+  const porcentageUsers = -1
+
+
   return (
     <div className="flex">
-      <div>
-        componente de estadisticas
+      <div className="flex justify-center items-center px-4">
+        <Stats
+          totalClients={totalClients}
+          porcentageClients={porcentageClients}
+          totalUsers={totalUsers}
+          porcentageUsers={porcentageUsers}
+          activeUsers={[]}
+        />
       </div>
       <div className="py-9 px-4 bg-violet-main/20 rounded-md w-full min-h-[89vh] max-h-full">
         <div className="bg-neutral-white2 px-4 h-full">
