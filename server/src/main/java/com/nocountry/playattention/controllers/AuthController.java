@@ -1,5 +1,6 @@
 package com.nocountry.playattention.controllers;
 
+import com.nocountry.playattention.mappers.UserMapper;
 import com.nocountry.playattention.model.ERole;
 import com.nocountry.playattention.model.Role;
 import com.nocountry.playattention.model.User;
@@ -14,6 +15,7 @@ import com.nocountry.playattention.repository.RoleRepository;
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
+import com.nocountry.playattention.service.UserService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,6 +54,10 @@ public class AuthController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    UserService userService;
     // Endpoint para iniciar sesión
 
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Inicio de sesion exitoso")})
@@ -65,27 +71,21 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        List<Role> roles = userDetails.getAuthorities().stream()
-                .map(item -> {
-                    return roleRepository.findByName(ERole.valueOf(item.getAuthority()))
-                            .orElseThrow(() -> new RuntimeException("Error: Role not found."));
-                })
-                .collect(Collectors.toList());
-
-        List<ERole> rolesNames = roles.stream()
-                .map(Role::getName)
-                .toList();
+        User user = userService.findUserById(userDetails.getId());
+//        List<Role> roles = userDetails.getAuthorities().stream()
+//                .map(item -> {
+//                    return roleRepository.findByName(ERole.valueOf(item.getAuthority()))
+//                            .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+//                })
+//                .collect(Collectors.toList());
+//
+//        List<ERole> rolesNames = roles.stream()
+//                .map(Role::getName)
+//                .toList();
 
         return ResponseEntity.ok(new MessageResponse<LoginResponseDTO>(
                 "inicio de secion exitoso",
-                new LoginResponseDTO(jwt,
-                        userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        userDetails.getName(),
-                        userDetails.getLastName(),
-                        rolesNames)
-        ));
+                new LoginResponseDTO(jwt, userMapper.mapToDTO(user))));
     }
 
 
