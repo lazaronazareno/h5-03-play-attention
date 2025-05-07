@@ -7,12 +7,15 @@ import com.nocountry.playattention.model.UserType;
 import com.nocountry.playattention.payload.request.LoginRequest;
 import com.nocountry.playattention.payload.request.SignupRequest;
 import com.nocountry.playattention.payload.response.JwtResponse;
+import com.nocountry.playattention.payload.response.LoginResponseDTO;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.repository.RoleRepository;
 
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +54,9 @@ public class AuthController {
     JwtUtils jwtUtils;
     // Endpoint para iniciar sesión
 
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Inicio de sesion exitoso")})
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<MessageResponse<LoginResponseDTO>> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -60,17 +64,28 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+
+        List<Role> roles = userDetails.getAuthorities().stream()
+                .map(item -> {
+                    return roleRepository.findByName(ERole.valueOf(item.getAuthority()))
+                            .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+                })
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getUsername(),
-                userDetails.getId(),
-                userDetails.getEmail(),
-                userDetails.getName(),
-                userDetails.getLastName(),
-                roles));
+        List<ERole> rolesNames = roles.stream()
+                .map(Role::getName)
+                .toList();
+
+        return ResponseEntity.ok(new MessageResponse<LoginResponseDTO>(
+                "inicio de secion exitoso",
+                new LoginResponseDTO(jwt,
+                        userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        userDetails.getName(),
+                        userDetails.getLastName(),
+                        rolesNames)
+        ));
     }
 
 
