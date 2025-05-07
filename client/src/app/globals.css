@@ -44,6 +44,13 @@
   --color-blackneutral-600: #252929;
   --color-blackneutral-main: #060707;
 
+  /* CRM Colors */
+  --color-pink-lead: #f3d5dd;
+  --color-yellow-lead: #f7dfc2;
+  --color-purple-lead: #d7c0f8;
+  --color-blue-lead: #a7dbe0;
+  --color-gray-lead: #bbc5c5;
+
   --text-3.5xl: 1.875rem;
 
   --shadow-main: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
