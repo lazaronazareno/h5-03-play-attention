@@ -1,32 +1,11 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
 import Input from "./InputForm/InputForm";
 import RadioGroup from "./CheckboxGroup/RadioGroup";
 import Button from "../ui/Button";
-
-type LeadFormData = {
-	name: string;
-	lastName: string;
-	email: string;
-	phoneNumber?: string;
-	country: "Argentina" | "Brasil" | "Chile" | "Uruguay" | "Otro";
-	leadType: "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE";
-	institution?: string;
-	targetUsers: "Children" | "Adult" | "Patient" | "Professional";
-	usageContext:
-		| "INVESTIGATING"
-		| "ADHD_DIAGNOSED"
-		| "PRESCRIPTION_MEDICATION"
-		| "NO_TREATMENT"
-		| "IN_TREATMENT"
-		| "OTHER";
-	complementTreatment: "NEUROFEEDBACK" | "INVESTIGATION" | "BRAINAPP" | "OTHER";
-	notes: string;
-	newsletterSubscription: boolean;
-};
-
-const API_URL = process.env.NEXT_PUBLIC_BASE_URL + "/leads";
+import { LeadFormData } from "../../types/lead/leadTypes";
+import { constFetch } from "../../services/custom-fetch/constFetch";
+import { responseApi } from "../../types/response-api/resaponseApi";
 
 const defaultOptions = {
 	country: [
@@ -64,7 +43,7 @@ const defaultOptions = {
 };
 
 export function LeadForm() {
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setIsLoading] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -73,44 +52,17 @@ export function LeadForm() {
 
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
 		console.log("Form data:", data);
+		data.complementTreatment = "NEUROFEEDBACK";
 		// Set phoneNumber to undefined if not provided
-		setIsLoading(true);
-		try {
-			const response = await fetch(API_URL, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					name: data.name,
-					lastName: data.lastName,
-					email: data.email,
-					phoneNumber: data.phoneNumber,
-					country: data.country,
-					institution: data.institution,
-					targetUsers: data.targetUsers,
-					usageContext: data.usageContext,
-					// complementTreatment: data.complementTreatment,
-					notes: data.notes,
-					newsletterSubscription: data.newsletterSubscription,
-					leadType: data.leadType,
-				}),
-			});
-			const result = await response.json();
-
-			/* if (!result.success) {
-				throw new Error("Network response was not ok" + JSON.stringify(result));
-			} */
-			alert(`Formulario enviado con éxito: ${result}`);
-			console.log("Response:", result);
-		} catch (error) {
-			if (error instanceof Error) {
-				console.error("Error:", error.message);
-				alert("Hubo un problema al enviar el formulario. Intenta nuevamente.");
-			}
-		} finally {
-			setIsLoading(false);
-		}
+		const response = await constFetch<responseApi<LeadFormData>, LeadFormData>({
+			endpoint: "/leads",
+			requestType: "POST",
+			body: data,
+		});
+		// setIsLoading(response.loading);
+		console.log("data:", response.data?.message);
+		console.log("error", response.error);
+		console.log("loading", response.loading);
 	};
 
 	return (
@@ -194,7 +146,7 @@ export function LeadForm() {
 				</label>
 			</div>
 
-			<Button text="Enviar" disabled={isLoading} variant="primary" className="flex justify-center items-center" />
+			<Button text="Enviar" variant="primary" className="flex justify-center items-center" />
 		</form>
 	);
 }

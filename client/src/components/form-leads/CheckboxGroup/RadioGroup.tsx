@@ -24,6 +24,7 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 							value={opt.value}
 							{...register(name)}
 							className="w-[20px] h-[20px] border-[2px] border-violet-main rounded-md appearance-none checked:bg-violet-main"
+							required={true}
 						/>
 						{opt.label}
 					</label>
