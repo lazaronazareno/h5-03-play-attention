@@ -1,37 +1,67 @@
-'use client'
-import Image from 'next/image'
-import { useState } from 'react'
-import { Bell, CircleHelp, Menu, X } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import Sidebar from './Sidebar'
-import Button from '../ui/Button'
-import UserAvatar from '../../../public/user/avatar.png'
-
+"use client";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Bell, CircleHelp, Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Sidebar from "./Sidebar";
+import Button from "../ui/Button";
+import UserAvatar from "../../../public/user/avatar.png";
+import Link from "next/link";
+import { userDefault } from "../../constants/dataDefault";
+import { User } from "../../types/user/userTypes";
 
 export default function UserNavbar() {
-	const [sidebarOpen, setSidebarOpen] = useState(false)
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-	const router = useRouter()
+	const router = useRouter();
 
-	const toggleSidebar = () => setSidebarOpen(prev => !prev)
+	const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
-	const closeSidebar = () => setSidebarOpen(false)
-
+	const closeSidebar = () => setSidebarOpen(false);
+	// --------------- BORRAR LUEGO -------------------
+	const [user, setUser] = useState<User>(userDefault);
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const storedUser: User = JSON.parse(localStorage.getItem("user") || "null") || userDefault;
+			setUser(storedUser);
+		}
+	}, []);
+	// --------------------------------------------------
 	return (
 		<>
-			<header className='fixed top-0 left-0 right-0 z-50 bg-neutral-white2 shadow-xl flex items-center justify-between p-4 text-sm'>
-				<div className='flex items-center gap-2'>
-					<Image src={UserAvatar} alt='Avatar' width={24} height={24} className='rounded-full w-auto' />
-					<p>Jayne Doe</p>
+			<header className="fixed top-0 left-0 right-0 z-50 bg-neutral-white2 shadow-xl flex items-center justify-between p-4 text-sm">
+				<div className="flex items-center gap-2">
+					<Image src={UserAvatar} alt="Avatar" width={24} height={24} className="rounded-full w-auto" />
+					<p>
+						{user.name} {user.lastName}
+					</p>
 				</div>
-				<div className='flex items-center gap-3'>
-					<Image src='/branding/LogoFullAR.png' alt='Logo' width={200} height={50} />
+				<div className="flex items-center gap-3">
+					<Link href="/">
+						<Image src="/branding/LogoFullAR.png" alt="Logo" width={200} height={50} />
+					</Link>
 				</div>
-				<div className='flex gap-4'>
-					<button className='text-violet-main cursor-pointer' onClick={() => { console.log('notification') }}><Bell size={24} /></button>
-					<Button text='Ayuda' variant='primary' icon={<CircleHelp />} iconPosition='right' onClick={() => { router.push('/dashboard/support') }} className='hidden md:flex items-center justify-center h-12 ' />
+				<div className="flex gap-4">
+					<button
+						className="text-violet-main cursor-pointer"
+						onClick={() => {
+							console.log("notification");
+						}}
+					>
+						<Bell size={24} />
+					</button>
+					<Button
+						text="Ayuda"
+						variant="primary"
+						icon={<CircleHelp />}
+						iconPosition="right"
+						onClick={() => {
+							router.push("/dashboard/support");
+						}}
+						className="hidden md:flex items-center justify-center h-12 "
+					/>
 					{/* Mobile menu */}
-					<button className='md:hidden text-violet-main cursor-pointer' onClick={toggleSidebar}>
+					<button className="md:hidden text-violet-main cursor-pointer" onClick={toggleSidebar}>
 						{sidebarOpen ? <X size={24} /> : <Menu size={24} />}
 					</button>
 				</div>
@@ -40,6 +70,5 @@ export default function UserNavbar() {
 			{/* Sidebar visible en mobile o fijo en desktop */}
 			<Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 		</>
-	)
+	);
 }
-

@@ -54,15 +54,12 @@ export function LeadForm() {
 		console.log("Form data:", data);
 		data.complementTreatment = "NEUROFEEDBACK";
 		// Set phoneNumber to undefined if not provided
-		const response = await constFetch<responseApi<LeadFormData>, LeadFormData>({
+		await constFetch<responseApi<LeadFormData>, LeadFormData>({
 			endpoint: "/leads",
 			requestType: "POST",
 			body: data,
 		});
 		// setIsLoading(response.loading);
-		console.log("data:", response.data?.message);
-		console.log("error", response.error);
-		console.log("loading", response.loading);
 	};
 
 	return (
