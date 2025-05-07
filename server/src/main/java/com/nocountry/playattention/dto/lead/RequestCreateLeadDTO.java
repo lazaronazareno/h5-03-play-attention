@@ -44,8 +44,8 @@ public class RequestCreateLeadDTO {
     @Schema(description = "Indicates if the lead subscribed to the newsletter", example = "true")
     private boolean newsletterSubscription;
 
-    @Schema(description = "Context in which the service will be used", example = "Educational Setting")
-    private String usageContext;
+    @Schema(description = "Context in which the service will be used", example = "INVESTIGATING")
+    private UsageContext usageContext;
 
     @Schema(description = "Type of lead (e.g., student, parent)", example = "INDIVIDUAL")
     private UserType leadType;

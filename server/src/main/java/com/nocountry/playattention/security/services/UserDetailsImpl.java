@@ -3,6 +3,7 @@ package com.nocountry.playattention.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.playattention.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,19 +22,23 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private String email;
-    private String fullName;
+    @Getter
+    private String name;
+    @Getter
+    private String lastName;
 
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String fullName, String password,
+    public UserDetailsImpl(Long id, String username, String email, String name, String lastName, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.fullName = fullName;
+        this.name = name;
+        this.lastName = lastName;
         this.password = password;
         this.authorities = authorities;
     }
@@ -50,7 +55,8 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getFullName(),
+                user.getName(),
+                user.getLastName(),
                 user.getPassword(),
                 authorities);
     }
@@ -68,9 +74,6 @@ public class UserDetailsImpl implements UserDetails {
         return email;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 
     @Override
     public String getPassword() {
