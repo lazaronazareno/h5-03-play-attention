@@ -2,6 +2,7 @@ import { IUser } from '@/interfaces/IAdmin.interfaces';
 import { Airplay, ArrowDown, ArrowUp, UserCheck, Users } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import Typography from '../ui/Typography';
 
 interface StatsProps {
   totalClients: number;
@@ -30,7 +31,7 @@ const DUMMYIMAGES = [
 const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) => {
   return (
     <div className='flex gap-6 items-center'>
-      <div className='flex items-center justify-center size-24 bg-violet-main/30 rounded-full'>
+      <div className='shadow-main flex items-center justify-center size-24 rounded-full bg-gradient-to-b from-[#A7DBE0] to-[#D7C0F8]'>
         {icon}
       </div>
       <div className='flex flex-col'>
@@ -78,10 +79,11 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
 
 const Stats = ({ totalClients, porcentageClients, totalUsers, porcentageUsers, activeUsers }: StatsProps) => {
   return (
-    <div className='border border-violet-main rounded-md flex flex-col justify-center items-center gap-16 min-w-[367px] min-h-[527px] font-poppins'>
-      <StatsItem icon={<Users color='white' />} title='Total Clients' value={totalClients} porcentage={porcentageClients} />
-      <StatsItem icon={<UserCheck color='white' />} title='Total Users' value={totalUsers} porcentage={porcentageUsers} />
-      <StatsItem icon={<Airplay color='white' />} title='Active Users' value={activeUsers.length > 0 ? activeUsers.length : 189} images={activeUsers.map(user => user.imageurl!)} />
+    <div className='bg-neutral-white2 border border-violet-main rounded-md flex flex-col justify-center items-center gap-16 min-w-[367px] min-h-[527px] h-min py-12 font-poppins'>
+      <Typography variant='p' color='default' size='small-title' text='Métricas' weight='semibold' className='text-start' />
+      <StatsItem icon={<Users size={36} className='text-violet-main' />} title='Total Clientes' value={totalClients} porcentage={porcentageClients} />
+      <StatsItem icon={<UserCheck size={36} className='text-violet-main' />} title='Miembros' value={totalUsers} porcentage={porcentageUsers} />
+      <StatsItem icon={<Airplay size={36} className='text-violet-main' />} title='Activos ahora' value={activeUsers.length > 0 ? activeUsers.length : 189} images={activeUsers.map(user => user.imageurl!)} />
     </div>
   );
 };

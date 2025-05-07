@@ -1,0 +1,83 @@
+'use client';
+import { LeadComplementTreatmentNames, LeadCurrentSituationNames, LeadStatusNames, LeadTypeNames } from '@/constants/LeadNaming';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import React from 'react';
+
+interface DropdownLeadProps {
+  title: string;
+  options: string[];
+  selectedOption: string;
+  onSelect: (option: string) => void;
+  background?: string;
+}
+
+const DropdownLead = ({ title, options, selectedOption, onSelect, background }: DropdownLeadProps) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const getMappedOptions = () => {
+    switch (title) {
+      case "Usuario":
+        return LeadTypeNames;
+      case "Estado":
+        return LeadStatusNames;
+      case "Tratamiento":
+        return LeadComplementTreatmentNames;
+      case "Salud":
+        return LeadCurrentSituationNames;
+      default:
+        return null;
+    }
+  };
+
+  const mappedOptions = getMappedOptions();
+
+  return (
+    <div className="relative">
+      <button
+        className={`${background ? background : 'bg-violet-secondary/20'} shadow-main rounded-md py-1 px-2 flex items-center gap-2 capitalize cursor-pointer`}
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1).toLowerCase()}
+        <ChevronDown size={20} />
+      </button>
+      {isOpen && (
+        <ul className="bg-neutral-white2 absolute top-0 flex flex-col gap-2 w-full rounded-md shadow-main border p-2 z-10">
+          <li
+            className="flex justify-between text-violet-main border-b border-violet-main/50 font-semibold cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {title}
+            <ChevronUp size={20} />
+          </li>
+          {mappedOptions
+            ? Object.entries(mappedOptions).map(([key, value]) => (
+              <li
+                key={key}
+                onClick={() => {
+                  onSelect(value);
+                  setIsOpen(false);
+                }}
+                className='hover:bg-violet-secondary/20 cursor-pointer rounded-md'
+              >
+                {value}
+              </li>
+            ))
+            : options.map((option, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  onSelect(option);
+                  setIsOpen(false);
+                }}
+              >
+                {option}
+              </li>
+            ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default DropdownLead;

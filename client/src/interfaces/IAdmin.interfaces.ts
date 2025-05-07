@@ -46,7 +46,7 @@ export interface ILeads {
   leadType: ILeadType
   notes?: string
   country?: string
-  currentSituation?: string
+  currentSituation?: ICurrentSituation
 }
 
 export interface IUser {

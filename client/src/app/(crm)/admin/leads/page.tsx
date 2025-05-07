@@ -1,10 +1,15 @@
+'use client'
+import React from "react";
+import LeadCard from "@/components/admin/LeadCard";
 import LeadsTable from "@/components/admin/LeadsTable";
 import Stats from "@/components/admin/Stats";
 import Typography from "@/components/ui/Typography";
 import { ILeads } from "@/interfaces/IAdmin.interfaces";
 import { ChevronDown, Search } from "lucide-react";
+import ContactLeadSection from "@/components/admin/ContactLeadSection";
 
 export default function LeadsPage() {
+  const [selectedLead, setSelectedLead] = React.useState<ILeads | null>(null);
   //TODO: llamado a la API para obtener todos los leads
   const Leads: ILeads[] = [
     {
@@ -25,6 +30,7 @@ export default function LeadsPage() {
       leadType: "PROFESSIONAL",
       notes: "Interesado en Neurofeedback",
       country: "Argentina",
+      currentSituation: "INVESTIGATING",
     },
     {
       id: "2",
@@ -44,6 +50,7 @@ export default function LeadsPage() {
       leadType: "PROFESSIONAL",
       notes: "Solicitó información adicional",
       country: "Chile",
+      currentSituation: "ADHD_DIAGNOSED",
     },
     {
       id: "3",
@@ -63,6 +70,7 @@ export default function LeadsPage() {
       leadType: "CORPORATE",
       notes: "Interesado en capacitación",
       country: "Perú",
+      currentSituation: "IN_TREATMENT",
     },
     {
       id: "4",
@@ -82,6 +90,7 @@ export default function LeadsPage() {
       leadType: "INDIVIDUAL",
       notes: "Cliente recurrente",
       country: "México",
+      currentSituation: "OTHER",
     },
     {
       id: "5",
@@ -101,6 +110,7 @@ export default function LeadsPage() {
       leadType: "PROFESSIONAL",
       notes: "Canceló por falta de presupuesto",
       country: "Colombia",
+      currentSituation: "PRESCRIPTION_MEDICATION",
     },
   ]
   //TODO: llamado a la API para obtener todos los clientes y obtener TOTAL CLIENTS y TOTAL USERS Y ACTIVE USERS
@@ -113,39 +123,47 @@ export default function LeadsPage() {
 
   return (
     <div className="flex">
-      <div className="flex justify-center items-center px-4">
-        <Stats
-          totalClients={totalClients}
-          porcentageClients={porcentageClients}
-          totalUsers={totalUsers}
-          porcentageUsers={porcentageUsers}
-          activeUsers={[]}
-        />
+      <div className={`flex justify-center px-4`}>
+        {selectedLead ? (
+          <LeadCard {...selectedLead} />
+        ) : (
+          <Stats
+            totalClients={totalClients}
+            porcentageClients={porcentageClients}
+            totalUsers={totalUsers}
+            porcentageUsers={porcentageUsers}
+            activeUsers={[]}
+          />
+        )}
       </div>
-      <div className="py-9 px-4 bg-violet-main/20 rounded-md w-full min-h-[89vh] max-h-full">
-        <div className="bg-neutral-white2 px-4 h-full">
-          <div className="flex py-8">
-            <Typography variant="h2" color="default" size="2xl" text={"Posibles Clientes"} weight="semibold" />
-            <div className="flex gap-4 ms-auto">
-              {/* TODO: Reemplazar por componente */}
-              <div className="flex items-center gap-2 bg-white rounded-md p-2">
-                <Search size={20} className="text-gray-500" />
-                <input
-                  type="text"
-                  placeholder="Buscar"
-                  className="outline-none bg-transparent text-gray-700 placeholder-gray-400 flex-1"
-                />
-              </div>
-              {/* TODO: Reemplazar por componente */}
-              <div className="flex items-center gap-2 bg-white rounded-md p-2">
-                <span>Ordenar por: <strong>Nuevos </strong></span>
-                <ChevronDown size={20} />
+      {selectedLead ? (
+        <ContactLeadSection lead={selectedLead} setSelectedLead={setSelectedLead} status={selectedLead.status} />
+      ) : (
+        <div className="py-9 px-4 bg-violet-main/20 rounded-md w-full min-h-[89vh] max-h-full">
+          <div className="bg-neutral-white2 px-4 h-full">
+            <div className="flex py-8">
+              <Typography variant="h2" color="default" size="2xl" text={"Posibles Clientes"} weight="semibold" />
+              <div className="flex gap-4 ms-auto">
+                {/* TODO: Reemplazar por componente */}
+                <div className="flex items-center gap-2 bg-white border border-violet-main rounded-md p-2">
+                  <Search size={20} className="text-violet-main" />
+                  <input
+                    type="text"
+                    placeholder="Buscar"
+                    className="outline-none bg-transparent text-gray-700 placeholder-violet-main flex-1"
+                  />
+                </div>
+                {/* TODO: Reemplazar por componente */}
+                <div className="flex items-center gap-2 bg-violet-secondary text-white rounded-md p-2">
+                  <span>Ordenar por: <strong>Nuevos </strong></span>
+                  <ChevronDown size={20} />
+                </div>
               </div>
             </div>
+            <LeadsTable leads={Leads} totalPages={2} setSelectedLead={setSelectedLead} />
           </div>
-          <LeadsTable leads={Leads} totalPages={2} />
         </div>
-      </div>
+      )}
 
     </div>
   );

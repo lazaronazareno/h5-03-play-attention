@@ -1,4 +1,5 @@
 "use client"
+import { LeadStatusNames } from '@/constants/LeadNaming';
 import { ILeads, ILeadStatus } from '@/interfaces/IAdmin.interfaces';
 import { ChevronLeft, ChevronRight, Pen } from 'lucide-react';
 import React from 'react';
@@ -6,6 +7,7 @@ import React from 'react';
 interface LeadsTableProps {
   leads: ILeads[]
   totalPages: number
+  setSelectedLead: (lead: ILeads) => void
 }
 
 const TABLE_HEAD = [
@@ -32,32 +34,24 @@ const TableCell = ({ children, className }: { children: React.ReactNode, classNa
 
 const TableStatus = ({ status }: { status: ILeadStatus }) => {
   const statusClasses = {
-    NEW: 'bg-yellow-500',
-    CONTACTED: 'bg-purple-500',
-    AFTER_SALES: 'bg-violet-main',
-    CLIENT: 'bg-gray-500',
-    CANCELED: 'bg-black',
-  }
-
-  const statusText = {
-    NEW: 'Nuevo',
-    CONTACTED: 'Negociación',
-    AFTER_SALES: 'Post Venta',
-    CLIENT: 'Cliente',
-    CANCELED: 'Anulado',
+    NEW: 'bg-pink-lead',
+    CONTACTED: 'bg-yellow-lead',
+    AFTER_SALES: 'bg-purple-lead',
+    CLIENT: 'bg-blue-lead',
+    CANCELED: 'bg-gray-lead',
   }
 
   return (
-    <span className={`font-semibold text-white uppercase flex justify-center rounded-md w-full ${statusClasses[status]}`}>{statusText[status]}</span>
+    <span className={`font-semibold capitalize flex justify-center rounded-md w-full ${statusClasses[status]}`}>{LeadStatusNames[status]}</span>
   );
 }
 
-const LeadsTable = ({ leads, totalPages }: LeadsTableProps) => {
+const LeadsTable = ({ leads, totalPages, setSelectedLead }: LeadsTableProps) => {
   const [page, setPage] = React.useState(1);
   return (
     <div>
 
-      <div className='overflow-hidden border border-violet-main rounded-md w-full py-1'>
+      <div className='overflow-hidden border bg-white border-violet-main rounded-md w-full py-1'>
         <table className="table-auto border-collapse font-poppins w-full">
           <thead>
             <tr className='border-b border-gray-200/30'>
@@ -78,10 +72,9 @@ const LeadsTable = ({ leads, totalPages }: LeadsTableProps) => {
                   <TableStatus status={lead.status} />
                 </TableCell>
                 <TableCell>
-                  <div className='flex justify-center'>
+                  <div className='flex justify-center cursor-pointer' onClick={() => setSelectedLead(lead)}>
                     <Pen size={20} />
                   </div>
-
                 </TableCell>
               </tr>
             ))}
