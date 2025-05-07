@@ -2,7 +2,7 @@ package com.nocountry.playattention.model;
 
 public enum ComplementTreatment {
     NEUROFEEDBACK,
-    THERAPY,
+    INVESTIGATION,
     BRAINAPP,
     OTHER;
 
