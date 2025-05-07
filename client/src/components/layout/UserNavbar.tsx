@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bell, CircleHelp, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Button from "../ui/Button";
 import UserAvatar from "../../../public/user/avatar.png";
 import Link from "next/link";
+import { userDefault } from "../../constants/dataDefault";
+import { User } from "../../types/user/userTypes";
 
 export default function UserNavbar() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -16,13 +18,23 @@ export default function UserNavbar() {
 	const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
 	const closeSidebar = () => setSidebarOpen(false);
-
+	// --------------- BORRAR LUEGO -------------------
+	const [user, setUser] = useState<User>(userDefault);
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const storedUser: User = JSON.parse(localStorage.getItem("user") || "null") || userDefault;
+			setUser(storedUser);
+		}
+	}, []);
+	// --------------------------------------------------
 	return (
 		<>
 			<header className="fixed top-0 left-0 right-0 z-50 bg-neutral-white2 shadow-xl flex items-center justify-between p-4 text-sm">
 				<div className="flex items-center gap-2">
 					<Image src={UserAvatar} alt="Avatar" width={24} height={24} className="rounded-full w-auto" />
-					<p>Jayne Doe</p>
+					<p>
+						{user.name} {user.lastName}
+					</p>
 				</div>
 				<div className="flex items-center gap-3">
 					<Link href="/">

@@ -12,7 +12,7 @@ import { constFetch } from "../../../services/custom-fetch/constFetch";
 import { responseApi } from "../../../types/response-api/resaponseApi";
 import { ResponseSignIn } from "../../../types/auth/authTypes";
 import { User } from "../../../types/user/userTypes";
-import { defaultUser } from "../../../constants/dataDefault";
+import { userDefault } from "../../../constants/dataDefault";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -20,7 +20,7 @@ interface LoginFormProps {
 	hasFooter: boolean;
 }
 // ----------------- BORRAR LUEGO -------------------
-const userExists: User | "" = JSON.parse(localStorage.getItem("user") || "") || defaultUser;
+const userExists: User | "" = JSON.parse(localStorage.getItem("user") || "") || userDefault;
 const tokenExists = localStorage.getItem("token") !== null;
 // --------------------------------------------------
 
@@ -41,7 +41,7 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 	// --------------------- BORRAR LUEGO -------------------
 	if (userExists && tokenExists) {
 		// Cambiar ruta de front a su respectivo dashboard
-		if (userExists.roles.includes("ROLE_ADMIN")) window.location.href = "/dashboard";
+		if (userExists.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
 		return (
 			<>
 				<div className="w-full h-full flex items-center justify-center text-[22px] font-roboto font-bold text-green-500">
