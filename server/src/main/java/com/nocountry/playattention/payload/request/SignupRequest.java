@@ -1,6 +1,8 @@
+
 package com.nocountry.playattention.payload.request;
 
-
+import com.nocountry.playattention.model.ERole;
+import com.nocountry.playattention.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
  // Clase que representa la solicitud de registro de usuario
 
@@ -18,113 +22,50 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Detalles de la solicitud de registro de usuario")
 public class SignupRequest {
+
+    @Schema(description = "Nombre de usuario único para inicio de sesión", example = "john.doe123")
     @NotBlank
     @Size(min = 3, max = 50)
     private String username;
 
+    @Schema(description = "Nombre de pila del usuario", example = "John")
     @NotBlank
-    @Size(max = 100)
-    private String fullName;
+    @Size(max = 50)
+    private String name;
 
+    @Schema(description = "Apellido del usuario", example = "Doe")
+    @NotBlank
+    @Size(max = 50)
+    private String lastName;
+
+    @Schema(description = "Dirección de correo electrónico única", example = "john.doe@example.com")
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
+    @Schema(description = "Contraseña (mínimo 6 caracteres)", example = "password123")
     @NotBlank
     @Size(min = 6, max = 120)
     private String password;
 
+    @Schema(description = "Nombre de la institución a la que pertenece el usuario (Opcional)", example = "Universidad X")
     private String institution;
 
+    @Schema(description = "Número de teléfono de contacto (Opcional)", example = "+1234567890")
     private String phoneNumber;
 
+    @Schema(description = "Profesión del usuario (Opcional, relevante para profesionales)", example = "Psicólogo")
     private String profession;
 
+    @Schema(description = "Indica si el usuario desea suscribirse al boletín", example = "true")
     private boolean newsletterSubscription;
 
-    private String userType;
+    @Schema(description = "Tipo de usuario (Particular, Profesional, Corporativo)", example = "PROFESSIONAL")
+    private UserType userType;
 
-    private Set<String> roles;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(String institution) {
-        this.institution = institution;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public boolean isNewsletterSubscription() {
-        return newsletterSubscription;
-    }
-
-    public void setNewsletterSubscription(boolean newsletterSubscription) {
-        this.newsletterSubscription = newsletterSubscription;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
+    @Schema(description = "Conjunto de roles asignados al usuario (e.g., [\"ROLE_USER\"], [\"ROLE_PROFESSIONAL\"]).", example = "[\"ROLE_USER\"]")
+    private Set<ERole> roles;
 }

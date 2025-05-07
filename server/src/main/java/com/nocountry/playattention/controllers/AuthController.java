@@ -32,29 +32,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
- // Controlador para manejar la autenticación y registro de usuarios
+// Controlador para manejar la autenticación y registro de usuarios
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthController.class);
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     PasswordEncoder encoder;
-
     @Autowired
     JwtUtils jwtUtils;
-
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthController.class);
-     // Endpoint para iniciar sesión
+    // Endpoint para iniciar sesión
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -70,15 +65,16 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
                 userDetails.getUsername(),
+                userDetails.getId(),
                 userDetails.getEmail(),
-                userDetails.getFullName(),
+                userDetails.getName(),
+                userDetails.getLastName(),
                 roles));
     }
 
 
-     // Endpoint para registrar un nuevo usuario
+    // Endpoint para registrar un nuevo usuario
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -86,32 +82,34 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: El nombre de usuario ya está en uso",""));
+                    .body(new MessageResponse("Error: El nombre de usuario ya está en uso", ""));
         }
 
         // Validar si el email ya existe
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: El email ya está en uso",""));
+                    .body(new MessageResponse("Error: El email ya está en uso", ""));
         }
 
         // Crear nueva cuenta de usuario
         User user = new User(
                 signUpRequest.getUsername(),
-                signUpRequest.getFullName(),
+                signUpRequest.getName(),
+                signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword())
+        );
 
         // Establecer tipo de usuario
         try {
-            UserType userType = UserType.valueOf(signUpRequest.getUserType().toUpperCase());
+            UserType userType = signUpRequest.getUserType();
             user.setUserType(userType);
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: "+
-                            String.join(", ", UserType.values().toString()),""));
+                    .body(new MessageResponse("Error: Tipo de usuario inválido. Los tipos válidos son: " +
+                            String.join(", ", UserType.values().toString()), ""));
         }
 
         // Establecer información adicional
@@ -120,50 +118,28 @@ public class AuthController {
         user.setProfession(signUpRequest.getProfession());
         user.setNewsletterSubscription(signUpRequest.isNewsletterSubscription());
 
-        Set<String> strRoles = signUpRequest.getRoles();
+        Set<ERole> eRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null || strRoles.isEmpty()) {
+        if (eRoles == null || eRoles.isEmpty()) {
             // Si no se especifican roles, asignar ROLE_USER por defecto
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
             roles.add(userRole);
         } else {
             // Asignar roles según lo solicitado
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(adminRole);
-                        break;
-                    case "superadmin":
-                        Role superAdminRole = roleRepository.findByName(ERole.ROLE_SUPER_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(superAdminRole);
-                        break;
-                    case "professional":
-                        Role professionalRole = roleRepository.findByName(ERole.ROLE_PROFESSIONAL)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(professionalRole);
-                        break;
-                    case "corporate":
-                        Role corporateRole = roleRepository.findByName(ERole.ROLE_CORPORATE)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(corporateRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
-                        roles.add(userRole);
-                }
-            });
+            eRoles.forEach(eRole -> {
+                        Role role = roleRepository.findByName(eRole)
+                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado." + eRole.name()));
+                        roles.add(role);
+                    }
+            );
         }
 
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente",""));
+        return ResponseEntity.ok(new MessageResponse("Usuario registrado exitosamente", ""));
     }
 
     // Endpoint para cerrar sesión
@@ -172,20 +148,20 @@ public class AuthController {
     public ResponseEntity<?> logoutUser(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado",""));
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización no proporcionado", ""));
         }
         String token = jwtUtils.extractTokenFromBearer(headerAuth);
         if (token == null) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido",""));
+            return ResponseEntity.badRequest().body(new MessageResponse("Token de autorización inválido", ""));
         }
 
         try {
             jwtUtils.invalidateToken(token);
-            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!",""));
+            return ResponseEntity.ok(new MessageResponse("¡Sesión cerrada exitosamente!", ""));
         } catch (Exception e) {
             logger.error("Error al cerrar sesión: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse("Error al cerrar sesión",""));
+                    .body(new MessageResponse("Error al cerrar sesión", ""));
         }
     }
 }

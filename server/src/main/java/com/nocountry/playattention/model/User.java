@@ -30,8 +30,12 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(max = 100)
-    private String fullName;
+    @Size(max = 50)
+    private String name;
+
+    @NotBlank
+    @Size(max = 50)
+    private String lastName;
 
     @NotBlank
     @Size(max = 50)
@@ -59,9 +63,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    public User(String username, String fullName, String email, String password) {
+    public User(String username, String name,String lastName, String email, String password) {
         this.username = username;
-        this.fullName = fullName;
+        this.name= name;
+        this.lastName=lastName;
         this.email = email;
         this.password = password;
     }

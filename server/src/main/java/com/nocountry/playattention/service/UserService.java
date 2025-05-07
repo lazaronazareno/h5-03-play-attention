@@ -48,7 +48,8 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado."));
 
         // Actualizar solo los campos permitidos para actualización de perfil
-        user.setFullName(userDetails.getFullName());
+        user.setName(userDetails.getName());
+        user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
         user.setInstitution(userDetails.getInstitution());
         user.setPhoneNumber(userDetails.getPhoneNumber());
@@ -72,7 +73,8 @@ public class UserService {
 
         // Actualizar todos los campos permitidos para administradores
         user.setUsername(userDetails.getUsername());
-        user.setFullName(userDetails.getFullName());
+        user.setName(userDetails.getName());
+        user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
         user.setInstitution(userDetails.getInstitution());
         user.setPhoneNumber(userDetails.getPhoneNumber());

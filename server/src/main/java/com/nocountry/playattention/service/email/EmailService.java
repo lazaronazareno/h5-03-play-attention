@@ -61,7 +61,7 @@ public class EmailService implements IEmailService {
 
         Map<String, Object> variables = new HashMap<>();
 
-        variables.put("name", user.getFullName());
+        variables.put("name", user.getName());
         variables.put("tokenUrl", FRONTEND_URL + "recover-password/" + token);
 
         sendTemplateEmail(
