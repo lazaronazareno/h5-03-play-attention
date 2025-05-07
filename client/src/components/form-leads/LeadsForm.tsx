@@ -2,7 +2,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import Input from "./InputForm/InputForm";
-import CheckboxGroup from "./CheckboxGroup/CheckboxGroup";
+import RadioGroup from "./CheckboxGroup/RadioGroup";
 import Button from "../ui/Button";
 
 type LeadFormData = {
@@ -10,12 +10,18 @@ type LeadFormData = {
 	lastName: string;
 	email: string;
 	phoneNumber?: string;
-	// country: "Argentina" | "Brasil" | "Chile" | "Uruguay" | "Otro";
+	country: "Argentina" | "Brasil" | "Chile" | "Uruguay" | "Otro";
 	leadType: "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE";
 	institution?: string;
 	targetUsers: "Children" | "Adult" | "Patient" | "Professional";
-	usageContext: "Investigation" | "Medication" | "Treatment" | "NoTreatment" | "Other";
-	complementTreatment: "NEUROFEEDBACK" | "no" | "brainApp" | "Investigation";
+	usageContext:
+		| "INVESTIGATING"
+		| "ADHD_DIAGNOSED"
+		| "PRESCRIPTION_MEDICATION"
+		| "NO_TREATMENT"
+		| "IN_TREATMENT"
+		| "OTHER";
+	complementTreatment: "NEUROFEEDBACK" | "INVESTIGATION" | "BRAINAPP" | "OTHER";
 	notes: string;
 	newsletterSubscription: boolean;
 };
@@ -37,12 +43,12 @@ const defaultOptions = {
 		{ label: "Tu paciente", value: "Patient" },
 	],
 	usageContext: [
-		{ label: "Solo estoy investigando", value: "Investigation" },
-		{ label: "TDAH diagnosticado", value: "Tdah" },
-		{ label: "Medicación recetada", value: "Medication" },
-		{ label: "Sin Tratamiento", value: "NoTreatment" },
-		{ label: "En Tratamiento", value: "Treatment" },
-		{ label: "Otro", value: "Other" },
+		{ label: "Solo estoy investigando", value: "INVESTIGATING" },
+		{ label: "TDAH diagnosticado", value: "ADHD_DIAGNOSED" },
+		{ label: "Medicación recetada", value: "PRESCRIPTION_MEDICATION" },
+		{ label: "Sin Tratamiento", value: "NO_TREATMENT" },
+		{ label: "En Tratamiento", value: "IN_TREATMENT" },
+		{ label: "Otro", value: "OTHER" },
 	],
 	complementTreatment: [
 		{ label: "Neurofeedback", value: "neurofeedback" },
@@ -66,10 +72,6 @@ export function LeadForm() {
 	} = useForm<LeadFormData>();
 
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
-		data.leadType = "INDIVIDUAL"; // Set leadType to "INDIVIDUAL" by default
-		data.complementTreatment = "NEUROFEEDBACK";
-		data.targetUsers = "Children"; // Set targetUsers to "Children" by default
-		data.usageContext = "Investigation"; // Set usageContext to "Investigation" by default
 		console.log("Form data:", data);
 		// Set phoneNumber to undefined if not provided
 		setIsLoading(true);
@@ -84,29 +86,28 @@ export function LeadForm() {
 					lastName: data.lastName,
 					email: data.email,
 					phoneNumber: data.phoneNumber,
-					// country: data.country,
+					country: data.country,
 					institution: data.institution,
 					targetUsers: data.targetUsers,
 					usageContext: data.usageContext,
-					complementTreatment: data.complementTreatment,
+					// complementTreatment: data.complementTreatment,
 					notes: data.notes,
 					newsletterSubscription: data.newsletterSubscription,
-					leadType: "INDIVIDUAL",
+					leadType: data.leadType,
 				}),
 			});
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
 			const result = await response.json();
-			alert(`Formulario enviado con éxito: ${result.message}`);
-			/* 			if (result.ok) {
-						} else {
-							alert(`Error al enviar formulario: ${result.message}`);
-						} 
-			*/
+
+			/* if (!result.success) {
+				throw new Error("Network response was not ok" + JSON.stringify(result));
+			} */
+			alert(`Formulario enviado con éxito: ${result}`);
+			console.log("Response:", result);
 		} catch (error) {
-			console.error("Error:", error);
-			alert("Hubo un problema al enviar el formulario. Intenta nuevamente.");
+			if (error instanceof Error) {
+				console.error("Error:", error.message);
+				alert("Hubo un problema al enviar el formulario. Intenta nuevamente.");
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -127,23 +128,24 @@ export function LeadForm() {
 						name === "name"
 							? "Nombre"
 							: name === "lastName"
-								? "Apellido"
-								: name === "email"
-									? "Correo electrónico"
-									: name === "phoneNumber"
-										? "Teléfono"
-										: name
+							? "Apellido"
+							: name === "email"
+							? "Correo electrónico"
+							: name === "phoneNumber"
+							? "Teléfono"
+							: name
 					}
-					placeholder={`Escriba aquí su ${name === "name"
-						? "nombre"
-						: name === "lastName"
+					placeholder={`Escriba aquí su ${
+						name === "name"
+							? "nombre"
+							: name === "lastName"
 							? "apellido"
 							: name === "email"
-								? "correo electrónico"
-								: name === "phoneNumber"
-									? "teléfono"
-									: name
-						}`}
+							? "correo electrónico"
+							: name === "phoneNumber"
+							? "teléfono"
+							: name
+					}`}
 					name={name}
 					register={register}
 					required={name !== "institution" && name !== "phoneNumber"}
@@ -153,18 +155,18 @@ export function LeadForm() {
 
 			{(["country", "targetUsers", "usageContext", "complementTreatment", "leadType"] as (keyof LeadFormData)[]).map(
 				(name) => (
-					<CheckboxGroup
+					<RadioGroup
 						key={name}
 						title={
-							// name === "country"
-							// ? "¿Dónde te encuentras?"
-							name === "targetUsers"
+							name === "country"
+								? "¿Dónde te encuentras?"
+								: name === "targetUsers"
 								? "¿Para quién estás buscando información de Play Attention?"
 								: name === "usageContext"
-									? "¿En qué situación se encuentra?"
-									: name === "complementTreatment"
-										? "¿Has probado algún otro programa?"
-										: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
+								? "¿En qué situación se encuentra?"
+								: name === "complementTreatment"
+								? "¿Has probado algún otro programa?"
+								: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
 						}
 						name={name}
 						register={register}
