@@ -1,10 +1,11 @@
 'use client'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import clsx from 'clsx'
 
+
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	icon?: boolean
+	icon?: React.ReactNode
 	inputSize?: 'sm' | 'md' | 'lg'
 }
 
@@ -41,6 +42,14 @@ export function Input({
 					className='absolute top-1/2 right-3 transform -translate-y-1/2 p-1 rounded text-violet-main focus:outline-none'
 				>
 					{showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+				</button>
+			)}
+			{icon && (
+				<button
+					type='button'
+					className='absolute top-1/2 right-3 transform -translate-y-1/2 p-1 rounded text-violet-main focus:outline-none'
+				>
+					{icon}
 				</button>
 			)}
 		</div>
