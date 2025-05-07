@@ -13,6 +13,7 @@ interface DropdownLeadProps {
 
 const DropdownLead = ({ title, options, selectedOption, onSelect, background }: DropdownLeadProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(selectedOption);
 
   const getMappedOptions = () => {
     switch (title) {
@@ -38,11 +39,11 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
         type="button"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1).toLowerCase()}
+        {selected.charAt(0).toUpperCase() + selected.slice(1).toLowerCase()}
         <ChevronDown size={20} />
       </button>
       {isOpen && (
-        <ul className="bg-neutral-white2 absolute top-0 flex flex-col gap-2 w-full rounded-md shadow-main border p-2 z-10">
+        <ul className="bg-neutral-white2 absolute top-0 flex flex-col gap-2 min-w-32 rounded-md shadow-main border p-2 z-10">
           <li
             className="flex justify-between text-violet-main border-b border-violet-main/50 font-semibold cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
@@ -56,6 +57,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
                 key={key}
                 onClick={() => {
                   onSelect(value);
+                  setSelected(value);
                   setIsOpen(false);
                 }}
                 className='hover:bg-violet-secondary/20 cursor-pointer rounded-md'
@@ -68,6 +70,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
                 key={index}
                 onClick={() => {
                   onSelect(option);
+                  setSelected(option);
                   setIsOpen(false);
                 }}
               >

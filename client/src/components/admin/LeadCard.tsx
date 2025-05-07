@@ -9,10 +9,10 @@ import Button from '../ui/Button';
 import Image from 'next/image';
 import EditLead from './EditLead';
 
-const LeadCard = ({ name, lastName, country, phoneNumber, email, leadType, status, currentSituation, complementTreatment, }: ILeads) => {
+const LeadCard = ({ name, lastName, country, phoneNumber, email, leadType, status, complementTreatment, currentSituation }: ILeads) => {
   const [openEditForm, setOpenEditForm] = React.useState(false);
   return (
-    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9">
+    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9 w-[400px]">
 
       <div className='flex items-center gap-3'>
         <Image src="/landing/testimonies/1.png" alt="Lead" width={141} height={141} className="rounded-full bg-green-300" />
@@ -46,11 +46,14 @@ const LeadCard = ({ name, lastName, country, phoneNumber, email, leadType, statu
 
       <div className='border-b border-violet-main' />
 
-      <div className='flex items-center gap-2'>
-        <Heart size={20} />
-        <Typography variant='p' color='default' size='sm' text="Salud" weight='medium' />
-        <DropdownLead title="Usuario" options={Object.values(LeadCurrentSituationNames)} selectedOption={LeadCurrentSituationNames[currentSituation!]} onSelect={(option) => console.log(option)} />
-      </div>
+      {currentSituation && (
+        <div className='flex items-center gap-2'>
+          <Heart size={20} />
+          <Typography variant='p' color='default' size='sm' text="Salud" weight='medium' />
+          <DropdownLead title="Usuario" options={Object.values(LeadCurrentSituationNames)} selectedOption={LeadCurrentSituationNames[currentSituation]} onSelect={(option) => console.log(option)} />
+        </div>
+      )}
+
       <div className='flex items-center gap-2'>
         <SquarePen size={20} />
         <Typography variant='p' color='default' size='sm' text="Tratamiento" weight='medium' />

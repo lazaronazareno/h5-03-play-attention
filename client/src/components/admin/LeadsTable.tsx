@@ -6,7 +6,6 @@ import React from 'react';
 
 interface LeadsTableProps {
   leads: ILeads[]
-  totalPages: number
   setSelectedLead: (lead: ILeads) => void
 }
 
@@ -46,22 +45,34 @@ const TableStatus = ({ status }: { status: ILeadStatus }) => {
   );
 }
 
-const LeadsTable = ({ leads, totalPages, setSelectedLead }: LeadsTableProps) => {
-  const [page, setPage] = React.useState(1);
-  return (
-    <div>
+const LeadsTable = ({ leads, setSelectedLead }: LeadsTableProps) => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const leadsPerPage = 8;
 
-      <div className='overflow-hidden border bg-white border-violet-main rounded-md w-full py-1'>
+  const totalPages = React.useMemo(() => {
+    return Math.ceil(leads.length / leadsPerPage) || 1;
+  }, [leads]);
+  console.log('totalPages', totalPages);
+  console.log('leads length', leads.length);
+  const currentLeads = React.useMemo(() => {
+    const start = (currentPage - 1) * leadsPerPage;
+    const end = start + leadsPerPage;
+    return leads.slice(start, end);
+  }, [leads, currentPage]);
+
+  return (
+    <div className='flex flex-col h-full'>
+      <div className="overflow-hidden border bg-white border-violet-main rounded-md w-full py-1">
         <table className="table-auto border-collapse font-poppins w-full">
           <thead>
-            <tr className='border-b border-gray-200/30'>
+            <tr className="border-b border-gray-200/30">
               {TABLE_HEAD.map((title) => (
                 <TableHead key={title} title={title} />
               ))}
             </tr>
           </thead>
           <tbody>
-            {leads.map((lead) => (
+            {currentLeads.map((lead) => (
               <tr key={lead.id}>
                 <TableCell>{lead.name}</TableCell>
                 <TableCell>{lead.leadType}</TableCell>
@@ -72,7 +83,10 @@ const LeadsTable = ({ leads, totalPages, setSelectedLead }: LeadsTableProps) => 
                   <TableStatus status={lead.status} />
                 </TableCell>
                 <TableCell>
-                  <div className='flex justify-center cursor-pointer' onClick={() => setSelectedLead(lead)}>
+                  <div
+                    className="flex justify-center cursor-pointer"
+                    onClick={() => setSelectedLead(lead)}
+                  >
                     <Pen size={20} />
                   </div>
                 </TableCell>
@@ -81,30 +95,55 @@ const LeadsTable = ({ leads, totalPages, setSelectedLead }: LeadsTableProps) => 
           </tbody>
         </table>
       </div>
-      <div className='flex py-4 pt-6 mt-auto'>
-        <span className='text-gray-400 font-poppins'>Mostrando {page} de {totalPages} páginas</span>
+
+      {/* Paginación */}
+      <div className="flex py-4 pt-6 mt-auto items-center">
+        <span className="text-gray-400 font-poppins">
+          Mostrando página {currentPage} de {totalPages}
+        </span>
         <div className="ml-auto flex items-center gap-2">
-          {totalPages > 1 && (
+          {totalPages >= 1 && (
             <>
-              {page > 1 && <button type='button' onClick={() => setPage(page - 1)}><ChevronLeft size={20} className='text-violet-main' /></button>}
+              <button
+                type="button"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 rounded-md ${currentPage === 1 ? 'cursor-not-allowed' : 'hover:bg-gray-200'
+                  }`}
+              >
+                <ChevronLeft size={20} className="text-violet-main" />
+              </button>
+
+              {/* Botones de página */}
               {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}
-                  className={`px-3 py-1 ${page === index + 1 ? 'bg-violet-main text-white' : 'hover:bg-gray-300'} rounded-md`}
-                  onClick={() => setPage(index + 1)}
+                  className={`px-3 py-1 rounded-md ${currentPage === index + 1
+                    ? 'bg-violet-main text-white'
+                    : 'hover:bg-gray-200'
+                    }`}
+                  onClick={() => setCurrentPage(index + 1)}
                 >
                   {index + 1}
                 </button>
               ))}
-              {page < totalPages && (
-                <button type='button' onClick={() => setPage(page + 1)}><ChevronRight size={20} className='text-violet-main' /></button>
-              )}
+
+              <button
+                type="button"
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 rounded-md ${currentPage === totalPages ? 'cursor-not-allowed' : 'hover:bg-gray-200'
+                  }`}
+              >
+                <ChevronRight size={20} className="text-violet-main" />
+              </button>
             </>
           )}
         </div>
       </div>
     </div>
-
   );
 };
 
