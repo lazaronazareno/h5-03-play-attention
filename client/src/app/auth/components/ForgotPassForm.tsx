@@ -7,11 +7,22 @@ export default function ForgotPassForm({ onNext }: { onNext: (email: string) => 
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		await fetch('/api/auth/send-code', {
-			method: 'POST',
-			body: JSON.stringify({ email })
-		})
-		onNext(email)
+		try {
+			await fetch("/mail/recover-password", {
+				method: "POST",
+				body: JSON.stringify({ email }),
+			});
+			console.log('Email enviado a:', email)
+			onNext(email);
+		} catch (err) {
+			if (err instanceof Error) {
+				console.error('Error de inicio de sesión:', err.message)
+			} else {
+				console.error('Error desconocido: ', err)
+			}
+		}
+		
+		
 	}
 
 	return (
