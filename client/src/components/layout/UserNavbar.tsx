@@ -9,6 +9,7 @@ import UserAvatar from "../../../public/user/avatar.png";
 import Link from "next/link";
 import { userDefault } from "../../constants/dataDefault";
 import { User } from "../../types/user/userTypes";
+import Cookies from "js-cookie";
 
 export default function UserNavbar() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function UserNavbar() {
 	const [user, setUser] = useState<User>(userDefault);
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			const storedUser: User = JSON.parse(localStorage.getItem("user") || "null") || userDefault;
+			const storedUser: User = JSON.parse(Cookies.get("user") || "{}") || userDefault;
 			setUser(storedUser);
 		}
 	}, []);

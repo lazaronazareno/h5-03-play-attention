@@ -13,18 +13,21 @@ import { responseApi } from "../../../types/response-api/resaponseApi";
 import { ResponseSignIn } from "../../../types/auth/authTypes";
 import { User } from "../../../types/user/userTypes";
 import { userDefault } from "../../../constants/dataDefault";
+import Cookies from "js-cookie";
+
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 interface LoginFormProps {
 	hasFooter: boolean;
 }
-// ----------------- BORRAR LUEGO -------------------
-const userExists: User | "" = JSON.parse(localStorage.getItem("user") || "") || userDefault;
-const tokenExists = localStorage.getItem("token") !== null;
-// --------------------------------------------------
+
 
 export function LoginForm({ hasFooter }: LoginFormProps) {
+	// ----------------- BORRAR LUEGO -------------------
+	const userCookies: User = JSON.parse(Cookies.get("user") || "{}") || userDefault;
+	const tokenCookies = Cookies.get("token");
+	// --------------------------------------------------
 	const {
 		control,
 		handleSubmit,
@@ -39,9 +42,9 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 	const router = useRouter();
 
 	// --------------------- BORRAR LUEGO -------------------
-	if (userExists && tokenExists) {
+	if (userCookies && tokenCookies) {
 		// Cambiar ruta de front a su respectivo dashboard
-		if (userExists.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
+		if (userCookies.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
 		return (
 			<>
 				<div className="w-full h-full flex items-center justify-center text-[22px] font-roboto font-bold text-green-500">
@@ -60,9 +63,13 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 				requestType: "POST",
 				body: data,
 			});
-			localStorage.setItem("token", response.data?.data?.token || "");
 			/* ------------ BORRAR LUEGO ------------------- */
-			localStorage.setItem("user", JSON.stringify(response.data?.data?.user || ""));
+			const token = response.data?.data?.token || "";
+			const user = response.data?.data?.user || {};
+
+			// Guardar token y user en cookies
+			Cookies.set("token", token, { expires: 7 }); // 7 días
+			Cookies.set("user", JSON.stringify(user), { expires: 7 });
 			/* --------------------------------------------- */
 			// cambiar ruta de front a su respectivo dashboard
 			if (response.data?.data?.user.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
