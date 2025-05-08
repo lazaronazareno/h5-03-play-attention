@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 
 public record SendMailUserDTO(
         @Email
-        String email,
+        String to,
         String subject,
         String message
 ) {

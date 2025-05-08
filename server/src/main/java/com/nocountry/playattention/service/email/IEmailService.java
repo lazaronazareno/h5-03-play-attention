@@ -1,8 +1,10 @@
 package com.nocountry.playattention.service.email;
 
+import com.nocountry.playattention.dto.mail.MailResponseDTO;
 import com.nocountry.playattention.dto.mail.SendMailUserDTO;
 import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IEmailService {
@@ -13,5 +15,9 @@ public interface IEmailService {
 
     void recoverPassword(RecoverPasswordRequestDTO recoverPasswordRequest);
 
-    void sendMailUser(SendMailUserDTO sendMailUserDTO);
+    MailResponseDTO sendMailUser(SendMailUserDTO sendMailUserDTO);
+
+    List<MailResponseDTO> getMailsLeads(Long idLead);
+
+    List<MailResponseDTO> getMailsLeads(String idLead);
 }

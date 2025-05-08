@@ -7,6 +7,9 @@ import com.nocountry.playattention.model.User;
 import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 
- // Servicio para la gestión de usuarios
+// Servicio para la gestión de usuarios
 
 @Service
 public class UserService {
@@ -27,21 +30,21 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-     // Encuentra un usuario por su ID con roles
+    // Encuentra un usuario por su ID con roles
 
     public Optional<User> findById(Long id) {
         return userRepository.findByIdWithRoles(id);
     }
 
 
-     // Obtiene todos los usuarios
+    // Obtiene todos los usuarios
 
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
 
-     // Actualiza el perfil de un usuario
+    // Actualiza el perfil de un usuario
 
     public User updateProfile(Long id, User userDetails) {
         User user = userRepository.findById(id)
@@ -65,7 +68,7 @@ public class UserService {
     }
 
 
-     //Actualiza un usuario (para administradores)
+    //Actualiza un usuario (para administradores)
 
     public User updateUser(Long id, User userDetails) {
         User user = userRepository.findById(id)
@@ -92,7 +95,7 @@ public class UserService {
     }
 
 
-     // Elimina un usuario
+    // Elimina un usuario
 
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
@@ -107,16 +110,34 @@ public class UserService {
     }
 
     public void resetPassword(ResetPasswordRequestDTO resetPassword, UserDetailsImpl userDetails) {
-        if(Objects.equals(resetPassword.password(), resetPassword.repeatPassword())){
-            User user=fintUserByEmail(userDetails.getEmail());
+        if (Objects.equals(resetPassword.password(), resetPassword.repeatPassword())) {
+            User user = fintUserByEmail(userDetails.getEmail());
             user.setPassword(passwordEncoder.encode(resetPassword.password()));
         } else {
-            throw new RuntimeException( "Error: Las contraseñas no coinciden");
+            throw new RuntimeException("Error: Las contraseñas no coinciden");
         }
 
     }
 
-    public User findUserById(Long id){
+    public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Error: Usuario no encontrado con id" + id));
+    }
+
+    public UserDetailsImpl getCurrentUser() {
+        // ... rest of code here ...
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("Error: No se encontro el usuario actual");
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof UserDetailsImpl userDetails) {
+            return userDetails;
+        } else {
+            throw new RuntimeException("Error: No se pudo castear el usuario");
+        }
+
     }
 }
