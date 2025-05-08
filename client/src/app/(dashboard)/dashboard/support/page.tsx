@@ -1,3 +1,4 @@
+'use client'
 import ItemDefault from "@/components/dashboard/ItemDefault";
 import { LeadForm } from "@/components/form-leads/LeadsForm";
 import Typography from "@/components/ui/Typography";
