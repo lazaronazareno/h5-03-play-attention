@@ -54,6 +54,9 @@ public class User {
 
     private boolean newsletterSubscription;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Mail> mails;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
