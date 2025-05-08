@@ -7,7 +7,8 @@ import { LeadFormData } from "../../types/lead/leadTypes";
 import { constFetch } from "../../services/custom-fetch/constFetch";
 import { responseApi } from "../../types/response-api/resaponseApi";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Check, Loader2, X } from "lucide-react";
+import Image from "next/image";
 
 const defaultOptions = {
 	country: [
@@ -52,6 +53,7 @@ interface LeadFormProps {
 export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [responseMessage, setResponseMessage] = useState<string | null>(null);
+	const [success, setSuccess] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -70,14 +72,14 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 				requestType: "POST",
 				body: data,
 			});
-			setResponseMessage("Formulario Enviado! Gracias por tu interés en Play Attention. Nos pondremos en contacto contigo pronto.");
+			setSuccess(true);
+			setResponseMessage("El formulario fue enviado con éxito, a la brevedad nos comunicaremos con usted. Muchas gracias");
 		} catch (error) {
 			console.error("Error submitting form:", error);
 			setResponseMessage("Hubo un error al enviar el formulario. Por favor, inténtelo de nuevo más tarde.");
 		} finally {
 			setIsLoading(false);
 		}
-		setResponseMessage("Formulario Enviado! Gracias por tu interés en Play Attention. Nos pondremos en contacto contigo pronto.");
 	};
 
 	return (
@@ -166,16 +168,24 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 				<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="flex justify-center items-center" disabled={true} />
 			)
 			}
-			{responseMessage && (
+			{success && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-					<div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-						<p className="text-center text-green-500 font-poppins text-[16px]">{responseMessage}</p>
-						<button
-							onClick={() => handleLeadClick()}
-							className="cursor-pointer mt-4 w-full bg-violet-main text-white py-2 px-4 rounded-lg hover:bg-violet-dark transition"
-						>
-							Cerrar
-						</button>
+					<div className="relative flex flex-col gap-2 justify-center items-center text-center bg-white rounded-lg shadow-lg p-6 max-w-sm w-[300px] h-[480px]">
+						<div className="absolute top-2 right-2 cursor-pointer border-2 border-violet-main rounded-full size-5">
+							<X size={16} strokeWidth={3} className="text-violet-main" onClick={handleLeadClick} />
+						</div>
+						<div className="rounded-full size-20 mt-auto mb-4 flex justify-center items-center bg-violet-main">
+							<Check size={67} color='white' />
+						</div>
+						<p className="text-lg text-green-main font-roboto">FORMULARIO ENVIADO</p>
+						<p className="font-poppins text-[16px]">{responseMessage}</p>
+						<Image
+							src='/branding/LogoPlay.png'
+							alt='Logo Play Attention'
+							width={90}
+							height={48}
+							className='mt-auto'
+						/>
 					</div>
 				</div>
 			)}

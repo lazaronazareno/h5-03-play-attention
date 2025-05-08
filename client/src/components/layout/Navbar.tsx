@@ -255,8 +255,8 @@ export default function Navbar() {
 			{openLead && (
 				<div className='fixed top-0 left-0 w-full h-full z-50 bg-black/20 overflow-auto' onClick={handleLeadClick}>
 					<div className='absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-[450px]' onClick={e => e.stopPropagation()}>
-						<button className='absolute top-0 right-0 m-2 rounded-full border border-violet-main cursor-pointer' onClick={handleLeadClick}>
-							<X size={24} strokeWidth={1} />
+						<button className='size-6 absolute top-2 right-2 m-2 rounded-full border-2 border-violet-main cursor-pointer' onClick={handleLeadClick}>
+							<X size={20} strokeWidth={3} className='text-violet-main' />
 						</button>
 						<LeadForm type={getLeadTypeByPath(path) as "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE"} handleLeadClick={handleLeadClick} />
 					</div>
