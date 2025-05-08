@@ -51,8 +51,7 @@ export function LeadForm() {
 	} = useForm<LeadFormData>();
 
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
-		console.log("Form data:", data);
-		data.complementTreatment = "NEUROFEEDBACK";
+		
 		// Set phoneNumber to undefined if not provided
 		const response = await constFetch<responseApi<LeadFormData>, LeadFormData>({
 			endpoint: "/leads",
