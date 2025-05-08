@@ -25,13 +25,13 @@ const ConfigTabs = ({ user }: UserTabsProps) => {
 
   }
   return (
-    <div className='ms-56 mt-2 bg-violet-main/30 py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md'>
+    <div className='ms-56 mt-2 flex h-[89vh] w-full flex-col gap-8 rounded-md bg-violet-main/30 px-4 py-9'>
       <div className='flex'>
         {NAV_ITEMS.map((item) => (
           <div key={item.name} >
             <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setActiveTab(item.name)}>
               {item.icon}
-              <span className={`text-base `}>{item.name}</span>
+              <span className={`text-base`}>{item.name}</span>
             </button>
           </div>
         ))}

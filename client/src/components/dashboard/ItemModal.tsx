@@ -7,8 +7,8 @@ const ItemModal = ({ fileType, fileUrl, isOpen, handleClick }: ModalProps) => {
   const isWord = fileType === 'application/msword' || fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
   return (
     <div className={`absolute top-0 left-0 w-full h-full bg-green-main/40 ${isOpen ? 'block' : 'hidden'} z-10`}>
-      <div className='absolute w-[90%] h-[90%] left-1/2 -translate-x-1/2 top-11 bg-neutral-white2 mx-auto rounded-md flex flex-col text-start p-4'>
-        <button title='x' type='button' className='absolute top-0 right-0 m-2 rounded-full border-2 border-violet-main cursor-pointer' onClick={handleClick}>
+      <div className='absolute left-1/2 top-11 mx-auto flex h-[90%] w-[90%] -translate-x-1/2 flex-col rounded-md bg-neutral-white2 p-4 text-start'>
+        <button title='x' type='button' className='absolute right-0 top-0 m-2 cursor-pointer rounded-full border-2 border-violet-main' onClick={handleClick}>
           <X size={12} strokeWidth={3} className='text-violet-main' />
         </button>
         {isImage ? (
@@ -17,7 +17,7 @@ const ItemModal = ({ fileType, fileUrl, isOpen, handleClick }: ModalProps) => {
             alt='Imagen'
             width={700}
             height={360}
-            className='object-cover rounded-md'
+            className='rounded-md object-cover'
           />
         ) : isWord ? (
           <iframe

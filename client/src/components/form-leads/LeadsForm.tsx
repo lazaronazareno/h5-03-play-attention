@@ -85,9 +85,9 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="w-full max-w-md mx-auto px-6 lg:px-12 p-2 bg-neutral-white2 rounded-xl shadow-md flex flex-col gap-3"
+			className="mx-auto flex w-full max-w-md flex-col gap-3 rounded-xl bg-neutral-white2 p-2 px-6 shadow-md lg:px-12"
 		>
-			<h3 className="text-violet-main font-semibold text-[22px] text-center py-4 font-poppins">
+			<h3 className="py-4 text-center font-poppins text-[22px] font-semibold text-violet-main">
 				SOLICITAR INFORMACIÓN
 			</h3>
 			{(["name", "lastName", "email", "phoneNumber"] as (keyof LeadFormData)[]).map((name) => (
@@ -144,40 +144,40 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 				)
 			)}
 
-			<fieldset className="border-none rounded-md shadow-md ">
-				<legend className="text-[14px] font-poppins font-semibold text-green-500 mb-[12px]">Mensaje</legend>
+			<fieldset className="rounded-md border-none shadow-md">
+				<legend className="mb-[12px] font-poppins text-[14px] font-semibold text-green-500">Mensaje</legend>
 				<textarea
 					id="notes"
 					{...register("notes")}
 					placeholder="Escriba aqui su mensaje"
-					className="py-4 resize-none bg-white h-[107px] w-full rounded-[6px] border-2 border-violet-main font-poppins text-[14px] text-blackNeutral-200 pl-4"
+					className="h-[107px] w-full resize-none rounded-[6px] border-2 border-violet-main bg-white py-4 pl-4 font-poppins text-[14px] text-blackNeutral-200"
 				/>
 			</fieldset>
 
-			<div className="flex justify-center items-center">
-				<label className="flex items-center space-x-2 h-[50px] text-green-500">
-					<input type="checkbox" className="hidden peer" {...register("newsletterSubscription")} />
-					<span className="w-5 h-5 border-2 border-violet-main rounded-sm peer-checked:bg-violet-main peer-checked:border-violet-main peer-checked:after:content-['✔'] peer-checked:after:text-white peer-checked:after:absolute peer-checked:after:top-1 peer-checked:after:left-1"></span>
+			<div className="flex items-center justify-center">
+				<label className="flex h-[50px] items-center space-x-2 text-green-500">
+					<input type="checkbox" className="peer hidden" {...register("newsletterSubscription")} />
+					<span className="h-5 w-5 rounded-sm border-2 border-violet-main peer-checked:border-violet-main peer-checked:bg-violet-main peer-checked:after:absolute peer-checked:after:left-1 peer-checked:after:top-1 peer-checked:after:text-white peer-checked:after:content-['✔']"></span>
 					<span>Suscribirme al newsletter</span>
 				</label>
 			</div>
 
 			{!isLoading ? (
-				<Button text="Enviar" variant="primary" className="flex justify-center items-center" />
+				<Button text="Enviar" variant="primary" className="flex items-center justify-center" />
 			) : (
-				<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="flex justify-center items-center" disabled={true} />
+				<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="flex items-center justify-center" disabled={true} />
 			)
 			}
 			{success && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-					<div className="relative flex flex-col gap-2 justify-center items-center text-center bg-white rounded-lg shadow-lg p-6 max-w-sm w-[300px] h-[480px]">
-						<div className="absolute top-2 right-2 cursor-pointer border-2 border-violet-main rounded-full size-5">
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+					<div className="relative flex h-[480px] w-[300px] max-w-sm flex-col items-center justify-center gap-2 rounded-lg bg-white p-6 text-center shadow-lg">
+						<div className="size-5 absolute right-2 top-2 cursor-pointer rounded-full border-2 border-violet-main">
 							<X size={16} strokeWidth={3} className="text-violet-main" onClick={handleLeadClick} />
 						</div>
-						<div className="rounded-full size-20 mt-auto mb-4 flex justify-center items-center bg-violet-main">
+						<div className="size-20 mb-4 mt-auto flex items-center justify-center rounded-full bg-violet-main">
 							<Check size={67} color='white' />
 						</div>
-						<p className="text-lg text-green-main font-roboto">FORMULARIO ENVIADO</p>
+						<p className="font-roboto text-lg text-green-main">FORMULARIO ENVIADO</p>
 						<p className="font-poppins text-[16px]">{responseMessage}</p>
 						<Image
 							src='/branding/LogoPlay.png'

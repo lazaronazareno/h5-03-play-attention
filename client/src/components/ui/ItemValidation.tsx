@@ -13,7 +13,7 @@ const ItemValidation = ({ name, icon, className }: ItemValidationProps) => {
       {icon ? (
         <span className='text-2xl'>{icon}</span>
       ) : (
-        <span className='bg-violet-main rounded-full size-5 flex justify-center items-center'>
+        <span className='size-5 flex items-center justify-center rounded-full bg-violet-main'>
           <CheckIcon size={18} color='white' strokeWidth={3} />
         </span>
       )}

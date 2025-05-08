@@ -56,10 +56,10 @@ function Video({ name, description, url, apiResponse }: VideoProps) {
       </video>
 
       {subs.length > 0 && (
-        <div className="controls absolute top-0 right-0">
+        <div className="controls absolute right-0 top-0">
           <button
             onClick={toggleSubtitleLanguage}
-            className="bg-violet-main capitalize cursor-pointer text-white font-bold py-2 px-4 rounded"
+            className="cursor-pointer rounded bg-violet-main px-4 py-2 font-bold capitalize text-white"
           >
             {currentLanguage}
           </button>

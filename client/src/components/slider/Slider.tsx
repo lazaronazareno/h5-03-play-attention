@@ -16,7 +16,7 @@ const SliderTestimonials = ({ items, slidesPerView }: SliderProps) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <div className="relative w-full flex flex-col items-center">
+    <div className="relative flex w-full flex-col items-center">
       <Swiper
         modules={[Navigation]}
         navigation={{ nextEl: ".next-arrow", prevEl: ".prev-arrow" }}
@@ -28,7 +28,7 @@ const SliderTestimonials = ({ items, slidesPerView }: SliderProps) => {
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         onNavigationNext={(swiper) => setActiveIndex(swiper.activeIndex)}
         onNavigationPrev={(swiper) => setActiveIndex(swiper.activeIndex)}
-        className='w-full h-full'
+        className='h-full w-full'
         breakpoints={{
           0: {
             slidesPerView: 1,
@@ -61,16 +61,16 @@ const SliderTestimonials = ({ items, slidesPerView }: SliderProps) => {
         ))}
       </Swiper>
 
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="mt-6 flex justify-center gap-4">
         <button
-          className="prev-arrow cursor-pointer size-10 rounded-full border-2 border-violet-main shadow-main flex items-center justify-center"
+          className="prev-arrow size-10 shadow-main flex cursor-pointer items-center justify-center rounded-full border-2 border-violet-main"
         >
-          <LeftArrow className="w-6 -ms-1 text-violet-main" strokeWidth={4} />
+          <LeftArrow className="-ms-1 w-6 text-violet-main" strokeWidth={4} />
         </button>
         <button
-          className="size-10 rounded-full border-2 border-violet-main shadow-main flex items-center justify-center"
+          className="size-10 shadow-main flex items-center justify-center rounded-full border-2 border-violet-main"
         >
-          <RightArrow className='next-arrow cursor-pointer w-6 -me-0.5 text-violet-main' strokeWidth={4} />
+          <RightArrow className='next-arrow -me-0.5 w-6 cursor-pointer text-violet-main' strokeWidth={4} />
         </button>
       </div>
     </div>

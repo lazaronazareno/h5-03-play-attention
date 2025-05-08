@@ -17,23 +17,23 @@ const BenefitsItem = ({ title, description, description2, imageUrl, position, cl
     <div className={`relative w-full h-full px-6 lg:px-36 flex flex-col lg:flex-row justify-center ${className} ${position === 'left' && 'flex-col-reverse'} bg-violet-secondary/15 ${!centerImages ? 'lg:bg-transparent lg:h-[700px]' : 'py-20 gap-28'}`}>
       {/* background only visible in desktop && !centerImages */}
       {!centerImages && (
-        <div className='bg-violet-secondary/15 h-[550px] hidden lg:block lg:absolute bottom-0 w-full z-0 ' />
+        <div className='bg-violet-secondary/15 bottom-0 z-0 hidden h-[550px] w-full lg:absolute lg:block' />
       )}
 
       {position === 'left' && (
-        <div className="flex-1 w-full h-full z-10 pt-2">
+        <div className="z-10 h-full w-full flex-1 pt-2">
           <Image src={imageUrl} alt={title} width={700} height={700} />
         </div>
       )}
       <div className={`flex-1 lg:w-1/2 text-start ${position === 'left' ? 'lg:ms-auto' : 'lg:mr-auto'} flex flex-col items-start justify-center gap-4 ${!centerImages && 'lg:pt-[150px]'} `}>
-        <Typography text={title} variant='h2' color='violet' size='subtitle' weight='semibold' className='text-3xl lg:text-5xl lg:w-4/5 py-6' />
+        <Typography text={title} variant='h2' color='violet' size='subtitle' weight='semibold' className='py-6 text-3xl lg:w-4/5 lg:text-5xl' />
         <Typography text={description} variant='p' color='default' size='base' weight='normal' className="mb-2" />
         {description2 &&
           <Typography text={description2} variant='p' color='default' size='base' weight='normal' className="mb-2" />
         }
       </div>
       {position === 'right' && (
-        <div className="flex-1 w-full h-full z-10 pt-2">
+        <div className="z-10 h-full w-full flex-1 pt-2">
           <Image src={imageUrl} alt={title} width={700} height={700} />
         </div>
       )}

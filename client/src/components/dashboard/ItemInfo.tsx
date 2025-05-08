@@ -11,11 +11,11 @@ interface ItemInfoProps {
 const ItemInfo = ({ title, description, icon }: ItemInfoProps) => {
   return (
     <>
-      <div className='flex bg-white shadow-main border-2 border-green-main rounded-md p-2 lg:px-3 lg:py-2.5 gap-2.5 w-full'>
+      <div className='shadow-main flex w-full gap-2.5 rounded-md border-2 border-green-main bg-white p-2 lg:px-3 lg:py-2.5'>
         {
           icon
-            ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
-            : <span className='bg-green-main rounded-full size-5 flex justify-center items-center mt-2'>
+            ? <span className='mr-1 mt-2 lg:mr-2'>{icon}</span>
+            : <span className='size-5 mt-2 flex items-center justify-center rounded-full bg-green-main'>
               <CheckIcon size={18} color='white' strokeWidth={3} />
             </span>
         }

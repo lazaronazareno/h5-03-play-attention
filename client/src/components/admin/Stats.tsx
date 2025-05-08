@@ -30,8 +30,8 @@ const DUMMYIMAGES = [
 
 const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) => {
   return (
-    <div className='flex gap-6 items-center'>
-      <div className='shadow-main flex items-center justify-center size-24 rounded-full bg-gradient-to-b from-[#A7DBE0] to-[#D7C0F8]'>
+    <div className='flex items-center gap-6'>
+      <div className='shadow-main size-24 flex items-center justify-center rounded-full bg-gradient-to-b from-[#A7DBE0] to-[#D7C0F8]'>
         {icon}
       </div>
       <div className='flex flex-col'>
@@ -41,11 +41,11 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
           <>
             <div className='flex items-center gap-1 text-base'>
               {porcentage > 0 ? (
-                <ArrowUp size={20} className='text-violet-main -mt-1 -me-0.5' />
+                <ArrowUp size={20} className='-me-0.5 -mt-1 text-violet-main' />
               ) : (
-                <ArrowDown size={20} className='text-violet-main -me-0.5' />
+                <ArrowDown size={20} className='-me-0.5 text-violet-main' />
               )}
-              <span className='flex text-violet-main font-semibold'>{porcentage}%</span>
+              <span className='flex font-semibold text-violet-main'>{porcentage}%</span>
               <p className='text-gray-500'>este mes</p>
             </div>
           </>
@@ -60,9 +60,9 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
                 ))}
               </div>
             ) : (
-              <div className='flex ms-3'>
+              <div className='ms-3 flex'>
                 {DUMMYIMAGES.map((image, index) => (
-                  <Image key={index} src={image} alt={`Image ${index}`} width={40} height={40} className='border border-white rounded-full bg-white size-7 -ms-2' />
+                  <Image key={index} src={image} alt={`Image ${index}`} width={40} height={40} className='size-7 -ms-2 rounded-full border border-white bg-white' />
                 ))}
               </div>
             )}
@@ -75,8 +75,8 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
 
 const Stats = ({ totalClients, porcentageClients, totalUsers, porcentageUsers, activeUsers }: StatsProps) => {
   return (
-    <div className='bg-neutral-white2 border-2 border-violet-main rounded-md flex flex-col justify-center items-center gap-16 min-w-[367px] min-h-[527px] h-min py-12 font-poppins'>
-      <Typography variant='p' color='default' size='small-title' text='Métricas' weight='semibold' className='text-start w-full px-16 -mb-6' />
+    <div className='flex h-min min-h-[527px] min-w-[367px] flex-col items-center justify-center gap-16 rounded-md border-2 border-violet-main bg-neutral-white2 py-12 font-poppins'>
+      <Typography variant='p' color='default' size='small-title' text='Métricas' weight='semibold' className='-mb-6 w-full px-16 text-start' />
       <StatsItem icon={<Users size={36} className='text-violet-main' />} title='Total Clientes' value={totalClients} porcentage={porcentageClients} />
       <StatsItem icon={<UserCheck size={36} className='text-violet-main' />} title='Miembros' value={totalUsers} porcentage={porcentageUsers} />
       <StatsItem icon={<Airplay size={36} className='text-violet-main' />} title='Activos ahora' value={activeUsers.length > 0 ? activeUsers.length : 189} images={activeUsers.map(user => user.imageurl!)} />

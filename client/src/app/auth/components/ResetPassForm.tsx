@@ -17,26 +17,26 @@ export default function ResetPasswordForm({ email }: { email: string }) {
 	}
 
 	return (
-		<div className="w-full lg:w-[50%] h-full p-4 bg-green-300 rounded-sm shadow-md text-[14px]">
-			<div className="wfull flex flex-col items-center py-12 gap-12 bg-neutral-white2 rounded-sm font-poppins">
-				<Image src='/branding/LogoFullAR.png' width={400} height={50} alt='LogoImage' className="w-auto h-auto" />
-				<form onSubmit={handleSubmit} className='w-full flex flex-col items-center justify-center space-y-12 p-12'>
+		<div className="h-full w-full rounded-sm bg-green-300 p-4 text-[14px] shadow-md lg:w-[50%]">
+			<div className="wfull flex flex-col items-center gap-12 rounded-sm bg-neutral-white2 py-12 font-poppins">
+				<Image src='/branding/LogoFullAR.png' width={400} height={50} alt='LogoImage' className="h-auto w-auto" />
+				<form onSubmit={handleSubmit} className='flex w-full flex-col items-center justify-center space-y-12 p-12'>
 					<h2 className='text-lg font-semibold'>RECUPERAR CONTRASEÑA</h2>
-					<div className='flex flex-col gap-2 w-full'>
+					<div className='flex w-full flex-col gap-2'>
 						<label htmlFor="" className='text-sm font-semibold text-green-500'>Ingrese una nueva contrasaseña</label>
 						<Input type='password' placeholder='Escriba aqui su nueva contraseña' onChange={(e) => setPassword(e.target.value)} value={password} icon className='' />
 					</div>
-					<div className='flex flex-col gap-2 w-full'>
+					<div className='flex w-full flex-col gap-2'>
 						<label htmlFor="" className='text-sm font-semibold text-green-500'>Confirmar contraseña</label>
 						<Input type='password' placeholder='Escriba aqui su nueva contraseña' onChange={(e) => setPassword(e.target.value)} value={password} icon className='' />
 					</div>
-					<button type='submit' className='bg-violet-600 text-white px-4 py-2 rounded w-full cursor-pointer'>
+					<button type='submit' className='w-full cursor-pointer rounded bg-violet-600 px-4 py-2 text-white'>
 						Guardar contraseña
 					</button>
 				</form>
 
 				{/* Separador */}
-				<div className="w-[50%] border border-violet-main mt-8 mb-12"></div>
+				<div className="mb-12 mt-8 w-[50%] border border-violet-main"></div>
 			</div>
 		</div >
 	)

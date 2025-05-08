@@ -125,8 +125,8 @@ const TESTIMONIES: Record<'home' | 'professionals' | 'enterprise' | 'people', Te
 const TestimonySection = ({ title, type }: TestimonySectionProps) => {
   return (
     <div className='flex flex-col items-center py-10 md:py-20'>
-      <Typography variant='h2' color='green' size='title' text={title} weight='semibold' className='text-center mb-8' />
-      <div className='flex gap-4 w-full'>
+      <Typography variant='h2' color='green' size='title' text={title} weight='semibold' className='mb-8 text-center' />
+      <div className='flex w-full gap-4'>
         <Slider
           items={TESTIMONIES[type]}
         />

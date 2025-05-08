@@ -41,7 +41,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     Soporte: () => <UserContactTable type='Soporte' user={user} />,
     Actividades: () => <UserActivitiesSection
       title='Actividades'
-      icon={<LayoutGrid size={24} className='text-violet-main ms-4' />}
+      icon={<LayoutGrid size={24} className='ms-4 text-violet-main' />}
       deleteItemById={deleteContentById}
       fetchItems={() => getContentByType('ACTIVITY')}
       type='ACTIVITY'
@@ -49,21 +49,21 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     Archivos: () => <div className='flex flex-col gap-4'>
       <UserActivitiesSection
         title='Material Educativo'
-        icon={<BookOpenIcon size={24} className='text-violet-main ms-4' />}
+        icon={<BookOpenIcon size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('DOCUMENT')}
         type='DOCUMENT'
       />
       <UserActivitiesSection
         title='Articulos Medicos'
-        icon={<Book size={24} className='text-violet-main ms-4' />}
+        icon={<Book size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('ARTICLE')}
         type='ARTICLE'
       />
       <UserActivitiesSection
         title='Marketing'
-        icon={<Star size={24} className='text-violet-main ms-4' />}
+        icon={<Star size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('MARKETING')}
         type='MARKETING'
@@ -71,7 +71,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     </div>,
     Videos: () => <UserActivitiesSection
       title='Tutoriales'
-      icon={<Video size={24} className='text-violet-main ms-4' />}
+      icon={<Video size={24} className='ms-4 text-violet-main' />}
       deleteItemById={deleteContentById}
       fetchItems={() => getContentByType('VIDEO')}
       type='VIDEO'
@@ -79,20 +79,20 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     'Eventos y Notificaciones': () => <div>Eventos y Notificaciones</div>
   }
   return (
-    <div className='bg-violet-main/30 py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md'>
+    <div className='flex h-[89vh] w-full flex-col gap-8 rounded-md bg-violet-main/30 px-4 py-9'>
       <div className='flex justify-between'>
         {NAV_ITEMS.map((item) => (
           <div key={item.name} >
             {item.name === 'Inicio' ? (
               <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setSelectedUser!(null)}>
                 {item.icon}
-                <span className={`text-base `}>{item.name}</span>
+                <span className={`text-base`}>{item.name}</span>
               </button>
             ) : (
 
               <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setActiveTab(item.name)}>
                 {item.icon}
-                <span className={`text-base `}>{item.name}</span>
+                <span className={`text-base`}>{item.name}</span>
               </button>
             )}
           </div>

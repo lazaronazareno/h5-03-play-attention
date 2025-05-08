@@ -39,7 +39,7 @@ export function Input({
 				<button
 					type='button'
 					onClick={togglePasswordVisibility}
-					className='absolute top-1/2 right-3 transform -translate-y-1/2 p-1 rounded text-violet-main focus:outline-none'
+					className='absolute right-3 top-1/2 -translate-y-1/2 transform rounded p-1 text-violet-main focus:outline-none'
 				>
 					{showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
 				</button>
@@ -47,7 +47,7 @@ export function Input({
 			{icon && (
 				<button
 					type='button'
-					className='absolute top-1/2 right-3 transform -translate-y-1/2 p-1 rounded text-violet-main focus:outline-none'
+					className='absolute right-3 top-1/2 -translate-y-1/2 transform rounded p-1 text-violet-main focus:outline-none'
 				>
 					{icon}
 				</button>

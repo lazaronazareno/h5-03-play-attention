@@ -16,21 +16,21 @@ export default async function AdminPage() {
   const latestUsers = users.slice(0, 2)
 
   return (
-    <div className="flex flex-col gap-4 p-6 bg-violet-secondary/30 h-full ">
+    <div className="flex h-full flex-col gap-4 bg-violet-secondary/30 p-6">
       <div className="flex py-4">
         <Typography variant="h2" color="default" size="subtitle" text={"Bienvenido " + user.name + " " + user.lastName} weight="medium" />
       </div>
       <div className="flex flex-wrap gap-4">
-        <div className="flex flex-col min-w-[550px] h-[350px]">
-          <div className="flex justify-between items-center pb-2">
+        <div className="flex h-[350px] min-w-[550px] flex-col">
+          <div className="flex items-center justify-between pb-2">
             <Typography variant="h2" color="green" size="sm" text={"Potenciales Clientes"} weight="semibold" />
-            <Link href="/admin/leads" className="bg-green-300 text-white cursor-pointer rounded-md p-2 flex items-center gap-2 hover:bg-green-main transition-all duration-200 ease-in-out">
+            <Link href="/admin/leads" className="flex cursor-pointer items-center gap-2 rounded-md bg-green-300 p-2 text-white transition-all duration-200 ease-in-out hover:bg-green-main">
               Ver más
             </Link>
           </div>
 
-          <div className="bg-white p-4 border-2 border-violet-main h-full overflow-y-auto rounded-md">
-            <table className="table-auto border-collapse font-poppins w-full">
+          <div className="h-full overflow-y-auto rounded-md border-2 border-violet-main bg-white p-4">
+            <table className="w-full table-auto border-collapse font-poppins">
               <thead>
                 <tr className="border-b border-gray-200/30">
                   {['Nombre', 'Usuario', 'Estado'].map((title) => (
@@ -55,16 +55,16 @@ export default async function AdminPage() {
             </table>
           </div>
         </div>
-        <div className="flex flex-col min-w-[550px] h-[350px]">
-          <div className="flex justify-between items-center pb-2">
+        <div className="flex h-[350px] min-w-[550px] flex-col">
+          <div className="flex items-center justify-between pb-2">
             <Typography variant="h2" color="green" size="sm" text={"Ultimos Clientes"} weight="semibold" />
-            <Link href="/admin/leads" className="bg-green-300 text-white ursor-pointer rounded-md p-2 flex items-center gap-2 hover:bg-green-main transition-all duration-200 ease-in-out">
+            <Link href="/admin/leads" className="ursor-pointer flex items-center gap-2 rounded-md bg-green-300 p-2 text-white transition-all duration-200 ease-in-out hover:bg-green-main">
               Ver más
             </Link>
           </div>
 
-          <div className="bg-white p-4 border-2 border-violet-main h-full overflow-y-auto rounded-md">
-            <table className="table-auto border-collapse font-poppins w-full">
+          <div className="h-full overflow-y-auto rounded-md border-2 border-violet-main bg-white p-4">
+            <table className="w-full table-auto border-collapse font-poppins">
               <thead>
                 <tr className="border-b border-gray-200/30">
                   {['Nombre', 'Usuario', 'Estado'].map((title) => (
