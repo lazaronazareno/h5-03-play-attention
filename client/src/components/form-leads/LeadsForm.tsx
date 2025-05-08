@@ -4,11 +4,13 @@ import Input from "./InputForm/InputForm";
 import RadioGroup from "./CheckboxGroup/RadioGroup";
 import Button from "../ui/Button";
 import { LeadFormData } from "../../types/lead/leadTypes";
-import { constFetch } from "../../services/custom-fetch/constFetch";
-import { responseApi } from "../../types/response-api/resaponseApi";
+/* import { constFetch } from "../../services/custom-fetch/constFetch";
+import { responseApi } from "../../types/response-api/resaponseApi"; */
 import { useState } from "react";
 import { Check, Loader2, X } from "lucide-react";
 import Image from "next/image";
+import { postLead } from "@/services/public/postLeadForm";
+import { ILeads } from "@/interfaces/IAdmin.interfaces";
 
 const defaultOptions = {
 	country: [
@@ -58,20 +60,22 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<LeadFormData>();
+	} = useForm<ILeads>();
 
-	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
+	const onSubmit: SubmitHandler<ILeads> = async (data: ILeads) => {
 		setIsLoading(true);
 		console.log("Form data:", data);
 		data.complementTreatment = "NEUROFEEDBACK";
 		data.leadType = type;
 		// Set phoneNumber to undefined if not provided
 		try {
-			await constFetch<responseApi<LeadFormData>, LeadFormData>({
+			/* await constFetch<responseApi<ILeads>, ILeads>({
 				endpoint: "/leads",
 				requestType: "POST",
 				body: data,
-			});
+			}); */
+			const response = await postLead(data);
+			console.log("Response:", response);
 			setSuccess(true);
 			setResponseMessage("El formulario fue enviado con éxito, a la brevedad nos comunicaremos con usted. Muchas gracias");
 		} catch (error) {
