@@ -1,3 +1,4 @@
+'use client'
 import ItemDefault from "@/components/dashboard/ItemDefault";
 import { LeadForm } from "@/components/form-leads/LeadsForm";
 import Typography from "@/components/ui/Typography";
@@ -8,7 +9,7 @@ const OPTIONS = [
   {
     title: "Formulario de contacto",
     icon: <FileText size={28} color='white' strokeWidth={2} />,
-    children: <LeadForm />
+    children: <LeadForm type="INDIVIDUAL" handleLeadClick={() => { }} />
   },
   {
     title: "Chat en vivo",

@@ -101,18 +101,23 @@ export default function IndividualsPage() {
 		<main className='min-h-screen bg-white text-black'>
 			<HeroSection title={HEROSECTION_PROPS.title} description={HEROSECTION_PROPS.description} imageUrl={HEROSECTION_PROPS.imageUrl} button1Text={HEROSECTION_PROPS.button1Text} button2Text={HEROSECTION_PROPS.button2Text} />
 
-			<ImpactSection title={IMPACTSECTION_PROPS.title} description={IMPACTSECTION_PROPS.description} aditionalDescription={IMPACTSECTION_PROPS.aditionalDescription} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} listItems={IMPACTSECTION_PROPS.listItems} color='green' titlePosition='down' titleAlignament='center' type='list' imagesPosition='left' bgColor='green' />
+			<div id='children'>
+				<ImpactSection title={IMPACTSECTION_PROPS.title} description={IMPACTSECTION_PROPS.description} aditionalDescription={IMPACTSECTION_PROPS.aditionalDescription} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} listItems={IMPACTSECTION_PROPS.listItems} color='green' titlePosition='down' titleAlignament='center' type='list' imagesPosition='left' bgColor='green' />
+			</div>
+
 
 			<Typography text='Tres veces más efectivo para mejorar el comportamiento, representando una alternativa reducir la dependencia a la medicación.' variant='h3' size='subtitle' color='violet' weight='semibold' className='text-center p-20 mx-auto' />
 
-			<ImpactSection title={IMPACTSECTION_PROPS2.title} description={IMPACTSECTION_PROPS2.description} aditionalDescription={IMPACTSECTION_PROPS2.aditionalDescription}
-				imageUrl={IMPACTSECTION_PROPS2.imageUrl} imageUrl2={IMPACTSECTION_PROPS2.imageUrl2} listItems={IMPACTSECTION_PROPS2.listItems} color='violet' titlePosition='down' titleAlignament='center' type='list' imagesPosition='right' bgColor='violet' />
+			<div id='adults'>
+				<ImpactSection title={IMPACTSECTION_PROPS2.title} description={IMPACTSECTION_PROPS2.description} aditionalDescription={IMPACTSECTION_PROPS2.aditionalDescription}
+					imageUrl={IMPACTSECTION_PROPS2.imageUrl} imageUrl2={IMPACTSECTION_PROPS2.imageUrl2} listItems={IMPACTSECTION_PROPS2.listItems} color='violet' titlePosition='down' titleAlignament='center' type='list' imagesPosition='right' bgColor='violet' />
+			</div>
 
 			<TestimonySection title='Testimonios' type='people' />
 
 			<Typography text='Planes de pago' variant='h3' size='subtitle' color='violet' weight='medium' className='text-center p-20 mx-auto' />
 
-			<div className='flex flex-col lg:flex-row items-center justify-center lg:items-start  gap-30 p-8 mx-auto'>
+			<div id='plans' className='flex flex-col lg:flex-row items-center justify-center lg:items-start  gap-30 p-8 mx-auto'>
 				{PAYMENTCARD_PROPS.map((item, index) => (
 					<PaymentCard key={index} {...item} />)
 				)

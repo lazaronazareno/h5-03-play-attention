@@ -1,40 +1,39 @@
 export const logoLinks = [
-	{
-		href: '/',
-		submenu: [
-			{ title: 'Play Attention Argentina', href: '/argentina' },
-			{ title: 'Banda BrainWare', href: '/banda' },
-			{ title: 'Profesionales', href: '/professionals' },
-			{ title: 'Area de intervención', href: '/area' }
-		]
-	}
+  {
+    href: "/",
+    submenu: [
+      { title: "Play Attention Argentina", href: "#herosection" },
+      { title: "Banda BrainAware", href: "#benefits" },
+      { title: "Area de intervención", href: "#technology" },
+      { title: "Sobre nosotras", href: "#aboutus" },
+    ],
+  },
 ]
 
 export const navLinks = [
-	{
-		title: 'Profesionales',
-		href: '/professionals',
-		submenu: [
-			{ title: 'Soluciones', href: '/professionals/solutions' },
-			{ title: 'Metodologias de trabajo', href: '/professionals/methologies' }
-		]
-	},
-	{
-		title: 'Empresas',
-		href: '/enterprises',
-		submenu: [
-			{ title: 'Empresas tecnologicas', href: '/enterprises/tech' },
-			{ title: 'Empresas Deportivas', href: '/enterprises/sport' }
-		]
-	},
-	{
-		title: 'Individuos',
-		href: '/individuals',
-		submenu: [
-			{ title: 'Niños | Adolescentes', href: '/individuals/children' },
-			{ title: 'Adultos', href: '/individuals/adults' },
-			{ title: 'Planes de pago', href: '/individuals/plans' }
-		]
-	}
+  {
+    title: "Profesionales",
+    href: "/professionals",
+    submenu: [
+      { title: "Soluciones", href: "#impact" },
+      { title: "Metodologias de trabajo", href: "#benefits" },
+    ],
+  },
+  {
+    title: "Empresas",
+    href: "/enterprises",
+    submenu: [
+      { title: "Empresas tecnologicas", href: "#technology" },
+      { title: "Empresas Deportivas", href: "#sport" },
+    ],
+  },
+  {
+    title: "Individuos",
+    href: "/individuals",
+    submenu: [
+      { title: "Niños | Adolescentes", href: "#children" },
+      { title: "Adultos", href: "#adults" },
+      { title: "Planes de pago", href: "#plans" },
+    ],
+  },
 ]
-

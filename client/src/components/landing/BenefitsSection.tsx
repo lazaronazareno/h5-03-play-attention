@@ -3,7 +3,7 @@ import BenefitsItem from '../ui/BenefitsItem';
 
 const BenefitsSection = () => {
   return (
-    <div className='flex flex-col gap-4'>
+    <div id='benefits' className='flex flex-col gap-4'>
       <BenefitsItem
         title='Play Attention es como un gimnasio para el cerebro.'
         description='El usuario se coloca el brazalete BrainAware™ que detecta su nivel de atención en tiempo real, a través de juegos y ejercicios personalizados.'

@@ -82,20 +82,20 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     <div className='bg-violet-main/30 py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md'>
       <div className='flex justify-between'>
         {NAV_ITEMS.map((item) => (
-          <>
+          <div key={item.name} >
             {item.name === 'Inicio' ? (
-              <button key={item.name} className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setSelectedUser!(null)}>
+              <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setSelectedUser!(null)}>
                 {item.icon}
                 <span className={`text-base `}>{item.name}</span>
               </button>
             ) : (
 
-              <button key={item.name} className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setActiveTab(item.name)}>
+              <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setActiveTab(item.name)}>
                 {item.icon}
                 <span className={`text-base `}>{item.name}</span>
               </button>
             )}
-          </>
+          </div>
 
         ))}
       </div>

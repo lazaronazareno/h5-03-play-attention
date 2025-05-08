@@ -20,7 +20,7 @@ const ABOUT_US_DATA = [
 
 const AboutUsSection = () => {
   return (
-    <div className='bg-violet-secondary/15 flex flex-col lg:flex-row items-center px-9 py-20 lg:px-40 gap-x-40'>
+    <div id='aboutus' className='bg-violet-secondary/15 flex flex-col lg:flex-row items-center px-9 py-20 lg:px-40 gap-x-40'>
       <div className='flex flex-1 flex-col gap-4'>
         <Typography variant='h2' color='violet' size='title' text='Sobre nosotras' weight='medium' />
         <Typography variant='p' color='default' size='base' text='Con más de 25 años de experiencia conformamos un equipo Interdisciplinario comprometidos a buscar siempre la mejor solución para cada persona.' weight='normal' />
