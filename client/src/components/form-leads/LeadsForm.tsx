@@ -6,6 +6,8 @@ import Button from "../ui/Button";
 import { LeadFormData } from "../../types/lead/leadTypes";
 import { constFetch } from "../../services/custom-fetch/constFetch";
 import { responseApi } from "../../types/response-api/resaponseApi";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const defaultOptions = {
 	country: [
@@ -42,8 +44,14 @@ const defaultOptions = {
 	],
 };
 
-export function LeadForm() {
-	// const [isLoading, setIsLoading] = useState(false);
+interface LeadFormProps {
+	type: "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE";
+	handleLeadClick: () => void;
+}
+
+export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
+	const [isLoading, setIsLoading] = useState(false);
+	const [responseMessage, setResponseMessage] = useState<string | null>(null);
 	const {
 		register,
 		handleSubmit,
@@ -51,23 +59,33 @@ export function LeadForm() {
 	} = useForm<LeadFormData>();
 
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
+		setIsLoading(true);
 		console.log("Form data:", data);
 		data.complementTreatment = "NEUROFEEDBACK";
+		data.leadType = type;
 		// Set phoneNumber to undefined if not provided
-		await constFetch<responseApi<LeadFormData>, LeadFormData>({
-			endpoint: "/leads",
-			requestType: "POST",
-			body: data,
-		});
-		// setIsLoading(response.loading);
+		try {
+			await constFetch<responseApi<LeadFormData>, LeadFormData>({
+				endpoint: "/leads",
+				requestType: "POST",
+				body: data,
+			});
+			setResponseMessage("Formulario Enviado! Gracias por tu interés en Play Attention. Nos pondremos en contacto contigo pronto.");
+		} catch (error) {
+			console.error("Error submitting form:", error);
+			setResponseMessage("Hubo un error al enviar el formulario. Por favor, inténtelo de nuevo más tarde.");
+		} finally {
+			setIsLoading(false);
+		}
+		setResponseMessage("Formulario Enviado! Gracias por tu interés en Play Attention. Nos pondremos en contacto contigo pronto.");
 	};
 
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="w-full max-w-md mx-auto p-2 bg-neutral-white2 rounded-xl shadow-md flex flex-col gap-5"
+			className="w-full max-w-md mx-auto px-6 lg:px-12 p-2 bg-neutral-white2 rounded-xl shadow-md flex flex-col gap-3"
 		>
-			<h3 className="text-violet-main font-semibold text-[22px] text-center mb-8 font-poppins">
+			<h3 className="text-violet-main font-semibold text-[22px] text-center py-4 font-poppins">
 				SOLICITAR INFORMACIÓN
 			</h3>
 			{(["name", "lastName", "email", "phoneNumber"] as (keyof LeadFormData)[]).map((name) => (
@@ -77,24 +95,23 @@ export function LeadForm() {
 						name === "name"
 							? "Nombre"
 							: name === "lastName"
-							? "Apellido"
-							: name === "email"
-							? "Correo electrónico"
-							: name === "phoneNumber"
-							? "Teléfono"
-							: name
+								? "Apellido"
+								: name === "email"
+									? "Correo electrónico"
+									: name === "phoneNumber"
+										? "Teléfono"
+										: name
 					}
-					placeholder={`Escriba aquí su ${
-						name === "name"
-							? "nombre"
-							: name === "lastName"
+					placeholder={`Escriba aquí su ${name === "name"
+						? "nombre"
+						: name === "lastName"
 							? "apellido"
 							: name === "email"
-							? "correo electrónico"
-							: name === "phoneNumber"
-							? "teléfono"
-							: name
-					}`}
+								? "correo electrónico"
+								: name === "phoneNumber"
+									? "teléfono"
+									: name
+						}`}
 					name={name}
 					register={register}
 					required={name !== "institution" && name !== "phoneNumber"}
@@ -102,7 +119,7 @@ export function LeadForm() {
 				/>
 			))}
 
-			{(["country", "targetUsers", "usageContext", "complementTreatment", "leadType"] as (keyof LeadFormData)[]).map(
+			{(["country", "targetUsers", "usageContext", "complementTreatment",] as (keyof LeadFormData)[]).map(
 				(name) => (
 					<RadioGroup
 						key={name}
@@ -110,12 +127,12 @@ export function LeadForm() {
 							name === "country"
 								? "¿Dónde te encuentras?"
 								: name === "targetUsers"
-								? "¿Para quién estás buscando información de Play Attention?"
-								: name === "usageContext"
-								? "¿En qué situación se encuentra?"
-								: name === "complementTreatment"
-								? "¿Has probado algún otro programa?"
-								: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
+									? "¿Para quién estás buscando información de Play Attention?"
+									: name === "usageContext"
+										? "¿En qué situación se encuentra?"
+										: name === "complementTreatment"
+											? "¿Has probado algún otro programa?"
+											: "¿Cómo clasificarías tu perfil o el propósito de tu interés?"
 						}
 						name={name}
 						register={register}
@@ -131,7 +148,7 @@ export function LeadForm() {
 					id="notes"
 					{...register("notes")}
 					placeholder="Escriba aqui su mensaje"
-					className="h-[107px] w-full rounded-[6px] border-2 border-violet-main font-poppins text-[14px] text-blackNeutral-200 bg-neutral-white2 pl-4"
+					className="py-4 resize-none bg-white h-[107px] w-full rounded-[6px] border-2 border-violet-main font-poppins text-[14px] text-blackNeutral-200 pl-4"
 				/>
 			</fieldset>
 
@@ -143,7 +160,25 @@ export function LeadForm() {
 				</label>
 			</div>
 
-			<Button text="Enviar" variant="primary" className="flex justify-center items-center" />
+			{!isLoading ? (
+				<Button text="Enviar" variant="primary" className="flex justify-center items-center" />
+			) : (
+				<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="flex justify-center items-center" disabled={true} />
+			)
+			}
+			{responseMessage && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+					<div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+						<p className="text-center text-green-500 font-poppins text-[16px]">{responseMessage}</p>
+						<button
+							onClick={() => handleLeadClick()}
+							className="cursor-pointer mt-4 w-full bg-violet-main text-white py-2 px-4 rounded-lg hover:bg-violet-dark transition"
+						>
+							Cerrar
+						</button>
+					</div>
+				</div>
+			)}
 		</form>
 	);
 }

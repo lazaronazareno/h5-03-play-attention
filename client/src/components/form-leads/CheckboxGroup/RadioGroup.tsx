@@ -1,3 +1,4 @@
+import Typography from "@/components/ui/Typography";
 import { FieldValues, Path, UseFormRegister, FieldError } from "react-hook-form";
 
 type CheckboxGroupProps<T extends FieldValues> = {
@@ -12,11 +13,9 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 	const error = errors?.[name];
 
 	return (
-		<fieldset className="relative overflow-hidden border-none rounded-md bg-white mb-[24px] shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A]">
-			<legend className="absolute top-[8px] left-1/2 -translate-x-1/2 text-[14px] text-center font-poppins w-full text-green-main">
-				{title}
-			</legend>
-			<div className="mt-[42px] grid grid-cols-2 gap-x-[24px] gap-y-[12px] p-4">
+		<fieldset className="flex flex-col border-2 border-violet-main relative rounded-md bg-white shadow-main">
+			<Typography text={title} variant="p" color="green" size="base" weight="semibold" className="py-3 text-center" />
+			<div className="grid grid-cols-2 gap-x-[24px] gap-y-[12px] px-4 py-3">
 				{options.map((opt) => (
 					<label key={opt.value} className="flex items-center gap-2 font-poppins text-[14px]">
 						<input

@@ -8,7 +8,7 @@ const OPTIONS = [
   {
     title: "Formulario de contacto",
     icon: <FileText size={28} color='white' strokeWidth={2} />,
-    children: <LeadForm />
+    children: <LeadForm type="INDIVIDUAL" handleLeadClick={() => { }} />
   },
   {
     title: "Chat en vivo",

@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X, ChevronRight, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { navLinks, logoLinks } from '@/constants/navLinks'
@@ -75,7 +75,24 @@ export default function Navbar() {
 	}
 
 	const handleLeadClick = () => {
+		if (isMobile) {
+			setMenuOpen(false)
+		}
 		serOpenLead(!openLead)
+	}
+
+	const pathname = usePathname()
+	const path = pathname.split('/')[1]
+
+	const getLeadTypeByPath = (path: string) => {
+		switch (path) {
+			case '/professionals':
+				return 'PROFESSIONAL'
+			case '/enterprises':
+				return 'CORPORATE'
+			default:
+				return 'INDIVIDUAL'
+		}
 	}
 
 	return (
@@ -241,7 +258,7 @@ export default function Navbar() {
 						<button className='absolute top-0 right-0 m-2 rounded-full border border-violet-main cursor-pointer' onClick={handleLeadClick}>
 							<X size={24} strokeWidth={1} />
 						</button>
-						<LeadForm />
+						<LeadForm type={getLeadTypeByPath(path) as "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE"} handleLeadClick={handleLeadClick} />
 					</div>
 				</div>
 			)}

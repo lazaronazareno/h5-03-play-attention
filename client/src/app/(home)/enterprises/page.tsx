@@ -89,11 +89,15 @@ export default function EnterprisesPage() {
 				button1Text={HEROSECTION_PROPS.button1Text}
 			/>
 
-			<ImpactSection title={IMPACTSECTION_PROPS.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS.description} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} imagesPosition={"left"} color={"green"} bgColor="green" type={"text"} text1={IMPACTSECTION_PROPS.text1} text2={IMPACTSECTION_PROPS.text2} />
+			<div id="technology">
+				<ImpactSection title={IMPACTSECTION_PROPS.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS.description} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} imagesPosition={"left"} color={"green"} bgColor="green" type={"text"} text1={IMPACTSECTION_PROPS.text1} text2={IMPACTSECTION_PROPS.text2} />
+			</div>
 
 			<Typography variant="h3" size="4xl" color="violet" weight="semibold" text="Play Attention es la solución más efectiva, clínicamente comprobada para mejorar la función ejecutiva 5 veces más." className="text-center p-8 lg:py-12 mx-auto" />
 
-			<ImpactSection title={IMPACTSECTION_PROPS2.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS2.description} color="violet" bgColor="violet" imageUrl={IMPACTSECTION_PROPS2.imageUrl} imageUrl2={IMPACTSECTION_PROPS2.imageUrl2} imagesPosition={"right"} type={"text"} text1={IMPACTSECTION_PROPS2.text1} text2={IMPACTSECTION_PROPS2.text2} />
+			<div id="sport">
+				<ImpactSection title={IMPACTSECTION_PROPS2.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS2.description} color="violet" bgColor="violet" imageUrl={IMPACTSECTION_PROPS2.imageUrl} imageUrl2={IMPACTSECTION_PROPS2.imageUrl2} imagesPosition={"right"} type={"text"} text1={IMPACTSECTION_PROPS2.text1} text2={IMPACTSECTION_PROPS2.text2} />
+			</div>
 
 			<div className="w-full p-8 space-y-8">
 				<Typography variant="p" size="3xl" color="violet" weight="semibold" text="Beneficios del NEUROFEEDBACK en el rendimiento laboral y deportivo" className="text-center p-8 lg:py-12 mx-auto" />

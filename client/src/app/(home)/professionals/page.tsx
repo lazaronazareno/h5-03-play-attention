@@ -82,7 +82,7 @@ export default function ProfessionalsPage() {
         listItems={IMPACTSECTION_PROPS.listItems}
       />
       <Typography variant="h2" size="subtitle" color="violet" weight="medium" text="Clínicamente comprobado: mejora significativa en funciones ejecutivas y regulación conductual versus apps de entrenamiento cerebral." className="text-center p-8 lg:py-12 mx-auto" />
-      <div className='flex flex-col gap-4'>
+      <div id="benefits" className='flex flex-col gap-4'>
         {BENEFITSSECTION_ITEMS.map((item, index) => (
           <BenefitsItem
             key={index}

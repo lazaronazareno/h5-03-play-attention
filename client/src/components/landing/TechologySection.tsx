@@ -27,7 +27,7 @@ const TECHNOLOGY_ITEMS = [
 
 const TechologySection = () => {
   return (
-    <div className='flex flex-col text-center gap-3 mx-auto w-3/4 py-12 lg:py-28'>
+    <div id='technology' className='flex flex-col text-center gap-3 mx-auto w-3/4 py-12 lg:py-28'>
       <Typography variant='p' color='default' size='sm' text='Programa terapéutico personalizado y eficaz' weight='normal' />
       <Typography variant='h2' color='green' size='title' text='Áreas de Intervención' weight='normal' />
       <Typography variant='p' color='default' size='base' text='La tecnología combinada de neurociencia y Play Attention ofrece el mejor método que permite entrenar de forma gradual y sostenible, generando así mejoras significativas en la atención, el control de impulsos y la autorregulación emocional en usuarios de todas las edades.' weight='normal' />

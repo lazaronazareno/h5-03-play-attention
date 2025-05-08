@@ -25,7 +25,7 @@ interface ImpactSectionProps {
 
 const ImpactSection = ({ title, description, aditionalDescription, titlePosition, titleAlignament, imageUrl, imageUrl2, imagesPosition, color, bgColor, type, text1, text2, listItems }: ImpactSectionProps) => {
   return (
-    <div className={`flex flex-col p-8 lg:p-20 mx-auto ${bgColor === 'violet' ? 'bg-violet-secondary/20' : bgColor === 'green' ? 'bg-green-300/20' : 'bg-white'}`}>
+    <div id='impact' className={`flex flex-col p-8 lg:p-20 mx-auto ${bgColor === 'violet' ? 'bg-violet-secondary/20' : bgColor === 'green' ? 'bg-green-300/20' : 'bg-white'}`}>
       <div className={`flex ${titlePosition === 'up' ? 'flex-col' : 'flex-col-reverse'} ${titleAlignament === 'center' ? 'items-center' : 'items-start'} gap-2`}>
         <Typography variant='h2' size='subtitle' color='green' weight='semibold' text={title} />
         <Typography variant='p' size='base' color='default' weight='normal' text={description} />
@@ -34,7 +34,7 @@ const ImpactSection = ({ title, description, aditionalDescription, titlePosition
         <Typography variant='p' size='base' color='default' weight='medium' text={aditionalDescription} /></div>}
       <div className={`flex flex-wrap ${imagesPosition === 'left' ? 'flex-row' : 'flex-row-reverse'} gap-8 lg:gap-20 mt-8 lg:mt-16`}>
 
-        <div className='flex flex-1'>
+        <div className='flex flex-1 justify-center'>
           <ImageDouble
             imageUrl1={imageUrl}
             imageUrl2={imageUrl2}

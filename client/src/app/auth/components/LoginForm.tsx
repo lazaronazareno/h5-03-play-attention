@@ -4,17 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { loginSchema } from "@/libs/userSchema";
 import { Input } from "@/components/inputs/Input";
-import { constFetch } from "../../../services/custom-fetch/constFetch";
-import { responseApi } from "../../../types/response-api/resaponseApi";
-import { ResponseSignIn } from "../../../types/auth/authTypes";
-import { User } from "../../../types/user/userTypes";
-import { userDefault } from "../../../constants/dataDefault";
-import Cookies from "js-cookie";
-
+import { login } from "@/services/auth/loginUserService";
+import { useState } from "react";
+import Button from "@/components/ui/Button";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -22,12 +18,8 @@ interface LoginFormProps {
 	hasFooter: boolean;
 }
 
-
 export function LoginForm({ hasFooter }: LoginFormProps) {
-	// ----------------- BORRAR LUEGO -------------------
-	const userCookies: User = JSON.parse(Cookies.get("user") || "{}") || userDefault;
-	const tokenCookies = Cookies.get("token");
-	// --------------------------------------------------
+
 	const {
 		control,
 		handleSubmit,
@@ -40,47 +32,26 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 		},
 	});
 	const router = useRouter();
-
-	// --------------------- BORRAR LUEGO -------------------
-	if (userCookies && tokenCookies) {
-		// Cambiar ruta de front a su respectivo dashboard
-		if (userCookies.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
-		return (
-			<>
-				<div className="w-full h-full flex items-center justify-center text-[22px] font-roboto font-bold text-green-500">
-					Ya tienes acceso a Play Attention
-				</div>
-			</>
-		);
-	}
-	// -----------------------------------------------------
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmit = async (data: LoginFormData) => {
 		console.log(data);
+		setIsLoading(true);
+
 		try {
-			const response = await constFetch<responseApi<ResponseSignIn>, LoginFormData>({
-				endpoint: "/auth/signin",
-				requestType: "POST",
-				body: data,
-			});
-			/* ------------ BORRAR LUEGO ------------------- */
-			const token = response.data?.data?.token || "";
-			const user = response.data?.data?.user || {};
+			const response = await login(data.username, data.password);
+			console.log("response", response);
+			if (response.data?.user.roles.includes("ROLE_ADMIN")) router.push("/admin/leads");
 
-			// Guardar token y user en cookies
-			Cookies.set("token", token, { expires: 7 }); // 7 días
-			Cookies.set("user", JSON.stringify(user), { expires: 7 });
-			/* --------------------------------------------- */
-			// cambiar ruta de front a su respectivo dashboard
-			if (response.data?.data?.user.roles.includes("ROLE_ADMIN")) router.push("/dashboard");
-
-			if (response.data?.data?.user.roles.includes("ROLE_USER")) router.push("/dashboard");
+			if (response.data?.user.roles.includes("ROLE_USER")) router.push("/dashboard");
 		} catch (err) {
 			if (err instanceof Error) {
 				console.error("Error de inicio de sesión:", err.message);
 			} else {
 				console.error("Error desconocido: ", err);
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -92,7 +63,7 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 				<form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center justify-center gap-8">
 					<div className="w-full">
 						<label htmlFor="email" className="block text-[15px] font-semibold text-green-500 mb-1">
-							Email
+							Nombre de Usuario
 						</label>
 						<Controller
 							control={control}
@@ -114,13 +85,19 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 						{errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
 					</div>
 
-					<button
-						type="submit"
-						onChange={handleSubmit(onSubmit)}
-						className="w-full bg-violet-main text-white py-2 px-4 rounded-sm hover:bg-violet-secondary transition duration-200 cursor-pointer"
-					>
-						Iniciar sesión
-					</button>
+
+					{!isLoading ? (
+						<button
+							type="submit"
+							onChange={handleSubmit(onSubmit)}
+							className="w-full bg-violet-main text-white py-2 px-4 rounded-sm hover:bg-violet-secondary transition duration-200 cursor-pointer"
+						>
+							Iniciar sesión
+						</button>
+					) : (
+						<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="w-full flex justify-center items-center !py-2 !px-4" disabled={true} />
+					)
+					}
 
 					<Link href="/auth/recovery-password" className="">
 						Recuperar contraseña

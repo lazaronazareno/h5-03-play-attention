@@ -14,7 +14,7 @@ interface HeroSectionProps {
 
 const HeroSection = ({ imageUrl, title, description, button1Text, button2Text }: HeroSectionProps) => {
   return (
-    <div className="h-full p-8 lg:p-20 flex flex-col items-start lg:items-center justify-center lg:flex-row gap-8 lg:gap-24 mx-auto">
+    <div id="herosection" className="h-full p-8 lg:p-20 flex flex-col items-start lg:items-center justify-center lg:flex-row gap-8 lg:gap-24 mx-auto">
       <div className='flex flex-col gap-7 max-w-[568px]'>
         <Typography variant='h1' size='title' color='violet' weight='medium' text={title} />
         <Typography variant='p' size='base' color='default' weight='medium' text={description} />
