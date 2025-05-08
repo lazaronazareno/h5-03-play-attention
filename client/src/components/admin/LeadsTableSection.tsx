@@ -1,15 +1,15 @@
 import React from 'react';
 import Typography from '../ui/Typography';
 import { ChevronDown, Search } from 'lucide-react';
-import LeadsTable from './LeadsTable';
-import { ILeads } from '@/interfaces/IAdmin.interfaces';
+import { ILeads, IUser } from '@/interfaces/IAdmin.interfaces';
+import UserTable from './UserTable';
 
-interface LeadsTableSectionProps {
-  leads: ILeads[];
-  setSelectedLead: (lead: ILeads | null) => void;
+interface UserTableSectionProps {
+  users: ILeads[] | IUser[];
+  setSelectedUser: (user: ILeads | IUser | null) => void;
 }
 
-const LeadsTableSection = ({ leads, setSelectedLead }: LeadsTableSectionProps) => {
+const UserTableSection = ({ users, setSelectedUser }: UserTableSectionProps) => {
 
   return (
     <div className="py-9 px-4 bg-violet-main/20 rounded-md w-full min-h-[89vh] max-h-full">
@@ -33,10 +33,10 @@ const LeadsTableSection = ({ leads, setSelectedLead }: LeadsTableSectionProps) =
             </div>
           </div>
         </div>
-        <LeadsTable leads={leads} setSelectedLead={setSelectedLead} />
+        <UserTable users={users} setSelectedUser={setSelectedUser} />
       </div>
     </div>
   );
 };
 
-export default LeadsTableSection;
+export default UserTableSection;

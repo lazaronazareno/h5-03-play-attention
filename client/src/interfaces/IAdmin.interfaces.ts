@@ -49,10 +49,13 @@ export interface ILeads {
   currentSituation?: ICurrentSituation
 }
 
+export type IUserStatus = "ACTIVE" | "INACTIVE"
+
 export interface IUser {
   id: string
   username: string
-  fullName: string
+  name: string
+  lastName: string
   email: string
   password: string
   phoneNumber?: string
@@ -62,4 +65,45 @@ export interface IUser {
   roles: IUserRole
   userType: ILeadType
   imageurl?: string
+  country?: string
+  status?: IUserStatus
+}
+
+export type IContentType =
+  | "DOCUMENT"
+  | "VIDEO"
+  | "IMAGE"
+  | "ARTICLE"
+  | "TUTORIAL"
+  | "MARKETING"
+  | "ACTIVITY"
+  | "EVENT"
+
+export type IContentCategory =
+  | "EDUCATIONAL_MATERIAL"
+  | "TUTORIAL"
+  | "MEDICAL_ARTICLE"
+  | "SAMPLE_VIDEO"
+  | "MARKETING_MATERIAL"
+  | "INTERACTIVE_ACTIVITY"
+  | "EVENT_NOTIFICATION"
+  | "INSTALLATION_GUIDE"
+  | "USER_MANUAL"
+  | "SUCCESS_CASE"
+  | "RESEARCH"
+
+export interface IContent {
+  id: number
+  title: string
+  description: string
+  filePath: string
+  thumbnailPath: string
+  contentType: IContentType
+  category: IContentCategory
+  active: boolean
+  createdAt: string
+  lastUpdated: string
+  createdBy: number
+  languageCode: string
+  originalContentId?: number
 }

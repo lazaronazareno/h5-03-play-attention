@@ -39,19 +39,15 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
         <p className='text-2xl font-semibold'>{value}</p>
         {porcentage && (
           <>
-            {porcentage > 0 ? (
-              <div className='flex items-center gap-1 text-base'>
+            <div className='flex items-center gap-1 text-base'>
+              {porcentage > 0 ? (
                 <ArrowUp size={20} className='text-violet-main -mt-1 -me-0.5' />
-                <span className='flex text-violet-main font-semibold'>{porcentage}%</span>
-                <p className='text-gray-500'>este mes</p>
-              </div>
-            ) : (
-              <div className='flex items-center gap-1 text-base'>
-                <ArrowDown size={20} className='text-yellow-300 -me-0.5' />
-                <span className='flex text-yellow-300 font-semibold'>{porcentage}%</span>
-                <p className='text-gray-500'>este mes</p>
-              </div>
-            )}
+              ) : (
+                <ArrowDown size={20} className='text-violet-main -me-0.5' />
+              )}
+              <span className='flex text-violet-main font-semibold'>{porcentage}%</span>
+              <p className='text-gray-500'>este mes</p>
+            </div>
           </>
         )
         }
@@ -79,8 +75,8 @@ const StatsItem = ({ icon, title, value, porcentage, images }: StatsItemProps) =
 
 const Stats = ({ totalClients, porcentageClients, totalUsers, porcentageUsers, activeUsers }: StatsProps) => {
   return (
-    <div className='bg-neutral-white2 border border-violet-main rounded-md flex flex-col justify-center items-center gap-16 min-w-[367px] min-h-[527px] h-min py-12 font-poppins'>
-      <Typography variant='p' color='default' size='small-title' text='Métricas' weight='semibold' className='text-start' />
+    <div className='bg-neutral-white2 border-2 border-violet-main rounded-md flex flex-col justify-center items-center gap-16 min-w-[367px] min-h-[527px] h-min py-12 font-poppins'>
+      <Typography variant='p' color='default' size='small-title' text='Métricas' weight='semibold' className='text-start w-full px-16 -mb-6' />
       <StatsItem icon={<Users size={36} className='text-violet-main' />} title='Total Clientes' value={totalClients} porcentage={porcentageClients} />
       <StatsItem icon={<UserCheck size={36} className='text-violet-main' />} title='Miembros' value={totalUsers} porcentage={porcentageUsers} />
       <StatsItem icon={<Airplay size={36} className='text-violet-main' />} title='Activos ahora' value={activeUsers.length > 0 ? activeUsers.length : 189} images={activeUsers.map(user => user.imageurl!)} />

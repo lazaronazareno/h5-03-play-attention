@@ -1,12 +1,12 @@
 "use client"
-import { LeadStatusNames } from '@/constants/LeadNaming';
-import { ILeads, ILeadStatus } from '@/interfaces/IAdmin.interfaces';
+import { LeadStatusNames, UserStatusNames } from '@/constants/LeadNaming';
+import { ILeads, ILeadStatus, IUser, IUserStatus } from '@/interfaces/IAdmin.interfaces';
 import { ChevronLeft, ChevronRight, Pen } from 'lucide-react';
 import React from 'react';
 
-interface LeadsTableProps {
-  leads: ILeads[]
-  setSelectedLead: (lead: ILeads) => void
+interface UserTableProps {
+  users: ILeads[] | IUser[]
+  setSelectedUser: (user: ILeads | IUser) => void
 }
 
 const TABLE_HEAD = [
@@ -31,34 +31,37 @@ const TableCell = ({ children, className }: { children: React.ReactNode, classNa
   );
 }
 
-const TableStatus = ({ status }: { status: ILeadStatus }) => {
+const TableStatus = ({ status }: { status: ILeadStatus | IUserStatus }) => {
   const statusClasses = {
     NEW: 'bg-pink-lead',
     CONTACTED: 'bg-yellow-lead',
     AFTER_SALES: 'bg-purple-lead',
     CLIENT: 'bg-blue-lead',
     CANCELED: 'bg-gray-lead',
+    ACTIVE: 'bg-violet-main text-white',
+    INACTIVE: 'bg-neutral-white2 text-violet-main border border-violet-main',
   }
 
   return (
-    <span className={`font-semibold capitalize flex justify-center rounded-md w-full ${statusClasses[status]}`}>{LeadStatusNames[status]}</span>
+    <span className={`font-semibold capitalize flex justify-center rounded-md w-full ${statusClasses[status]}`}>
+      {status === 'ACTIVE' || status === 'INACTIVE' ? UserStatusNames[status] : LeadStatusNames[status]}
+    </span>
   );
 }
 
-const LeadsTable = ({ leads, setSelectedLead }: LeadsTableProps) => {
+const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const leadsPerPage = 8;
 
   const totalPages = React.useMemo(() => {
-    return Math.ceil(leads.length / leadsPerPage) || 1;
-  }, [leads]);
-  console.log('totalPages', totalPages);
-  console.log('leads length', leads.length);
-  const currentLeads = React.useMemo(() => {
+    return Math.ceil(users.length / leadsPerPage) || 1;
+  }, [users]);
+
+  const currentUsers = React.useMemo(() => {
     const start = (currentPage - 1) * leadsPerPage;
     const end = start + leadsPerPage;
-    return leads.slice(start, end);
-  }, [leads, currentPage]);
+    return users.slice(start, end);
+  }, [users, currentPage]);
 
   return (
     <div className='flex flex-col h-full'>
@@ -72,24 +75,47 @@ const LeadsTable = ({ leads, setSelectedLead }: LeadsTableProps) => {
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead) => (
-              <tr key={lead.id}>
-                <TableCell>{lead.name}</TableCell>
-                <TableCell>{lead.leadType}</TableCell>
-                <TableCell>{lead.phoneNumber}</TableCell>
-                <TableCell>{lead.email}</TableCell>
-                <TableCell>{lead.country}</TableCell>
-                <TableCell>
-                  <TableStatus status={lead.status} />
-                </TableCell>
-                <TableCell>
-                  <div
-                    className="flex justify-center cursor-pointer"
-                    onClick={() => setSelectedLead(lead)}
-                  >
-                    <Pen size={20} />
-                  </div>
-                </TableCell>
+            {currentUsers.map((user) => (
+              <tr key={user.id}>
+                {('leadType' in user) ? (
+                  <>
+                    <TableCell>{user.name + ' ' + user.lastName}</TableCell>
+                    <TableCell>{user.leadType}</TableCell>
+                    <TableCell>{user.phoneNumber}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.country}</TableCell>
+                    <TableCell>
+                      <TableStatus status={user.status} />
+                    </TableCell>
+                    <TableCell>
+                      <div
+                        className="flex justify-center cursor-pointer"
+                        onClick={() => setSelectedUser(user)}
+                      >
+                        <Pen size={20} />
+                      </div>
+                    </TableCell>
+                  </>
+                ) : (
+                  <>
+                    <TableCell>{user.name + ' ' + user.lastName}</TableCell>
+                    <TableCell>{user.userType}</TableCell>
+                    <TableCell>{user.phoneNumber}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.country}</TableCell>
+                    <TableCell>
+                      <TableStatus status={'ACTIVE'} />
+                    </TableCell>
+                    <TableCell>
+                      <div
+                        className="flex justify-center cursor-pointer"
+                        onClick={() => setSelectedUser(user)}
+                      >
+                        <Pen size={20} />
+                      </div>
+                    </TableCell>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
@@ -147,4 +173,4 @@ const LeadsTable = ({ leads, setSelectedLead }: LeadsTableProps) => {
   );
 };
 
-export default LeadsTable;
+export default UserTable;
