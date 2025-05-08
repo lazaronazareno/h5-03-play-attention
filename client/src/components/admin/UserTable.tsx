@@ -1,8 +1,10 @@
 "use client"
-import { LeadStatusNames, UserStatusNames } from '@/constants/LeadNaming';
-import { ILeads, ILeadStatus, IUser, IUserStatus } from '@/interfaces/IAdmin.interfaces';
+import { ILeads, IUser, } from '@/interfaces/IAdmin.interfaces';
 import { ChevronLeft, ChevronRight, Pen } from 'lucide-react';
 import React from 'react';
+import { TableHead } from './TableHead';
+import { TableCell } from './TableCell';
+import { TableStatus } from './TableStatus';
 
 interface UserTableProps {
   users: ILeads[] | IUser[]
@@ -18,36 +20,6 @@ const TABLE_HEAD = [
   "Estado",
   "Editar"
 ]
-
-const TableHead = ({ title }: { title: string }) => {
-  return (
-    <th className={`p-4 font-medium ${(title === 'Estado' || title === 'Editar') ? 'text-center' : 'text-start'}`}>{title}</th>
-  );
-}
-
-const TableCell = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  return (
-    <td className={`p-4 border-b border-gray-200/30 ${className ?? className}`}>{children}</td>
-  );
-}
-
-const TableStatus = ({ status }: { status: ILeadStatus | IUserStatus }) => {
-  const statusClasses = {
-    NEW: 'bg-pink-lead',
-    CONTACTED: 'bg-yellow-lead',
-    AFTER_SALES: 'bg-purple-lead',
-    CLIENT: 'bg-blue-lead',
-    CANCELED: 'bg-gray-lead',
-    ACTIVE: 'bg-violet-main text-white',
-    INACTIVE: 'bg-neutral-white2 text-violet-main border border-violet-main',
-  }
-
-  return (
-    <span className={`font-semibold capitalize flex justify-center rounded-md w-full ${statusClasses[status]}`}>
-      {status === 'ACTIVE' || status === 'INACTIVE' ? UserStatusNames[status] : LeadStatusNames[status]}
-    </span>
-  );
-}
 
 const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
   const [currentPage, setCurrentPage] = React.useState(1);

@@ -4,41 +4,41 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input } from "../inputs/Input";
-import Typography from "../ui/Typography";
 import { Camera, Pen, Loader2 } from "lucide-react";
 import Image from "next/image";
-import Button from "../ui/Button";
-import { updateLead } from "@/services/admin/updateLeads";
-import { ILeads } from "@/interfaces/IAdmin.interfaces";
+import { IUser } from "@/interfaces/IAdmin.interfaces";
+import Typography from "@/components/ui/Typography";
+import { Input } from "@/components/inputs/Input";
+import Button from "@/components/ui/Button";
+import { updateUser } from "@/services/admin/updateUser";
 
 // Define schema using zod
-const editLeadSchema = z.object({
+const EditUserSchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   lastName: z.string().min(1, "El apellido es requerido"),
   phoneNumber: z.string().min(10, "El número de teléfono debe tener al menos 10 caracteres"),
   email: z.string().email("Debe ser un correo válido"),
 });
 
-type EditLeadFormData = z.infer<typeof editLeadSchema>;
+type EditUserFormData = z.infer<typeof EditUserSchema>;
 
-interface EditLeadProps {
-  lead: ILeads;
+interface EditUserProps {
+  user: IUser;
   externalSubmit?: () => void;
 }
 
-const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
+const EditUser = ({ user, externalSubmit }: EditUserProps) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditLeadFormData>({
-    resolver: zodResolver(editLeadSchema),
+  } = useForm<EditUserFormData>({
+    resolver: zodResolver(EditUserSchema),
     defaultValues: {
-      name: lead.name,
-      lastName: lead.lastName,
-      phoneNumber: lead.phoneNumber,
-      email: lead.email,
+      name: user.name ?? '',
+      lastName: user.lastName ?? '',
+      phoneNumber: user.phoneNumber,
+      email: user.email,
     },
   });
 
@@ -46,7 +46,7 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const onSubmit = async (data: EditLeadFormData) => {
+  const onSubmit = async (data: EditUserFormData) => {
     console.log("Form Data:", data);
     setIsLoading(true);
     setSuccess(false);
@@ -54,20 +54,21 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
 
     try {
       // Simulate API call
-      const response = await updateLead({ ...lead, ...data });
+      const response = await updateUser({ ...user, ...data });
       if (response.status === 200) {
         setSuccess(true);
         setError(false);
-        console.log("Lead updated successfully:", response.data);
+        console.log("user updated successfully:", response.data);
+        if (externalSubmit) {
+          externalSubmit();
+        }
       }
     } catch (error) {
-      console.error("Error updating lead:", error);
+      console.error("Error updating user:", error);
       setError(true);
     } finally {
       setIsLoading(false);
-      if (externalSubmit) {
-        externalSubmit();
-      }
+
     }
   };
 
@@ -76,7 +77,7 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
       <div className="relative flex justify-center rounded-full w-max cursor-pointer border border-violet-main overflow-hidden self-center">
         <Image
           src="/landing/testimonies/1.png"
-          alt="Lead"
+          alt="user"
           width={141}
           height={141}
           className="rounded-full bg-green-300"
@@ -222,14 +223,14 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
         </div>
 
         {success && (
-          <p className="mt-1 text-sm text-green-600">Lead actualizado con éxito</p>
+          <p className="mt-1 text-sm text-green-600">user actualizado con éxito</p>
         )}
         {error && (
-          <p className="mt-1 text-sm text-red-600">Error al actualizar el lead</p>
+          <p className="mt-1 text-sm text-red-600">Error al actualizar el user</p>
         )}
       </form>
     </div>
   );
 };
 
-export default EditLead;
+export default EditUser;

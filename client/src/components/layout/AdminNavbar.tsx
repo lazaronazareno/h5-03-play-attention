@@ -30,7 +30,9 @@ const AdminNavbar = () => {
 
       <div className='flex gap-4'>
         <button className='text-violet-main cursor-pointer' onClick={() => { console.log('notification') }}><Bell size={24} /></button>
-        <Button text='Configuración' variant='primary' icon={< Settings />} iconPosition='right' />
+        <Link href={'/admin/config'} >
+          <Button text='Configuración' variant='primary' icon={< Settings />} iconPosition='right' />
+        </Link>
         <button className='text-violet-main cursor-pointer' onClick={() => { console.log('notification') }}><LayoutGrid size={24} /></button>
       </div>
     </header>
