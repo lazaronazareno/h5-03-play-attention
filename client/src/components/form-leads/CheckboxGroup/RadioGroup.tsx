@@ -14,7 +14,7 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 
 	return (
 		<fieldset className="flex flex-col border-2 border-violet-main relative rounded-md bg-white shadow-main">
-			<Typography text={title} variant="p" color="green" size="base" weight="semibold" className="py-3 text-center" />
+			<Typography text={title} variant="p" color="green" size="sm" weight="semibold" className="py-3 text-center" />
 			<div className="grid grid-cols-2 gap-x-[24px] gap-y-[12px] px-4 py-3">
 				{options.map((opt) => (
 					<label key={opt.value} className="flex items-center gap-2 font-poppins text-[14px]">
