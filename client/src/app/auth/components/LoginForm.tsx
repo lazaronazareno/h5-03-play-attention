@@ -56,13 +56,13 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 	};
 
 	return (
-		<div className="w-[90%] lg:w-[50%] h-full p-4 bg-green-300 rounded-sm shadow-md text-[14px]">
-			<div className="w-full flex flex-col items-center justify-center p-6 lg:py-12 gap-12 bg-neutral-white2 rounded-sm font-poppins ">
-				<Image src="/branding/LogoFullAR.png" width={400} height={50} alt="LogoImage" className="w-auto h-auto" />
+		<div className="h-full w-[90%] rounded-sm bg-green-300 p-4 text-[14px] shadow-md lg:w-[50%]">
+			<div className="flex w-full flex-col items-center justify-center gap-12 rounded-sm bg-neutral-white2 p-6 font-poppins lg:py-12">
+				<Image src="/branding/LogoFullAR.png" width={400} height={50} alt="LogoImage" className="h-auto w-auto" />
 
-				<form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col items-center justify-center gap-8">
+				<form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col items-center justify-center gap-8">
 					<div className="w-full">
-						<label htmlFor="email" className="block text-[15px] font-semibold text-green-500 mb-1">
+						<label htmlFor="email" className="mb-1 block text-[15px] font-semibold text-green-500">
 							Nombre de Usuario
 						</label>
 						<Controller
@@ -74,7 +74,7 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 					</div>
 
 					<div className="w-full">
-						<label htmlFor="password" className="block text-[15px] font-semibold text-green-500 mb-1">
+						<label htmlFor="password" className="mb-1 block text-[15px] font-semibold text-green-500">
 							Contraseña
 						</label>
 						<Controller
@@ -90,12 +90,12 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 						<button
 							type="submit"
 							onChange={handleSubmit(onSubmit)}
-							className="w-full bg-violet-main text-white py-2 px-4 rounded-sm hover:bg-violet-secondary transition duration-200 cursor-pointer"
+							className="w-full cursor-pointer rounded-sm bg-violet-main px-4 py-2 text-white transition duration-200 hover:bg-violet-secondary"
 						>
 							Iniciar sesión
 						</button>
 					) : (
-						<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="w-full flex justify-center items-center !py-2 !px-4" disabled={true} />
+						<Button text="Cargando" variant="primary" icon={<Loader2 className="animate-spin" />} iconPosition="right" className="flex w-full items-center justify-center !px-4 !py-2" disabled={true} />
 					)
 					}
 
@@ -105,16 +105,16 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 				</form>
 
 				{hasFooter && (
-					<div className="w-full flex flex-col items-center  mt-8 space-y-4">
-						<p className="text-[22px] font-roboto font-bold text-green-500">¿No tienes acceso a Play Attention?</p>
-						<div className="w-full flex flex-col items-center justify-between gap-4">
+					<div className="mt-8 flex w-full flex-col items-center space-y-4">
+						<p className="font-roboto text-[22px] font-bold text-green-500">¿No tienes acceso a Play Attention?</p>
+						<div className="flex w-full flex-col items-center justify-between gap-4">
 							<Link href="#" className="w-[60%]">
-								<button className="w-full bg-violet-main text-white py-2 px-4 rounded-sm hover:bg-violet-secondary transition duration-200 cursor-pointer">
+								<button className="w-full cursor-pointer rounded-sm bg-violet-main px-4 py-2 text-white transition duration-200 hover:bg-violet-secondary">
 									Solicitar información
 								</button>
 							</Link>
 							<Link href="#" className="w-[60%]">
-								<button className="w-full flex items-center justify-between p-2 rounded-sm text-violet-main border border-violet-main cursor-pointer">
+								<button className="flex w-full cursor-pointer items-center justify-between rounded-sm border border-violet-main p-2 text-violet-main">
 									Reserva tu demostración{" "}
 									<span>
 										<ChevronRight size={18} />
@@ -126,7 +126,7 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 				)}
 
 				{/* Separador */}
-				<div className="w-[60%] border border-violet-main mt-8 mb-12"></div>
+				<div className="mb-12 mt-8 w-[60%] border border-violet-main"></div>
 			</div>
 		</div>
 	);

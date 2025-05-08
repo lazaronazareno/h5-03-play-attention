@@ -31,12 +31,12 @@ export default function DashboardLayout({
   return (
     <html lang="es" className={`${roboto.variable} ${poppins.variable}`}>
       <body>
-        <div className='min-h-screen w-full flex flex-col md:flex-row'>
-          <div className="md:fixed md:w-84 z-20">
+        <div className='flex min-h-screen w-full flex-col md:flex-row'>
+          <div className="md:w-84 z-20 md:fixed">
             <UserNavbar />
           </div>
           {/* Contenido principal */}
-          <div className='flex-1 md:ml-64 mt-16 md:mt-10'>
+          <div className='mt-16 flex-1 md:ml-64 md:mt-10'>
             <main className='p-6'>{children}</main>
           </div>
         </div>

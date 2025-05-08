@@ -43,7 +43,7 @@ const UserCard = ({ data }: LeadCardProps) => {
     };
 
   return (
-    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9 w-[400px]">
+    <div className="shadow-main flex h-min w-[400px] flex-col gap-4 rounded-md border border-violet-main bg-neutral-white2 px-9 py-6">
       <div className='flex items-center gap-3'>
         <Image src="/landing/testimonies/1.png" alt="Lead" width={141} height={141} className="rounded-full bg-green-300" />
         <div>
@@ -181,13 +181,13 @@ const UserCard = ({ data }: LeadCardProps) => {
         </>
       )}
 
-      <div className='flex gap-2 h-12 mt-4'>
-        <Button variant='primary' text='Editar' icon={<SquarePen size={20} />} iconPosition='right' onClick={() => setOpenEditForm(true)} className='flex-1 !py-0 items-center justify-center font-semibold' />
-        <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} />} iconPosition='right' onClick={() => console.log('Delete')} className='flex-1 !py-0 items-center justify-center font-semibold' />
+      <div className='mt-4 flex h-12 gap-2'>
+        <Button variant='primary' text='Editar' icon={<SquarePen size={20} />} iconPosition='right' onClick={() => setOpenEditForm(true)} className='flex-1 items-center justify-center !py-0 font-semibold' />
+        <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} />} iconPosition='right' onClick={() => console.log('Delete')} className='flex-1 items-center justify-center !py-0 font-semibold' />
       </div>
 
       {openEditForm && (
-        <div className='fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50' onClick={() => setOpenEditForm(false)}>
+        <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/50' onClick={() => setOpenEditForm(false)}>
           <EditLead lead={currentUser as ILeads} externalSubmit={() => {
             setOpenEditForm(false)
             handleReload()

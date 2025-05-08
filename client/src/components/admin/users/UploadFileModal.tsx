@@ -107,10 +107,10 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-md shadow-main border border-violet-main w-[700px] p-4">
+    <div className="shadow-main flex w-[700px] flex-col rounded-md border border-violet-main bg-white p-4">
       <Typography text="Subir archivo" variant="p" color="violet" size="small-title" weight="semibold" className="mb-4" />
       <form onSubmit={handleSubmit(handleConfirm)} className="flex flex-col gap-4">
-        <div className="flex gap-2 items-center mb-4">
+        <div className="mb-4 flex items-center gap-2">
           <Typography variant="p" text="Título" weight="semibold" size="sm" color="default" className="w-32" />
           <div className="w-full">
             <Controller
@@ -120,10 +120,10 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
                 <Input {...field} type="text" placeholder="Título" />
               )}
             />
-            {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+            {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
           </div>
         </div>
-        <div className="flex gap-2 items-center mb-4">
+        <div className="mb-4 flex items-center gap-2">
           <Typography variant="p" text="Descripción" weight="semibold" size="sm" color="default" />
           <div className="w-full">
             <Controller
@@ -135,7 +135,7 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
             />
           </div>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Typography variant="p" text="Categoría" weight="semibold" size="sm" color="default" className="w-28" />
           <Controller
             control={control}
@@ -150,11 +150,11 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
               />
             )}
           />
-          {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+          {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
         </div>
-        <div className="flex flex-col gap-4 mt-4 h-full">
-          <div className="relative flex flex-col items-center justify-center p-4 gap-8 py-8 w-full">
-            <div className="w-full border-b border-violet-main flex items-center gap-2">
+        <div className="mt-4 flex h-full flex-col gap-4">
+          <div className="relative flex w-full flex-col items-center justify-center gap-8 p-4 py-8">
+            <div className="flex w-full items-center gap-2 border-b border-violet-main">
               <Typography
                 text="Subir"
                 variant="p"
@@ -179,7 +179,7 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
             </div>
             <input
               type="file"
-              className="absolute top-0 opacity-0 w-full h-full cursor-pointer"
+              className="absolute top-0 h-full w-full cursor-pointer opacity-0"
               onChange={(e) => setValue('file', e.target.files?.[0])}
             />
             {(type === 'DOCUMENT' || type === 'ACTIVITY' || type === 'ARTICLE') && (
@@ -193,7 +193,7 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
             )}
           </div>
         </div>
-        <div className="flex gap-2 mt-4">
+        <div className="mt-4 flex gap-2">
           <label className="flex items-center gap-2">
             <Controller
               control={control}
@@ -213,15 +213,15 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
           <Button
             variant="primary"
             text="Subir archivo"
-            className="ms-auto !py-0 items-center justify-center font-semibold"
+            className="ms-auto items-center justify-center !py-0 font-semibold"
             icon={<ChevronRight size={20} color="white" />}
             iconPosition="right"
           />
         </div>
       </form>
       {confirmModal && (
-        <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center' >
-          <div className="relative flex flex-col items-center justify-center p-4 gap-8 py-8 w-full h-full" onClick={() => setConfirmModal(false)}>
+        <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white/50' >
+          <div className="relative flex h-full w-full flex-col items-center justify-center gap-8 p-4 py-8" onClick={() => setConfirmModal(false)}>
             <ConfirmUploadModal
               loading={loading}
               type="confirm"

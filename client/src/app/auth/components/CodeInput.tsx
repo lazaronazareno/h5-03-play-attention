@@ -50,7 +50,7 @@ export default function CodeInput({ onComplete, length = 6 }: CodeInputProps) {
           key={idx}
           maxLength={1}
           inputMode='numeric'
-          className='w-10 h-10 text-center bg-white border border-violet-main rounded focus:border-violet-main'
+          className='h-10 w-10 rounded border border-violet-main bg-white text-center focus:border-violet-main'
         />
       ))}
     </div>

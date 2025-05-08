@@ -18,16 +18,16 @@ export default function EventsPage() {
     }
   ]
   return (
-    <div className='flex flex-col px-6 pb-4 pt-8 gap-8 min-h-screen h-full w-full'>
+    <div className='flex h-full min-h-screen w-full flex-col gap-8 px-6 pb-4 pt-8'>
       <div className='flex justify-between'>
-        <div className='flex flex-col gap-4 justify-end'>
+        <div className='flex flex-col justify-end gap-4'>
           <Typography variant='h2' text={"Eventos"} color='violet' size='title' weight='medium' />
           <Typography variant='p' text={"Aquí visualizaras un candelario con los eventos, entrenamientos, webinars, etc."} color='default' size='base' weight='normal' />
         </div>
-        <Image src={"/dashboard/eventos.png"} alt={"Eventos"} width={350} height={260} className='w-28 h-24 lg:w-[350px] lg:h-[260px]' />
+        <Image src={"/dashboard/eventos.png"} alt={"Eventos"} width={350} height={260} className='h-24 w-28 lg:h-[260px] lg:w-[350px]' />
       </div>
-      <div className='relative flex mt-4 border-t-2 border-t-violet-main bg-neutral-white2 w-full h-full px-4 pt-9 gap-4'>
-        <div className="flex flex-2 flex-col gap-4 w-full">
+      <div className='relative mt-4 flex h-full w-full gap-4 border-t-2 border-t-violet-main bg-neutral-white2 px-4 pt-9'>
+        <div className="flex-2 flex w-full flex-col gap-4">
           {events.length > 0 ? (
             <>
               {events.map((item, index) => (
@@ -43,9 +43,9 @@ export default function EventsPage() {
           )}
         </div>
         {/* reemplazar por un calendario de verdad */}
-        <div className="flex-1 bg-violet-main/20 rounded-lg shadow-md overflow-hidden">
+        <div className="flex-1 overflow-hidden rounded-lg bg-violet-main/20 shadow-md">
           <div className="p-4">
-            <div className="grid grid-cols-7 gap-2 text-center text-sm font-medium ">
+            <div className="grid grid-cols-7 gap-2 text-center text-sm font-medium">
               <div>Do</div>
               <div>Lu</div>
               <div>Ma</div>
@@ -54,7 +54,7 @@ export default function EventsPage() {
               <div>Vi</div>
               <div>Sa</div>
             </div>
-            <div className="grid grid-cols-7 gap-2 mt-2 text-center">
+            <div className="mt-2 grid grid-cols-7 gap-2 text-center">
               {Array.from({ length: 30 }, (_, i) => (
                 <div
                   key={i}
@@ -72,5 +72,5 @@ export default function EventsPage() {
   );
 }
 
-/* 
+/*
  */

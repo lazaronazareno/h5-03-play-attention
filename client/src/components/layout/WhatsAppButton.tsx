@@ -15,12 +15,12 @@ const WhatsAppButton = ({ phoneNumber, message, size = 16 }: WhatsAppButtonProps
         href={`https://wa.me/${phoneNumber}?text=${message}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-6"
+        className="transition-transform duration-300 ease-in-out hover:rotate-6 hover:scale-110"
       >
         <Image
           src={whattsappicon}
           alt="WhatsApp"
-          className="object-contain size-16 lg:size-20"
+          className="size-16 lg:size-20 object-contain"
           style={{ width: `${size}px`, height: `${size}px` }}
         />
       </a>

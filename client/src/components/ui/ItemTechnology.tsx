@@ -9,7 +9,7 @@ interface ItemTechnologyProps {
 
 const ItemTechnology = ({ name, image }: ItemTechnologyProps) => {
   return (
-    <div className='flex flex-col items-center justify-center bg-green-300 size-[215px] rounded-md shadow-main'>
+    <div className='size-[215px] shadow-main flex flex-col items-center justify-center rounded-md bg-green-300'>
       <Image
         src={image}
         alt={name}

@@ -43,9 +43,9 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
         <ChevronDown size={20} />
       </button>
       {isOpen && (
-        <ul className="bg-neutral-white2 absolute top-0 flex flex-col gap-2 min-w-32 rounded-md shadow-main border p-2 z-10">
+        <ul className="min-w-32 shadow-main absolute top-0 z-10 flex flex-col gap-2 rounded-md border bg-neutral-white2 p-2">
           <li
-            className="flex justify-between text-violet-main border-b border-violet-main/50 font-semibold cursor-pointer"
+            className="flex cursor-pointer justify-between border-b border-violet-main/50 font-semibold text-violet-main"
             onClick={() => setIsOpen(!isOpen)}
           >
             {title}
@@ -60,7 +60,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
                   setSelected(value);
                   setIsOpen(false);
                 }}
-                className='hover:bg-violet-secondary/20 cursor-pointer rounded-md'
+                className='cursor-pointer rounded-md hover:bg-violet-secondary/20'
               >
                 {value}
               </li>

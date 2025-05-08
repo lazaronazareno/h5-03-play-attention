@@ -31,7 +31,7 @@ const ContactLeadSection = ({ status, lead, setSelectedLead }: ContactLeadSectio
     <div className={`${statusClasses[status]} py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md`}>
       <div className='flex'>
         {/* TODO: CAMBIAR PERO FUNCIONA BIEN */}
-        <Link href={'/admin/leads'} className='flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main' onClick={() => setSelectedLead(null)}>
+        <Link href={'/admin/leads'} className='flex cursor-pointer items-center gap-2 p-4 hover:text-violet-main' onClick={() => setSelectedLead(null)}>
           <Home size={20} />
           <span className='text-base font-medium'>Inicio</span>
         </Link>

@@ -13,7 +13,7 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 	const error = errors?.[name];
 
 	return (
-		<fieldset className="flex flex-col border-2 border-violet-main relative rounded-md bg-white shadow-main">
+		<fieldset className="shadow-main relative flex flex-col rounded-md border-2 border-violet-main bg-white">
 			<Typography text={title} variant="p" color="green" size="sm" weight="semibold" className="py-3 text-center" />
 			<div className="grid grid-cols-2 gap-x-[24px] gap-y-[12px] px-4 py-3">
 				{options.map((opt) => (
@@ -22,7 +22,7 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 							type="radio"
 							value={opt.value}
 							{...register(name)}
-							className="w-[20px] h-[20px] border-[2px] border-violet-main rounded-md appearance-none checked:bg-violet-main"
+							className="h-[20px] w-[20px] appearance-none rounded-md border-[2px] border-violet-main checked:bg-violet-main"
 							required={true}
 						/>
 						{opt.label}
@@ -30,7 +30,7 @@ const RadioGroup = <T extends FieldValues>({ title, name, options, register, err
 				))}
 			</div>
 			{error?.message && (
-				<p className="text-[10px] font-poppins text-red-500 mt-1 px-2 py-1 rounded">{error.message}</p>
+				<p className="mt-1 rounded px-2 py-1 font-poppins text-[10px] text-red-500">{error.message}</p>
 			)}
 		</fieldset>
 	);

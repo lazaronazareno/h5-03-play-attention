@@ -16,9 +16,9 @@ const VALIDATION_ITEMS = [
 const ValidationSection = () => {
   return (
     <>
-      <div className="h-full flex flex-col items-center lg:flex-row overflow-hidden relative">
-        <div className="bg-green-300 absolute z-0 w-full h-full 2xl:h-10/12 bottom-0" />
-        <div className='flex flex-col gap-7 lg:gap-12 max-w-[500px] mt-[7%] lg:ms-auto z-10'>
+      <div className="relative flex h-full flex-col items-center overflow-hidden lg:flex-row">
+        <div className="2xl:h-10/12 absolute bottom-0 z-0 h-full w-full bg-green-300" />
+        <div className='z-10 mt-[7%] flex max-w-[500px] flex-col gap-7 lg:ms-auto lg:gap-12'>
           <Typography
             variant='h2'
             size='subtitle'
@@ -27,7 +27,7 @@ const ValidationSection = () => {
             text='Clínicamente validado para mejorar:'
             className="text-center"
           />
-          <div className="flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-2 lg:gap-y-10 px-5 lg:px-0">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 px-5 lg:justify-start lg:gap-y-10 lg:px-0">
             {VALIDATION_ITEMS.map((item, index) => (
               <ItemValidation
                 key={index}
@@ -42,7 +42,7 @@ const ValidationSection = () => {
           alt='Validation Image'
           width={1130}
           height={900}
-          className="relative min-w-[435px] lg:max-w-[1130px] -bottom-4 lg:left-16 lg:-bottom-9"
+          className="relative -bottom-4 min-w-[435px] lg:-bottom-9 lg:left-16 lg:max-w-[1130px]"
         />
       </div>
       <NasaValidationSection />

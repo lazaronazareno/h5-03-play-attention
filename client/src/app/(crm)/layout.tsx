@@ -32,7 +32,7 @@ export default function DashboardLayout({
     <html lang="es" className={`${roboto.variable} ${poppins.variable}`}>
       <body className="h-screen">
         <AdminNavbar />
-        <main className='w-full h-[91%]'>{children}</main>
+        <main className='h-[91%] w-full'>{children}</main>
       </body>
     </html>
   );

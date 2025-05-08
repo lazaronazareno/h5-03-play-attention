@@ -9,13 +9,13 @@ interface HeroImageProps {
 const HeroImage = ({ imageUrl, title }: HeroImageProps) => {
   return (
     <div className='relative'>
-      <div className="absolute top-4 lg:top-8 left-3 lg:left-8 w-full h-full rounded-tr-[50px] rounded-bl-4xl bg-violet-secondary/20 z-0" />
+      <div className="rounded-bl-4xl absolute left-3 top-4 z-0 h-full w-full rounded-tr-[50px] bg-violet-secondary/20 lg:left-8 lg:top-8" />
       <Image
         src={imageUrl}
         alt={title}
         width={710}
         height={490}
-        className="relative z-10 object-cover rounded-2xl border-2 lg:border-3 border-violet-main"
+        className="lg:border-3 relative z-10 rounded-2xl border-2 border-violet-main object-cover"
       />
     </div>
   );

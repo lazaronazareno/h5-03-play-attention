@@ -36,9 +36,9 @@ const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
   }, [users, currentPage]);
 
   return (
-    <div className='flex flex-col h-full'>
-      <div className="overflow-hidden border bg-white border-violet-main rounded-md w-full py-1">
-        <table className="table-auto border-collapse font-poppins w-full">
+    <div className='flex h-full flex-col'>
+      <div className="w-full overflow-hidden rounded-md border border-violet-main bg-white py-1">
+        <table className="w-full table-auto border-collapse font-poppins">
           <thead>
             <tr className="border-b border-gray-200/30">
               {TABLE_HEAD.map((title) => (
@@ -61,7 +61,7 @@ const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
                     </TableCell>
                     <TableCell>
                       <div
-                        className="flex justify-center cursor-pointer"
+                        className="flex cursor-pointer justify-center"
                         onClick={() => setSelectedUser(user)}
                       >
                         <Pen size={20} />
@@ -80,7 +80,7 @@ const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
                     </TableCell>
                     <TableCell>
                       <div
-                        className="flex justify-center cursor-pointer"
+                        className="flex cursor-pointer justify-center"
                         onClick={() => setSelectedUser(user)}
                       >
                         <Pen size={20} />
@@ -95,8 +95,8 @@ const UserTable = ({ users, setSelectedUser }: UserTableProps) => {
       </div>
 
       {/* Paginación */}
-      <div className="flex py-4 pt-6 mt-auto items-center">
-        <span className="text-gray-400 font-poppins">
+      <div className="mt-auto flex items-center py-4 pt-6">
+        <span className="font-poppins text-gray-400">
           Mostrando página {currentPage} de {totalPages}
         </span>
         <div className="ml-auto flex items-center gap-2">

@@ -23,15 +23,15 @@ const OPTIONS = [
 
 export default function SupportPage() {
   return (
-    <div className='flex flex-col px-6 pt-8 gap-8 min-h-screen w-full'>
+    <div className='flex min-h-screen w-full flex-col gap-8 px-6 pt-8'>
       <div className='flex justify-between'>
-        <div className='flex flex-col gap-4 justify-end'>
+        <div className='flex flex-col justify-end gap-4'>
           <Typography variant='h2' text={"Soporte al Cliente"} color='violet' size='title' weight='medium' />
           <Typography variant='p' text={"¿Cómo podemos ayudarte?"} color='default' size='base' weight='normal' />
         </div>
-        <Image src={"/dashboard/soporte.png"} alt={"Soporte al Cliente"} width={350} height={260} className='w-28 h-24 lg:w-[350px] lg:h-[260px]' />
+        <Image src={"/dashboard/soporte.png"} alt={"Soporte al Cliente"} width={350} height={260} className='h-24 w-28 lg:h-[260px] lg:w-[350px]' />
       </div>
-      <div className='relative flex flex-col gap-4 mt-4 border-t-2 border-t-violet-main bg-neutral-white2 h-full px-4 pt-9'>
+      <div className='relative mt-4 flex h-full flex-col gap-4 border-t-2 border-t-violet-main bg-neutral-white2 px-4 pt-9'>
         {OPTIONS.length > 0 ? (
           <>
             {OPTIONS.map((item, index) => (
