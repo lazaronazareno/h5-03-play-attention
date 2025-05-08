@@ -26,7 +26,6 @@ export default function Home() {
       />
       <ValidationSection />
       <BenefitsSection />
-      <ValidationSection />
       <TechologySection />
       <AboutUsSection />
       <TestimonySection

@@ -8,7 +8,7 @@ import { LeadStatusNames, LeadTypeNames } from '@/constants/LeadNaming';
 interface EmailFormProps {
   users: string[];
   from?: string;
-  type: 'WhatsApp' | 'Correo Electrónico' | 'Reuniones';
+  type: 'WhatsApp' | 'Correo Electrónico' | 'Reuniones' | 'Campaña' | 'Soporte';
   onClick?: (value: boolean) => void;
 }
 

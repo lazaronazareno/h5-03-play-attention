@@ -7,9 +7,10 @@ import { ItemFileProps } from '@/interfaces/IUserPanel.interfaces';
 import Video from '../video/Video';
 import ItemModal from './ItemModal';
 import DownloadModal from './DownloadModal';
+import { FakeTranscription } from '../utils/fakeTranscription';
 
 
-const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcription }: ItemFileProps) => {
+const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcription, checkbox, isSelected, setSelectedFile, id }: ItemFileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -27,12 +28,29 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
       {
         (type === 'document' || type === 'image') && (
           <div className='flex w-full gap-1 lg:gap-2'>
+            {!checkbox && (
+              <>
+                {
+                  icon
+                    ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
+                    : <span className='bg-green-main rounded-full size-5 flex justify-center items-center mt-2'>
+                      <CheckIcon size={18} color='white' strokeWidth={3} />
+                    </span>
+                }
+              </>
+            )}
+
             {
-              icon
-                ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
-                : <span className='bg-green-main rounded-full size-5 flex justify-center items-center mt-2'>
-                  <CheckIcon size={18} color='white' strokeWidth={3} />
-                </span>
+              checkbox && (
+                <div className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    checked={isSelected}
+                    onChange={() => setSelectedFile?.(isSelected ? 0 : id!)}
+                    className='form-checkbox h-5 w-5 text-green-main border-gray-300 rounded focus:ring-green-main'
+                  />
+                </div>
+              )
             }
             <div className='flex flex-col'>
               <Typography text={title} variant='h3' color='violet' size='small-title' weight='semibold' />
@@ -97,7 +115,7 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
                 name={title}
                 description={description}
                 url={fileUrl}
-                apiResponse={transcription!}
+                apiResponse={transcription ?? FakeTranscription}
               />
             </div>
           </div>

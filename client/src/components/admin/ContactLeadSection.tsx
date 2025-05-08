@@ -1,8 +1,8 @@
 import { ILeads, ILeadStatus } from '@/interfaces/IAdmin.interfaces';
 import { Frown, Home, ShoppingBag, Smile, Star, Users } from 'lucide-react';
 import React from 'react';
-import LeadsContactTable from './LeadsContactTable';
 import { LeadStatusNames } from '@/constants/LeadNaming';
+import UserContactTable from './UserContactTable';
 
 interface ContactLeadSectionProps {
   status: ILeadStatus;
@@ -40,8 +40,8 @@ const ContactLeadSection = ({ status, lead, setSelectedLead }: ContactLeadSectio
           </div>
         ))}
       </div>
-      <LeadsContactTable type='Correo Electrónico' lead={lead} />
-      <LeadsContactTable type='WhatsApp' lead={lead} />
+      <UserContactTable type='Correo Electrónico' user={lead} />
+      <UserContactTable type='WhatsApp' user={lead} />
     </div>
   );
 };

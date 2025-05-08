@@ -12,18 +12,24 @@ export interface UserPanelProps<T extends UserPanelItem> {
   items: T[]
 }
 
+export type ItemFileType =
+  | "application/pdf"
+  | "video/mp4"
+  | "image/jpeg"
+  | "image/png"
+  | "application/msword"
+  | "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
 export interface ItemFileProps extends UserPanelItem {
   type: "document" | "video" | "image"
   icon?: React.ReactNode
   fileUrl: string
-  fileType:
-    | "application/pdf"
-    | "video/mp4"
-    | "image/jpeg"
-    | "image/png"
-    | "application/msword"
-    | "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  fileType: ItemFileType
   transcription?: ApiResponse
+  checkbox?: boolean
+  isSelected?: boolean
+  setSelectedFile?: (id: number) => void
+  id?: number
 }
 
 export interface ModalProps {

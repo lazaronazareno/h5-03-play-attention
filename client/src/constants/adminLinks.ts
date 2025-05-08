@@ -9,7 +9,7 @@ export const ADMIN_LINKS = [
   },
   {
     title: "Clientes Individuales",
-    href: "/admin/users",
+    href: "/admin/individuals",
   },
   {
     title: "Profesionales",
@@ -17,7 +17,7 @@ export const ADMIN_LINKS = [
   },
   {
     title: "Empresas",
-    href: "/admin/enterprises",
+    href: "/admin/enterprise",
   },
   {
     title: "Reportes | Métricas",

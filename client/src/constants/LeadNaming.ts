@@ -28,3 +28,20 @@ export const LeadCurrentSituationNames = {
   IN_TREATMENT: "En tratamiento",
   OTHER: "Otro",
 }
+
+export const UserStatusNames = {
+  ACTIVE: "Activo",
+  INACTIVE: "Inactivo",
+}
+
+export const ContentCategoriesNames = {
+  EDUCATIONAL_MATERIAL: "Material Educativo",
+  TUTORIAL: "Tutorial",
+  MEDICAL_ARTICLE: "Artículo Médico",
+  SAMPLE_VIDEO: "Video de Muestra",
+  MARKETING_MATERIAL: "Material de Marketing",
+  INSTALLATION_GUIDE: "Guía de Instalación",
+  USER_MANUAL: "Manual de Usuario",
+  SUCCESS_CASE: "Caso de Éxito",
+  RESEARCH: "Investigación",
+}

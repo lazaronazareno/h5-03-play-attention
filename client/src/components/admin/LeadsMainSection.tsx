@@ -1,10 +1,10 @@
 'use client'
 import React from 'react';
-import LeadCard from './LeadCard';
 import Stats from './Stats';
 import ContactLeadSection from './ContactLeadSection';
-import LeadsTableSection from './LeadsTableSection';
-import { ILeads } from '@/interfaces/IAdmin.interfaces';
+import { ILeads, IUser } from '@/interfaces/IAdmin.interfaces';
+import UserCard from './LeadCard';
+import UserTableSection from './LeadsTableSection';
 
 interface LeadsMainSectionProps {
   leads: ILeads[];
@@ -15,13 +15,13 @@ interface LeadsMainSectionProps {
 }
 
 const LeadsMainSection = ({ leads, totalClients, porcentageClients, porcentageUsers, totalUsers }: LeadsMainSectionProps) => {
-  const [selectedLead, setSelectedLead] = React.useState<ILeads | null>(null);
+  const [selectedLead, setSelectedLead] = React.useState<ILeads | IUser | null>(null);
 
   return (
     <div className="flex">
       <div className={`flex justify-center px-4`}>
         {selectedLead ? (
-          <LeadCard {...selectedLead} />
+          <UserCard data={selectedLead} />
         ) : (
           <Stats
             totalClients={totalClients}
@@ -33,9 +33,9 @@ const LeadsMainSection = ({ leads, totalClients, porcentageClients, porcentageUs
         )}
       </div>
       {selectedLead ? (
-        <ContactLeadSection lead={selectedLead} setSelectedLead={setSelectedLead} status={selectedLead.status} />
+        <ContactLeadSection lead={selectedLead as ILeads} setSelectedLead={setSelectedLead} status={(selectedLead as ILeads).status} />
       ) : (
-        <LeadsTableSection leads={leads} setSelectedLead={setSelectedLead} />
+        <UserTableSection users={leads} setSelectedUser={setSelectedLead} />
       )}
     </div>
   );
