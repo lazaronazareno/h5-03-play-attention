@@ -1,5 +1,6 @@
 package com.nocountry.playattention.controllers;
 
+import com.nocountry.playattention.dto.mail.SendMailUserDTO;
 import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
 import com.nocountry.playattention.payload.response.MessageResponse;
 import com.nocountry.playattention.service.email.IEmailService;
@@ -18,6 +19,16 @@ public class MailController {
     @PostMapping("/recover-password")
     public ResponseEntity<MessageResponse> recoverPassword(@RequestBody RecoverPasswordRequestDTO recoverPasswordRequest) {
         emailService.recoverPassword(recoverPasswordRequest);
-        return ResponseEntity.ok(new MessageResponse("Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña.",""));
+        return ResponseEntity.ok(new MessageResponse("Se ha enviado un correo electrónico con las instrucciones para restablecer su contraseña.", ""));
+    }
+
+    @PostMapping("/send-mail-user")
+    public ResponseEntity<MessageResponse<String>> sendMailUser(
+            @RequestBody SendMailUserDTO sendMailUserDTO) {
+
+        emailService.sendMailUser(sendMailUserDTO);
+        return ResponseEntity.ok(new MessageResponse<>(
+                "Se ha enviado un correo electrónico de bienvenida a su cuenta.",
+                ""));
     }
 }

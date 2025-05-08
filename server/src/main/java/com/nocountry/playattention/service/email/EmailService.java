@@ -1,25 +1,23 @@
 package com.nocountry.playattention.service.email;
 
+import com.nocountry.playattention.dto.mail.SendMailUserDTO;
 import com.nocountry.playattention.dto.recover.RecoverPasswordRequestDTO;
 import com.nocountry.playattention.model.User;
-import com.nocountry.playattention.repository.UserRepository;
 import com.nocountry.playattention.security.jwt.JwtUtils;
 import com.nocountry.playattention.service.UserService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,6 +52,17 @@ public class EmailService implements IEmailService {
     }
 
     @Override
+    public void sendEmailSample(String[] to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+//      envio el email
+        mailSender.send(message);
+    }
+
+    @Override
     public void recoverPassword(RecoverPasswordRequestDTO recoverPasswordRequest) {
         String[] email = {recoverPasswordRequest.email()};
         User user = userService.fintUserByEmail(recoverPasswordRequest.email());
@@ -69,5 +78,11 @@ public class EmailService implements IEmailService {
                 "Recuperación de contraseña",
                 variables,
                 "recover-password");
+    }
+
+    @Override
+    public void sendMailUser(SendMailUserDTO sendMailUserDTO) {
+        String[] email = {sendMailUserDTO.email()};
+        sendEmailSample(email, sendMailUserDTO.subject(), sendMailUserDTO.message());
     }
 }
