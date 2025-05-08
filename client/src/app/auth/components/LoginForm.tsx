@@ -41,7 +41,7 @@ export function LoginForm({ hasFooter }: LoginFormProps) {
 		try {
 			const response = await login(data.username, data.password);
 			console.log("response", response);
-			if (response.data?.user.roles.includes("ROLE_ADMIN")) router.push("/admin/leads");
+			if (response.data?.user.roles.includes("ROLE_ADMIN")) router.push("/admin");
 
 			if (response.data?.user.roles.includes("ROLE_USER")) router.push("/dashboard");
 		} catch (err) {

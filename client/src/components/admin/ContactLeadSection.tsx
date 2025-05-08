@@ -3,6 +3,7 @@ import { Frown, Home, ShoppingBag, Smile, Star, Users } from 'lucide-react';
 import React from 'react';
 import { LeadStatusNames } from '@/constants/LeadNaming';
 import UserContactTable from './UserContactTable';
+import Link from 'next/link';
 
 interface ContactLeadSectionProps {
   status: ILeadStatus;
@@ -29,10 +30,11 @@ const ContactLeadSection = ({ status, lead, setSelectedLead }: ContactLeadSectio
   return (
     <div className={`${statusClasses[status]} py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md`}>
       <div className='flex'>
-        <div className='flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main' onClick={() => setSelectedLead(null)}>
+        {/* TODO: CAMBIAR PERO FUNCIONA BIEN */}
+        <Link href={'/admin/leads'} className='flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main' onClick={() => setSelectedLead(null)}>
           <Home size={20} />
           <span className='text-base font-medium'>Inicio</span>
-        </div>
+        </Link>
         {NAV_ITEMS.map((item) => (
           <div key={item.name} className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${LeadStatusNames[status] === item.name ? 'text-violet-main' : ''}`}>
             {item.icon}
