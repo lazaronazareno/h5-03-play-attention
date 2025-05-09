@@ -1,11 +1,14 @@
 import React from 'react';
 import Typography from '../ui/Typography';
 import Image from 'next/image';
-import { ItemFileProps, UserPanelProps } from '@/interfaces/IUserPanel.interfaces';
+import { UserPanelProps } from '@/interfaces/IUserPanel.interfaces';
 import ItemFile from './ItemFile';
+import { getActivityType, getFileType } from '../utils/crmUtils';
+import { IContent } from '@/interfaces/IAdmin.interfaces';
 
 
-function UserPanel<T extends ItemFileProps>({ title, description, imageUrl, items }: UserPanelProps<T>) {
+function UserPanel<T extends IContent>({ title, description, imageUrl, items }: UserPanelProps<T>) {
+  console.log("items", items);
   return (
     <div className='flex h-screen w-full flex-col gap-8 px-6 pt-8'>
       <div className='flex justify-between'>
@@ -23,11 +26,10 @@ function UserPanel<T extends ItemFileProps>({ title, description, imageUrl, item
                 <ItemFile
                   title={item.title}
                   description={item.description}
-                  type={item.type}
-                  icon={item.icon}
-                  fileUrl={item.fileUrl}
-                  fileType={item.fileType}
-                  transcription={item.transcription}
+                  type={getActivityType(item.contentType)}
+                  fileUrl={item.filePath}
+                  fileType={getFileType(item.filePath)}
+                  id={item.id}
                 />
               </div>
             ))}

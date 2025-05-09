@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Bell, CircleHelp, Menu, X } from "lucide-react";
+import { CircleHelp, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Button from "../ui/Button";
@@ -43,14 +43,14 @@ export default function UserNavbar() {
 					</Link>
 				</div>
 				<div className="flex gap-4">
-					<button
+					{/* <button
 						className="cursor-pointer text-violet-main"
 						onClick={() => {
 							console.log("notification");
 						}}
 					>
 						<Bell size={24} />
-					</button>
+					</button> */}
 					<Button
 						text="Ayuda"
 						variant="primary"
@@ -59,7 +59,7 @@ export default function UserNavbar() {
 						onClick={() => {
 							router.push("/dashboard/support");
 						}}
-						className="hidden h-12 items-center justify-center md:flex"
+						className="md:hidden h-12 items-center justify-center flex"
 					/>
 					{/* Mobile menu */}
 					<button className="cursor-pointer text-violet-main md:hidden" onClick={toggleSidebar}>
