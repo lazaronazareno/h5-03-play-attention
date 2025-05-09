@@ -1,27 +1,32 @@
 'use client'
+import EmailForm from "@/components/admin/EmailForm";
 import ItemDefault from "@/components/dashboard/ItemDefault";
-import { LeadForm } from "@/components/form-leads/LeadsForm";
 import Typography from "@/components/ui/Typography";
-import { FileText, MessageCircle, MessageSquare } from "lucide-react";
+import { IUser } from "@/interfaces/IAdmin.interfaces";
+import { getUserData } from "@/services/admin/getToken";
+import { MessageCircle } from "lucide-react";
 import Image from "next/image";
-
-const OPTIONS = [
-  {
-    title: "Formulario de contacto",
-    icon: <FileText size={28} color='white' strokeWidth={2} />,
-    children: <LeadForm type="INDIVIDUAL" handleLeadClick={() => { }} />
-  },
-  {
-    title: "Chat en vivo",
-    icon: <MessageCircle size={28} color='white' strokeWidth={2} />,
-  },
-  {
-    title: "Foro",
-    icon: <MessageSquare size={28} color='white' strokeWidth={2} />,
-  },
-]
+import { useEffect, useState } from "react";
 
 export default function SupportPage() {
+  const [user, setUser] = useState<IUser | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUserData();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
+
+  const OPTIONS = [
+    {
+      title: "Soporte ",
+      icon: <MessageCircle size={28} color='white' strokeWidth={2} />,
+      children: <EmailForm type="Soporte" users={["soportePlayattention@gmail.com"]} from={user?.email} />
+    },
+  ]
+
   return (
     <div className='flex min-h-screen w-full flex-col gap-8 px-6 pt-8'>
       <div className='flex justify-between'>
@@ -35,12 +40,13 @@ export default function SupportPage() {
         {OPTIONS.length > 0 ? (
           <>
             {OPTIONS.map((item, index) => (
-              <ItemDefault
-                title={item.title}
-                icon={item.icon}
-                component={item.children}
-                key={index}
-              />
+              <div key={index} className="relative">
+                <ItemDefault
+                  title={item.title}
+                  icon={item.icon}
+                  component={item.children}
+                />
+              </div>
             ))}
           </>
         ) : (

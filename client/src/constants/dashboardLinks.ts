@@ -8,7 +8,6 @@ import {
   Activity,
   Calendar,
   Settings,
-  LifeBuoy,
 } from "lucide-react"
 
 export const dashboardLinks = [
@@ -32,6 +31,5 @@ export const dashboardLinks = [
   },
   { title: "Actividades", href: "/dashboard/activities", icon: Activity },
   { title: "Eventos", href: "/dashboard/events", icon: Calendar },
-  { title: "Soporte", href: "/dashboard/support", icon: LifeBuoy },
   { title: "Configuración", href: "/dashboard/config", icon: Settings },
 ]

@@ -29,7 +29,7 @@ interface EmailFormProps {
   onChangeStatus?: (status: string) => void;
 }
 
-const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => {
+const EmailForm = ({ users, from, type, onClick, onChangeStatus }: EmailFormProps) => {
   const {
     control,
     handleSubmit,
@@ -139,7 +139,7 @@ const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1">
           <div className="bg-white border-b border-violet-main flex p-4 gap-2">
             <span className="text-violet-main font-poppins">De: </span>
-            <Button variant="primary" text={"Play Attention Argentina"} className="!py-0 items-center justify-center font-semibold !cursor-default" />
+            <Button variant="primary" text={from ?? "Play Attention Argentina"} className="!py-0 items-center justify-center font-semibold !cursor-default" />
           </div>
           <div className="bg-white border-b border-violet-main flex p-4 gap-2">
             <span className="text-violet-main font-poppins">Para: </span>
@@ -214,22 +214,26 @@ const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => 
                 disabled
               />
             )}
-            <DropdownLead
-              title="Estado"
-              options={Object.values(LeadStatusNames)}
-              selectedOption={"Estado"}
-              onSelect={(option) => onChangeStatus?.(option)}
-              background="bg-violet-main text-white"
-              dropUp
-            />
-            <DropdownLead
-              title="Usuario"
-              options={Object.values(LeadTypeNames)}
-              selectedOption={"Usuario"}
-              onSelect={(option) => console.log(option)}
-              background="bg-violet-main text-white"
-              dropUp
-            />
+            {!from && (
+              <>
+                <DropdownLead
+                  title="Estado"
+                  options={Object.values(LeadStatusNames)}
+                  selectedOption={"Estado"}
+                  onSelect={(option) => onChangeStatus?.(option)}
+                  background="bg-violet-main text-white"
+                  dropUp
+                />
+                <DropdownLead
+                  title="Usuario"
+                  options={Object.values(LeadTypeNames)}
+                  selectedOption={"Usuario"}
+                  onSelect={(option) => console.log(option)}
+                  background="bg-violet-main text-white"
+                  dropUp
+                />
+              </>
+            )}
           </div>
         </form>
       </div>
