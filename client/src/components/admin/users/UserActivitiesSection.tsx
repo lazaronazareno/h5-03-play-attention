@@ -62,7 +62,7 @@ const UserActivitiesSection = <T,>({ title, icon, type, fetchItems, deleteItemBy
         <Typography variant='h2' text={title} weight='bold' size='small-title' color='violet' />
         <div className='ms-auto flex gap-2'>
           {/* <Button variant='primary' text='Seleccionar archivo' icon={<ChevronDown size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' /> */}
-          {(selectedFile || selectedFile !== 0) && (
+          {selectedFile && selectedFile !== 0 && (
             <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} className='text-violet-main' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setIsDeleting(true)} />
           )}
           <Button variant='primary' text='Subir' icon={<Upload size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setIsUploading(true)} />

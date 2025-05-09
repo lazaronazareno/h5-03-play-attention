@@ -28,7 +28,7 @@ export interface ItemFileProps extends UserPanelItem {
   transcription?: ApiResponse
   checkbox?: boolean
   isSelected?: boolean
-  setSelectedFile?: (id: number) => void
+  setSelectedFile?: (id: number | null) => void
   id?: number
 }
 
