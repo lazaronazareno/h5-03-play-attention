@@ -11,6 +11,7 @@ const HEROSECTION_PROPS = {
 	description:
 		"Play Attention ofrece soluciones avanzadas de neuroentrenamiento adaptadas a los desafíos del entorno empresarial moderno. Nuestra tecnología ha sido utilizada por profesionales que buscan aumentar su productividad, foco y autocontrol, así como por empresas deportivas que desean optimizar el rendimiento mental de sus atletas.",
 	button1Text: "Reserva tu demostración",
+	button1Link: '/tdah',
 }
 
 const IMPACTSECTION_PROPS = {
@@ -87,6 +88,7 @@ export default function EnterprisesPage() {
 				title={HEROSECTION_PROPS.title}
 				description={HEROSECTION_PROPS.description}
 				button1Text={HEROSECTION_PROPS.button1Text}
+				link1={HEROSECTION_PROPS.button1Link}
 			/>
 
 			<div id="technology">

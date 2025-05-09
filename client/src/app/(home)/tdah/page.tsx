@@ -43,12 +43,12 @@ export default function TdahPage() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center mx-auto justify-center gap-10 px-40">
+    <div className="w-full flex flex-col items-center mx-auto justify-center gap-6 px-40">
       <div className="flex flex-col text-start">
         <h3 className="text-violet-main font-semibold text-[22px] py-4 font-poppins">
-          Pagina en Construccion
+          CONTACTO
         </h3>
-        <p>Pero dejanos tus datos y te mandamos el test por email 😊.</p>
+        <p>Completa tus datos y nos contactamos por email 😊.</p>
       </div>
       <div className="w-full max-w-md my-4 p-2 bg-neutral-white2 rounded-xl shadow-md flex flex-col gap-3">
 

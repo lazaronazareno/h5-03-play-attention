@@ -11,6 +11,7 @@ const HEROSECTION_PROPS = {
 		'Acompañamos a personas de todas las edades que buscan desarrollar su capacidad de concentración, autorregulación y enfoque mental. Nuestro sistema de entrenamiento cerebral está diseñado para adaptarse tanto a niños y adolescentes con desafíos atencionales, como a adultos que desean mejorar su rendimiento en el trabajo, los estudios o su vida personal.',
 	button1Text: 'Realizar test de TDAH',
 	button2Text: 'Reserva tu demostración',
+	button1Link: '/tdah',
 }
 
 const IMPACTSECTION_PROPS = {
@@ -83,14 +84,13 @@ const IMPACTSECTION_PROPS2 = {
 
 const PAYMENTCARD_PROPS = [
 	{
-		title: 'Plan Mensual',
-		price: '50.000',
+		title: 'Sistema Doméstico',
+		price: '1,898',
 		checkList: ['Acceso a un profesional.', 'Plan personalizado.', 'Actividades digitales y en papel para niños y adultos.', 'Ejercicios divididos por procesos cognitivos.', 'Programador de sesiones.', 'Graficas de evolución'],
 	},
 	{
-		title: 'Plan Anual',
-		price: '45.000',
-		description: 'Facturacion anual $540.000',
+		title: 'Sistema Profesional',
+		price: '2,595',
 		checkList: ['Acceso a un profesional.', 'Posibilidad de incluir profesionales', 'Plan personalizado.', 'Actividades digitales y en papel para niños y adultos.', 'Ejercicios divididos por procesos cognitivos.', 'Acceso prioritario a eventos', 'Programador de sesiones.', 'Graficas de evolución.', 'Descarga de informe de seguimiento.'],
 	}
 ]
@@ -99,7 +99,7 @@ const PAYMENTCARD_PROPS = [
 export default function IndividualsPage() {
 	return (
 		<main className='min-h-screen bg-white text-black'>
-			<HeroSection title={HEROSECTION_PROPS.title} description={HEROSECTION_PROPS.description} imageUrl={HEROSECTION_PROPS.imageUrl} button1Text={HEROSECTION_PROPS.button1Text} button2Text={HEROSECTION_PROPS.button2Text} />
+			<HeroSection title={HEROSECTION_PROPS.title} description={HEROSECTION_PROPS.description} imageUrl={HEROSECTION_PROPS.imageUrl} button1Text={HEROSECTION_PROPS.button1Text} button2Text={HEROSECTION_PROPS.button2Text} link1={HEROSECTION_PROPS.button1Link} link2={HEROSECTION_PROPS.button1Link} />
 
 			<div id='children'>
 				<ImpactSection title={IMPACTSECTION_PROPS.title} description={IMPACTSECTION_PROPS.description} aditionalDescription={IMPACTSECTION_PROPS.aditionalDescription} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} listItems={IMPACTSECTION_PROPS.listItems} color='green' titlePosition='down' titleAlignament='center' type='list' imagesPosition='left' bgColor='green' />
