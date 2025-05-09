@@ -33,10 +33,10 @@ const defaultOptions = {
 		{ label: "Otro", value: "OTHER" },
 	],
 	complementTreatment: [
-		{ label: "Neurofeedback", value: "neurofeedback" },
-		{ label: "App de concentración", value: "brainApp" },
-		{ label: "Ninguno", value: "no" },
-		{ label: "Solo estoy investigando", value: "investigation" },
+		{ label: "Neurofeedback", value: "NEUROFEEDBACK" },
+		{ label: "App de concentración", value: "BRAINAPP" },
+		{ label: "Ninguno", value: "OTHER" }, 
+		{ label: "Solo estoy investigando", value: "INVESTIGATION" },
 	],
 	leadType: [
 		{ label: "Profesional", value: "PROFESSIONAL" },
@@ -63,7 +63,6 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
 		setIsLoading(true);
 		console.log("Form data:", data);
-		data.complementTreatment = "NEUROFEEDBACK";
 		data.leadType = type;
 		// Set phoneNumber to undefined if not provided
 		try {
