@@ -79,8 +79,8 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     'Eventos y Notificaciones': () => <div>Eventos y Notificaciones</div>
   }
   return (
-    <div className='bg-violet-main/30 py-9 px-4 flex flex-col gap-8 w-full h-[89vh] rounded-md'>
-      <div className='flex justify-between'>
+    <div className='bg-violet-main/30 py-9 px-4 flex flex-col gap-8 w-full rounded-md'>
+      <div className='flex justify-between flex-wrap'>
         {NAV_ITEMS.map((item) => (
           <div key={item.name} >
             {item.name === 'Inicio' ? (

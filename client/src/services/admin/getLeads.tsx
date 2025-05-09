@@ -1,3 +1,4 @@
+"use server"
 import { getToken } from "./getToken";
 
 const BASE_URL = process.env.BASE_URL

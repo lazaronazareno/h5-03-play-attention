@@ -11,9 +11,9 @@ import Link from "next/link";
 export default async function AdminPage() {
   const user: IUser = await getUserData();
   const leads: ILeads[] = await getLatestLeads()
-  const latestLeads = leads.slice(0, 3)
+  const latestLeads = leads.reverse().slice(0, 3)
   const users: IUser[] = await getUsers()
-  const latestUsers = users.slice(0, 2)
+  const latestUsers = users.reverse().slice(0, 2)
 
   return (
     <div className="flex flex-col gap-4 p-6 bg-violet-secondary/30 h-full ">

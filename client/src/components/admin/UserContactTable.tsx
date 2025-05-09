@@ -2,23 +2,61 @@
 import React from 'react';
 import Typography from '../ui/Typography';
 import Button from '../ui/Button';
-import { ChevronRight, CircleHelp, Coffee, Disc2, Inbox, Mail, MessageCircle } from 'lucide-react';
+import { ChevronRight, CircleHelp, Coffee, Disc2, Eye, Inbox, Mail, MessageCircle } from 'lucide-react';
 import { ILeads, IUser } from '@/interfaces/IAdmin.interfaces';
 import { LeadStatusNames, LeadTypeNames } from '@/constants/LeadNaming';
 import EmailForm from './EmailForm';
+import { getMailsById } from '@/services/mail/getMails';
+import { IEmailResponse } from '@/interfaces/IMails.interface';
 
 interface UserContactTableProps {
   type: 'WhatsApp' | 'Correo Electrónico' | 'Reuniones' | 'Campaña' | 'Soporte';
   user: ILeads | IUser
+  onChangeStatus?: (status: string) => void;
 }
 
 //TODO Agregar logica de los checkbox otras paginas que agrege los correos en una lista y se los pase a enviar mails
-const UserContactTable = ({ type, user }: UserContactTableProps) => {
+const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps) => {
   const [openSendEmailForm, setOpenSendEmailForm] = React.useState(false);
+  const [messages, setMessages] = React.useState<IEmailResponse[] | null>(null);
+  //TODO: Cambiar para que pueda seleccionar más de un mensaje
+  const [selectedMessage, setSelectedMessage] = React.useState<IEmailResponse | null>(null);
+  const [isOpenMessage, setIsOpenMessage] = React.useState(false);
 
   const isLead = (data: ILeads | IUser): data is ILeads => {
     return (data as ILeads).leadType !== undefined;
   };
+
+  const handleActionByType = async (userId: number) => {
+    let response: IEmailResponse[] | null = null
+    if (type === 'Correo Electrónico') {
+      response = await getMailsById(userId);
+    } else if (type === 'WhatsApp') {
+      //logica para consultar mensajes de whatsapp
+
+    } else if (type === 'Reuniones') {
+      //logica para consultar reuniones
+
+    } else if (type === 'Campaña') {
+      //logica para consultar mails de campañas
+
+    } else if (type === 'Soporte') {
+      //logica para consultar soportes
+    }
+    console.log('Response:', response);
+    return response
+  };
+
+  React.useEffect(() => {
+    const fetchMessages = async () => {
+      const result = await handleActionByType(Number(user.id));
+      console.log('Result:', result);
+      setMessages(result);
+    };
+    if (isLead(user)) {
+      fetchMessages();
+    }
+  }, [type, user]);
 
   return (
     <div className='relative bg-neutral-white2 px-4 py-6 rounded-md shadow-main'>
@@ -27,7 +65,10 @@ const UserContactTable = ({ type, user }: UserContactTableProps) => {
           <>
             <Mail size={24} className='text-violet-main ms-4' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
-            <div className='ms-auto'>
+            <div className='flex gap-2 ms-auto'>
+              {selectedMessage && (
+                <Button variant='secondary' text='Ver Contenido' className='!py-3 items-center justify-center' icon={<Eye size={20} />} iconPosition='right' onClick={() => setIsOpenMessage(true)} />
+              )}
               <Button variant='primary' text='Enviar nuevo e-mail' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
@@ -37,8 +78,14 @@ const UserContactTable = ({ type, user }: UserContactTableProps) => {
             <MessageCircle size={24} className='text-violet-main ms-4' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='flex gap-2 ms-auto'>
-              <Button variant='secondary' text='Agregar nuevo WhatsApp' className='!py-3 items-center justify-center' />
-              <Button variant='primary' text='Enviar nuevo mensaje' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setOpenSendEmailForm(true)} />
+              {/*               <Button variant='secondary' text='Agregar nuevo WhatsApp' className='!py-3 items-center justify-center' />
+ */}              <a
+                href={`https://wa.me/${user.phoneNumber}?text=Hola, ${user.name} ${user.lastName}! Nos comunicamos desde Play Attention para...`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant='primary' text='Enviar nuevo mensaje' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' />
+              </a>
             </div>
           </>
         )}
@@ -89,36 +136,29 @@ const UserContactTable = ({ type, user }: UserContactTableProps) => {
         <tbody>
           {isLead(user) ? (
             <>
-              <tr>
-                <td className="px-3">
-                  <input type="checkbox" />
-                </td>
-                <td className=" px-4 py-2">Bienvenido</td>
-                <td className=" px-4 py-2">2023-10-01</td>
-                <td className=" px-4 py-2">{LeadTypeNames[user.leadType]}</td>
-                <td className=" px-4 py-2">{LeadStatusNames[user.status]}</td>
-                <td className=" px-4 py-2">Enviada</td>
-              </tr>
-              <tr>
-                <td className="px-3">
-                  <input type="checkbox" />
-                </td>
-                <td className=" px-4 py-2">Información sobre el producto | servicio</td>
-                <td className=" px-4 py-2">2023-10-02</td>
-                <td className=" px-4 py-2">{LeadTypeNames[user.leadType]}</td>
-                <td className=" px-4 py-2">{LeadStatusNames[user.status]}</td>
-                <td className=" px-4 py-2">Enviada</td>
-              </tr>
-              <tr>
-                <td className="px-3">
-                  <input type="checkbox" />
-                </td>
-                <td className=" px-4 py-2">Propuesta enviada</td>
-                <td className=" px-4 py-2">2023-10-02</td>
-                <td className=" px-4 py-2">{LeadTypeNames[user.leadType]}</td>
-                <td className=" px-4 py-2">{LeadStatusNames[user.status]}</td>
-                <td className=" px-4 py-2">Enviada</td>
-              </tr>
+              {messages && messages.map((message) => (
+                <tr key={message.id}>
+                  <td className="px-3">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        setSelectedMessage(e.target.checked ? message : null)
+                      }}
+                      checked={selectedMessage?.id === message.id}
+                    />
+                  </td>
+                  <td className=" px-4 py-2">{message.subject}</td>
+                  <td>{new Date(message.sendDate).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
+                  <td className=" px-4 py-2">{LeadTypeNames[user.leadType]}</td>
+                  <td className=" px-4 py-2">{LeadStatusNames[user.status]}</td>
+                  <td className=" px-4 py-2">Enviada</td>
+                </tr>
+              ))}
+              {!messages && (
+                <tr>
+                  <td colSpan={6} className="text-center py-4">No hay mensajes disponibles en este momento</td>
+                </tr>
+              )}
             </>
           ) : (
             <>
@@ -139,7 +179,14 @@ const UserContactTable = ({ type, user }: UserContactTableProps) => {
       {openSendEmailForm && (
         <div className='fixed top-0 right-0 w-full h-full bg-black/50 flex justify-end z-50' onClick={() => setOpenSendEmailForm(false)}>
           <div className='relative flex flex-col gap-4 bg-neutral-white2 border border-violet-main rounded-md shadow-main' onClick={(e) => e.stopPropagation()}>
-            <EmailForm type={type} users={[user.email]} onClick={setOpenSendEmailForm} />
+            <EmailForm type={type} users={[user.email]} onClick={setOpenSendEmailForm} onChangeStatus={onChangeStatus} />
+          </div>
+        </div>
+      )}
+      {isOpenMessage && (
+        <div className='fixed top-0 right-1/2 translate-x-1/2 w-full h-full bg-black/50 flex justify-center items-center z-50' onClick={() => setIsOpenMessage(false)}>
+          <div className='relative flex flex-col gap-4 bg-neutral-white2 border border-violet-main rounded-md shadow-main py-4' onClick={(e) => e.stopPropagation()}>
+            <p>{selectedMessage?.message}</p>
           </div>
         </div>
       )}

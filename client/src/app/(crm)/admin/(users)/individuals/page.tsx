@@ -12,7 +12,6 @@ export default async function IndividualsPage() {
   const porcentageClients = 16
   const porcentageUsers = -1
 
-  console.log('response', response)
   return (
     <UsersMainSection
       users={response}

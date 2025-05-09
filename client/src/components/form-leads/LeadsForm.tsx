@@ -7,10 +7,10 @@ import { LeadFormData } from "../../types/lead/leadTypes";
 /* import { constFetch } from "../../services/custom-fetch/constFetch";
 import { responseApi } from "../../types/response-api/resaponseApi"; */
 import { useState } from "react";
-import { Check, Loader2, X } from "lucide-react";
-import Image from "next/image";
+import { Loader2 } from "lucide-react";
 import { postLead } from "@/services/public/postLeadForm";
 import { ILeads } from "@/interfaces/IAdmin.interfaces";
+import ResponseModal from "../ui/ResponseModal";
 
 const defaultOptions = {
 	country: [
@@ -74,8 +74,7 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 				requestType: "POST",
 				body: data,
 			}); */
-			const response = await postLead(data);
-			console.log("Response:", response);
+			await postLead(data);
 			setSuccess(true);
 			setResponseMessage("El formulario fue enviado con éxito, a la brevedad nos comunicaremos con usted. Muchas gracias");
 		} catch (error) {
@@ -174,23 +173,15 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 			}
 			{success && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-					<div className="relative flex flex-col gap-2 justify-center items-center text-center bg-white rounded-lg shadow-lg p-6 max-w-sm w-[300px] h-[480px]">
-						<div className="absolute top-2 right-2 cursor-pointer border-2 border-violet-main rounded-full size-5">
-							<X size={16} strokeWidth={3} className="text-violet-main" onClick={handleLeadClick} />
-						</div>
-						<div className="rounded-full size-20 mt-auto mb-4 flex justify-center items-center bg-violet-main">
-							<Check size={67} color='white' />
-						</div>
-						<p className="text-lg text-green-main font-roboto">FORMULARIO ENVIADO</p>
-						<p className="font-poppins text-[16px]">{responseMessage}</p>
-						<Image
-							src='/branding/LogoPlay.png'
-							alt='Logo Play Attention'
-							width={90}
-							height={48}
-							className='mt-auto'
-						/>
-					</div>
+					<ResponseModal
+						type="success"
+						title="FORMULARIO ENVIADO"
+						message={responseMessage || ""}
+						onClose={() => {
+							setSuccess(false);
+							handleLeadClick();
+						}}
+					/>
 				</div>
 			)}
 		</form>

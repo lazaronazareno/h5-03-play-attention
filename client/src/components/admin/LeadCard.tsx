@@ -43,7 +43,7 @@ const UserCard = ({ data }: LeadCardProps) => {
     };
 
   return (
-    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9 w-[400px]">
+    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9 min-w-[320px] w-full">
       <div className='flex items-center gap-3'>
         <Image src="/landing/testimonies/1.png" alt="Lead" width={141} height={141} className="rounded-full bg-green-300" />
         <div>

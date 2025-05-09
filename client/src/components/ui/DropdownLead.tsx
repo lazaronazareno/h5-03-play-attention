@@ -9,9 +9,10 @@ interface DropdownLeadProps {
   selectedOption: string;
   onSelect: (option: string) => void;
   background?: string;
+  dropUp?: boolean;
 }
 
-const DropdownLead = ({ title, options, selectedOption, onSelect, background }: DropdownLeadProps) => {
+const DropdownLead = ({ title, options, selectedOption, onSelect, background, dropUp }: DropdownLeadProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(selectedOption);
 
@@ -43,7 +44,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background }: 
         <ChevronDown size={20} />
       </button>
       {isOpen && (
-        <ul className="bg-neutral-white2 absolute top-0 flex flex-col gap-2 min-w-32 rounded-md shadow-main border p-2 z-10">
+        <ul className={`bg-neutral-white2 absolute flex flex-col gap-2 min-w-32 rounded-md shadow-main border p-2 z-10 ${dropUp ? '-top-40' : 'top-0'}`}>
           <li
             className="flex justify-between text-violet-main border-b border-violet-main/50 font-semibold cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
