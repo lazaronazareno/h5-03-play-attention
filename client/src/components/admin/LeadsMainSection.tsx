@@ -35,7 +35,7 @@ const LeadsMainSection = ({ leads, totalClients, porcentageClients, porcentageUs
       {selectedLead ? (
         <ContactLeadSection lead={selectedLead as ILeads} setSelectedLead={setSelectedLead} status={(selectedLead as ILeads).status} />
       ) : (
-        <UserTableSection users={leads} setSelectedUser={setSelectedLead} />
+        <UserTableSection users={[...leads].reverse()} setSelectedUser={setSelectedLead} />
       )}
     </div>
   );

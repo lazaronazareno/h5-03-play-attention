@@ -4,11 +4,13 @@ import Input from "./InputForm/InputForm";
 import RadioGroup from "./CheckboxGroup/RadioGroup";
 import Button from "../ui/Button";
 import { LeadFormData } from "../../types/lead/leadTypes";
-import { constFetch } from "../../services/custom-fetch/constFetch";
-import { responseApi } from "../../types/response-api/resaponseApi";
+/* import { constFetch } from "../../services/custom-fetch/constFetch";
+import { responseApi } from "../../types/response-api/resaponseApi"; */
 import { useState } from "react";
-import { Check, Loader2, X } from "lucide-react";
-import Image from "next/image";
+import { Loader2 } from "lucide-react";
+import { postLead } from "@/services/public/postLeadForm";
+import { ILeads } from "@/interfaces/IAdmin.interfaces";
+import ResponseModal from "../ui/ResponseModal";
 
 const defaultOptions = {
 	country: [
@@ -35,7 +37,7 @@ const defaultOptions = {
 	complementTreatment: [
 		{ label: "Neurofeedback", value: "NEUROFEEDBACK" },
 		{ label: "App de concentración", value: "BRAINAPP" },
-		{ label: "Ninguno", value: "OTHER" }, 
+		{ label: "Ninguno", value: "OTHER" },
 		{ label: "Solo estoy investigando", value: "INVESTIGATION" },
 	],
 	leadType: [
@@ -58,19 +60,20 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<LeadFormData>();
+	} = useForm<ILeads>();
 
-	const onSubmit: SubmitHandler<LeadFormData> = async (data: LeadFormData) => {
+	const onSubmit: SubmitHandler<ILeads> = async (data: ILeads) => {
 		setIsLoading(true);
 		console.log("Form data:", data);
 		data.leadType = type;
 		// Set phoneNumber to undefined if not provided
 		try {
-			await constFetch<responseApi<LeadFormData>, LeadFormData>({
+			/* await constFetch<responseApi<ILeads>, ILeads>({
 				endpoint: "/leads",
 				requestType: "POST",
 				body: data,
-			});
+			}); */
+			await postLead(data);
 			setSuccess(true);
 			setResponseMessage("El formulario fue enviado con éxito, a la brevedad nos comunicaremos con usted. Muchas gracias");
 		} catch (error) {
@@ -168,24 +171,16 @@ export function LeadForm({ type, handleLeadClick }: LeadFormProps) {
 			)
 			}
 			{success && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-					<div className="relative flex h-[480px] w-[300px] max-w-sm flex-col items-center justify-center gap-2 rounded-lg bg-white p-6 text-center shadow-lg">
-						<div className="size-5 absolute right-2 top-2 cursor-pointer rounded-full border-2 border-violet-main">
-							<X size={16} strokeWidth={3} className="text-violet-main" onClick={handleLeadClick} />
-						</div>
-						<div className="size-20 mb-4 mt-auto flex items-center justify-center rounded-full bg-violet-main">
-							<Check size={67} color='white' />
-						</div>
-						<p className="font-roboto text-lg text-green-main">FORMULARIO ENVIADO</p>
-						<p className="font-poppins text-[16px]">{responseMessage}</p>
-						<Image
-							src='/branding/LogoPlay.png'
-							alt='Logo Play Attention'
-							width={90}
-							height={48}
-							className='mt-auto'
-						/>
-					</div>
+				<div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+					<ResponseModal
+						type="success"
+						title="FORMULARIO ENVIADO"
+						message={responseMessage || ""}
+						onClose={() => {
+							setSuccess(false);
+							handleLeadClick();
+						}}
+					/>
 				</div>
 			)}
 		</form>

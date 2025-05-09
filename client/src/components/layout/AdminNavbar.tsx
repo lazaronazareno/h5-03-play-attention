@@ -2,13 +2,20 @@
 import Image from 'next/image';
 import React from 'react';
 import Button from '../ui/Button';
-import { Bell, LayoutGrid, Settings } from 'lucide-react';
+import { LogOut, Settings } from 'lucide-react';
 import { ADMIN_LINKS } from '@/constants/adminLinks';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { deleteUserCookie } from '@/services/auth/logout';
 
 const AdminNavbar = () => {
   const pathname = usePathname();
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await deleteUserCookie()
+    router.push('/')
+  }
 
   return (
     <header className='shadow-main z-50 flex items-center justify-between bg-neutral-white2 px-9 py-3 text-sm'>
@@ -29,11 +36,11 @@ const AdminNavbar = () => {
       </div>
 
       <div className='flex gap-4'>
-        <button className='cursor-pointer text-violet-main' onClick={() => { console.log('notification') }}><Bell size={24} /></button>
+        {/* <button className='text-violet-main cursor-pointer' onClick={() => { console.log('notification') }}><Bell size={24} /></button> */}
         <Link href={'/admin/config'} >
-          <Button text='Configuración' variant='primary' icon={< Settings />} iconPosition='right' />
+          <Button text='Configuración' variant='primary' icon={< Settings size={20} />} iconPosition='right' className='!py-2 text-sm items-center justify-center' />
         </Link>
-        <button className='cursor-pointer text-violet-main' onClick={() => { console.log('notification') }}><LayoutGrid size={24} /></button>
+        <Button text='Cerrar Sesión' variant='secondary' className='!py-2 text-sm items-center justify-center' icon={<LogOut size={20} />} iconPosition='right' onClick={() => { handleLogout() }} />
       </div>
     </header>
   );

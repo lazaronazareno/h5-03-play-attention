@@ -23,6 +23,7 @@ export default function Home() {
         description={HEROSECTION_PROPS.description}
         button1Text={HEROSECTION_PROPS.button1Text}
         button2Text={HEROSECTION_PROPS.button2Text}
+        link1="/tdah"
       />
       <ValidationSection />
       <BenefitsSection />
