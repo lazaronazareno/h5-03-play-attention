@@ -1,5 +1,6 @@
 import Button from '@/components/ui/Button'
 import { CheckCircle2, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 interface PaymentCardProps {
@@ -27,7 +28,9 @@ export default function PaymentCard({ title, price, description, checkList }: Pa
 				))}
 			</div>
 			<div className='mx-auto w-3/4'>
-				<Button text='Reserva tu demostración' variant='primary' icon={<ChevronRight  />} iconPosition='right' />
+				<Link href='/tdah'>
+					<Button text='Reserva tu demostración' variant='primary' icon={<ChevronRight />} iconPosition='right' />
+				</Link>
 			</div>
 		</div>
 	)

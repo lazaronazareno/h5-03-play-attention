@@ -43,7 +43,7 @@ const HeroSection = ({ imageUrl, title, description, button1Text, button2Text, l
             <Link href={link2}>
               <Button
                 text={button2Text}
-                variant='primary'
+                variant='secondary'
                 icon={<RightArrow />}
                 iconPosition='right'
               />

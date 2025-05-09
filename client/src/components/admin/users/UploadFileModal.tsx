@@ -19,6 +19,7 @@ const uploadFileSchema = z.object({
   category: z.string().min(1, 'La categoría es obligatoria'),
   file: z.instanceof(File).optional(),
   notifyUser: z.boolean(),
+  fileUrl: z.string().url('La URL del archivo debe ser válida').optional(),
 });
 
 type UploadFileFormData = z.infer<typeof uploadFileSchema>;
@@ -37,12 +38,14 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
       category: '',
       file: undefined,
       notifyUser: false,
+      fileUrl: '',
     },
   });
   const [confirmModal, setConfirmModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [urlFilePath, setUrlFilePath] = React.useState('');
 
   const onSubmit = async (data: UploadFileFormData) => {
     setLoading(true);
@@ -73,7 +76,7 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
       id: 0,
       title: data.title,
       description: data.description || 'Descripción del archivo',
-      filePath: getFilePathByType(type),
+      filePath: urlFilePath ?? getFilePathByType(type),
       thumbnailPath: '',
       contentType: type,
       category: categoryKey as IContentCategory,
@@ -153,44 +156,55 @@ const UploadFileModal = ({ type, setIsUploading }: UploadFileModalProps) => {
           {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
         </div>
         <div className="mt-4 flex h-full flex-col gap-4">
-          <div className="relative flex w-full flex-col items-center justify-center gap-8 p-4 py-8">
-            <div className="flex w-full items-center gap-2 border-b border-violet-main">
-              <Typography
-                text="Subir"
-                variant="p"
-                size="sm"
-                color="violet"
-                weight='medium'
-              />
-              <Upload size={20} className="text-violet-main" />
-              {control._formValues.file && (
-                <>
-                  <Typography
-                    text={control._formValues.file.name}
-                    variant="p"
-                    size="sm"
-                    color="default"
-                    weight='normal'
-                    className="ml-2 truncate"
+          <div className="flex w-full flex-col items-center justify-center gap-8 py-8 pt-0">
+            <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full items-center gap-2 border-b border-violet-main mt-4 pb-2">
+                <Typography
+                  text="Subir"
+                  variant="p"
+                  size="sm"
+                  color="violet"
+                  weight="medium"
+                />
+                <Upload size={20} className="text-violet-main" />
+                <div className='w-full relative'>
+                  <Controller
+                    control={control}
+                    name="fileUrl"
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        type="text"
+                        placeholder="Ingrese la URL del archivo"
+                        className="w-full"
+                        onChange={(e) => {
+                          field.onChange(e);
+                          setUrlFilePath(e.target.value);
+                        }}
+                      />
+                    )}
                   />
-                  <Link2 size={20} />
-                </>
+                  <Link2 size={20} className="bg-white absolute right-2 top-1/2 -translate-y-1/2 text-violet-main" />
+                </div>
+              </div>
+            </div>
+            <div className='relative w-full justify-items-center'>
+              <input
+                type="file"
+                className=" absolute top-0 h-full w-full cursor-pointer opacity-0"
+                onChange={(e) => setValue('file', e.target.files?.[0])}
+              />
+              {(type === 'DOCUMENT' || type === 'ACTIVITY' || type === 'ARTICLE') && (
+                <FileText size={72} className="text-violet-main" />
+              )}
+              {(type === 'VIDEO' || type === 'TUTORIAL') && (
+                <Youtube size={72} className="text-violet-main" />
+              )}
+              {(type === 'IMAGE' || type === 'MARKETING') && (
+                <Image size={72} className="text-violet-main" />
               )}
             </div>
-            <input
-              type="file"
-              className="absolute top-0 h-full w-full cursor-pointer opacity-0"
-              onChange={(e) => setValue('file', e.target.files?.[0])}
-            />
-            {(type === 'DOCUMENT' || type === 'ACTIVITY' || type === 'ARTICLE') && (
-              <FileText size={72} className="text-violet-main" />
-            )}
-            {(type === 'VIDEO' || type === 'TUTORIAL') && (
-              <Youtube size={72} className="text-violet-main" />
-            )}
-            {(type === 'IMAGE' || type === 'MARKETING') && (
-              <Image size={72} className="text-violet-main" />
-            )}
+
           </div>
         </div>
         <div className="mt-4 flex gap-2">
