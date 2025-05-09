@@ -6,6 +6,7 @@ import { Book, BookOpenIcon, Calendar, CircleHelp, Disc2, Home, Layers, LayoutGr
 import { ILeads, IUser } from '@/interfaces/IAdmin.interfaces';
 import { deleteContentById } from '@/services/admin/deleteContent';
 import { getContentByType } from '@/services/admin/getContent';
+import TimelineComponent from './chronologyUser/chronologyUserSection';
 const ContactUserSection = dynamic(() => import('./ContactUserSection'));
 const UserContactTable = dynamic(() => import('../UserContactTable'));
 const UserActivitiesSection = dynamic(() => import('./UserActivitiesSection'));
@@ -35,7 +36,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
 
   const TABS: { [key: string]: (props: UserTabsProps) => React.JSX.Element } = {
     Inicio: () => <div>Inicio</div>,
-    Cronologia: () => <div>Cronologia</div>,
+    Cronologia: () => <TimelineComponent></TimelineComponent>,
     Contacto: () => <ContactUserSection user={user as IUser} />,
     Campaña: () => <UserContactTable type='Campaña' user={user} />,
     Soporte: () => <UserContactTable type='Soporte' user={user} />,
