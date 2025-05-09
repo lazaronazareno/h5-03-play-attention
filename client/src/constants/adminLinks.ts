@@ -8,10 +8,10 @@ export const ADMIN_LINKS = [
     href: "/admin/leads",
   },
   {
-    title: "Clientes Individuales",
+    title: "Clientes",
     href: "/admin/individuals",
   },
-  {
+  /*   {
     title: "Profesionales",
     href: "/admin/professionals",
   },
@@ -22,5 +22,5 @@ export const ADMIN_LINKS = [
   {
     title: "Reportes | Métricas",
     href: "/admin/stats",
-  },
+  }, */
 ]

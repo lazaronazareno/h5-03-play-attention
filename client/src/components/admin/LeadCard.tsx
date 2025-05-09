@@ -6,7 +6,6 @@ import { ChartNoAxesColumn, DollarSign, Heart, Mail, Phone, Smartphone, SquarePe
 import Typography from '../ui/Typography';
 import { LeadComplementTreatmentNames, LeadCurrentSituationNames, LeadStatusNames, LeadTypeNames } from '@/constants/LeadNaming';
 import Button from '../ui/Button';
-import Image from 'next/image';
 import EditLead from './EditLead';
 import { useRouter } from 'next/navigation';
 
@@ -43,9 +42,11 @@ const UserCard = ({ data }: LeadCardProps) => {
     };
 
   return (
-    <div className="shadow-main flex h-min w-[400px] flex-col gap-4 rounded-md border border-violet-main bg-neutral-white2 px-9 py-6">
+    <div className="flex flex-col gap-4 h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main py-6 px-9 min-w-[320px] w-full">
       <div className='flex items-center gap-3'>
-        <Image src="/landing/testimonies/1.png" alt="Lead" width={141} height={141} className="rounded-full bg-green-300" />
+        <div className="flex items-center justify-center w-[151px] h-[120px] rounded-full bg-green-300 text-white text-4xl font-bold">
+          {`${data.name[0]}${data.lastName[0]}`.toUpperCase()}
+        </div>
         <div>
           <Typography variant='p' color='default' size='base' text={`${data.name} ${data.lastName}`} weight='medium' />
           <Typography variant='p' color='default' size='sm' text={data.country!} weight='medium' />

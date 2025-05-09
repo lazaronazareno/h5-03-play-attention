@@ -59,6 +59,7 @@ export const constFetch = async <T, U>({
 	} catch (err) {
 		if (err instanceof Error) {
 			error = err;
+			console.error("Error en la petición:", err.message);
 		} else {
 			error = new Error("An unknown error occurred");
 		}

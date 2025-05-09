@@ -46,7 +46,7 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
                   <input
                     type='checkbox'
                     checked={isSelected}
-                    onChange={() => setSelectedFile?.(isSelected ? 0 : id!)}
+                    onChange={() => setSelectedFile?.(isSelected ? null : id!)}
                     className='form-checkbox h-5 w-5 rounded border-gray-300 text-green-main focus:ring-green-main'
                   />
                 </div>

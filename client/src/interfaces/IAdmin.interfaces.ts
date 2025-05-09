@@ -28,6 +28,8 @@ export type IUserRole =
   | "ROLE_ADMIN"
   | "ROLE_SUPER_ADMIN"
 
+export type LeadCountry = "Argentina" | "Brasil" | "Chile" | "Uruguay" | "Otro"
+export type LeadTargetUsers = "Children" | "Adult" | "Patient" | "Professional"
 export interface ILeads {
   id: string
   name: string
@@ -37,7 +39,7 @@ export interface ILeads {
   phoneNumber?: string
   complementTreatment?: IComplementTreatment
   profession?: string
-  targetUsers?: string
+  targetUsers?: LeadTargetUsers
   newsletterSubscription?: boolean
   usageContext?: string
   createdAt?: string
@@ -45,7 +47,7 @@ export interface ILeads {
   status: ILeadStatus
   leadType: ILeadType
   notes?: string
-  country?: string
+  country?: LeadCountry
   currentSituation?: ICurrentSituation
 }
 

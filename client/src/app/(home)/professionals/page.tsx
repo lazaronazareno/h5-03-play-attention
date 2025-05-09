@@ -10,6 +10,7 @@ const HEROSECTION_PROPS = {
   description:
     'Pensado para pacientes que enfrentan desafíos como dificultad atencional, problemas de autorregulación, impulsividad, baja motivación o barreras en el aprendizaje. Una solución innovadora y versátil utilizada por terapeutas, centros educativos y de salud.',
   button1Text: "Reserva tu demostración",
+  button1Link: '/tdah',
 }
 
 const IMPACTSECTION_PROPS = {
@@ -69,6 +70,7 @@ export default function ProfessionalsPage() {
         title={HEROSECTION_PROPS.title}
         description={HEROSECTION_PROPS.description}
         button1Text={HEROSECTION_PROPS.button1Text}
+        link1={HEROSECTION_PROPS.button1Link}
       />
       <ImpactSection
         title={IMPACTSECTION_PROPS.title}

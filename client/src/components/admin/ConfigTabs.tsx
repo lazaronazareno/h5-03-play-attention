@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { User, Users } from 'lucide-react';
+import { User } from 'lucide-react';
 import { IUser } from '@/interfaces/IAdmin.interfaces';
 import dynamic from 'next/dynamic';
 const UserInfo = dynamic(() => import('./config/UserInfo'));
@@ -9,7 +9,6 @@ const UserInfo = dynamic(() => import('./config/UserInfo'));
 
 const NAV_ITEMS = [
   { name: 'Configuración personal', icon: <User size={20} /> },
-  { name: 'Usuarios', icon: <Users size={20} />, },
 ]
 
 interface UserTabsProps {
@@ -21,7 +20,6 @@ const ConfigTabs = ({ user }: UserTabsProps) => {
 
   const TABS: { [key: string]: (props: UserTabsProps) => React.JSX.Element } = {
     'Configuración personal': () => <UserInfo user={user} />,
-    Usuarios: () => <div>Usuarios</div>,
 
   }
   return (
