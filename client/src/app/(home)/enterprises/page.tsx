@@ -93,15 +93,15 @@ export default function EnterprisesPage() {
 				<ImpactSection title={IMPACTSECTION_PROPS.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS.description} imageUrl={IMPACTSECTION_PROPS.imageUrl} imageUrl2={IMPACTSECTION_PROPS.imageUrl2} imagesPosition={"left"} color={"green"} bgColor="green" type={"text"} text1={IMPACTSECTION_PROPS.text1} text2={IMPACTSECTION_PROPS.text2} />
 			</div>
 
-			<Typography variant="h3" size="4xl" color="violet" weight="semibold" text="Play Attention es la solución más efectiva, clínicamente comprobada para mejorar la función ejecutiva 5 veces más." className="text-center p-8 lg:py-12 mx-auto" />
+			<Typography variant="h3" size="4xl" color="violet" weight="semibold" text="Play Attention es la solución más efectiva, clínicamente comprobada para mejorar la función ejecutiva 5 veces más." className="mx-auto p-8 text-center lg:py-12" />
 
 			<div id="sport">
 				<ImpactSection title={IMPACTSECTION_PROPS2.title} titlePosition="down" titleAlignament="center" description={IMPACTSECTION_PROPS2.description} color="violet" bgColor="violet" imageUrl={IMPACTSECTION_PROPS2.imageUrl} imageUrl2={IMPACTSECTION_PROPS2.imageUrl2} imagesPosition={"right"} type={"text"} text1={IMPACTSECTION_PROPS2.text1} text2={IMPACTSECTION_PROPS2.text2} />
 			</div>
 
-			<div className="w-full p-8 space-y-8">
-				<Typography variant="p" size="3xl" color="violet" weight="semibold" text="Beneficios del NEUROFEEDBACK en el rendimiento laboral y deportivo" className="text-center p-8 lg:py-12 mx-auto" />
-				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center gap-4">
+			<div className="w-full space-y-8 p-8">
+				<Typography variant="p" size="3xl" color="violet" weight="semibold" text="Beneficios del NEUROFEEDBACK en el rendimiento laboral y deportivo" className="mx-auto p-8 text-center lg:py-12" />
+				<div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3">
 					{ITEMS_PROPS.map((item, index) => (
 						<ItemInfo title={item.title} description={item.description} icon={<CheckCircle2Icon fill="#198D9D" color="#ffffff" size={28} />} key={index} />
 					))}

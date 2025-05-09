@@ -56,21 +56,21 @@ const UserActivitiesSection = <T,>({ title, icon, type, fetchItems, deleteItemBy
   console.log(items)
 
   return (
-    <div className='bg-neutral-white2 px-4 py-6 rounded-md shadow-main'>
-      <div className='flex justify-center items-center gap-2 pb-4 border-b border-violet-main'>
+    <div className='shadow-main rounded-md bg-neutral-white2 px-4 py-6'>
+      <div className='flex items-center justify-center gap-2 border-b border-violet-main pb-4'>
         {icon}
         <Typography variant='h2' text={title} weight='bold' size='small-title' color='violet' />
-        <div className='flex gap-2 ms-auto'>
-          {/* <Button variant='primary' text='Seleccionar archivo' icon={<ChevronDown size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' /> */}
+        <div className='ms-auto flex gap-2'>
+          {/* <Button variant='primary' text='Seleccionar archivo' icon={<ChevronDown size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' /> */}
           {(selectedFile || selectedFile !== 0) && (
-            <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} className='text-violet-main' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setIsDeleting(true)} />
+            <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} className='text-violet-main' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setIsDeleting(true)} />
           )}
-          <Button variant='primary' text='Subir' icon={<Upload size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setIsUploading(true)} />
+          <Button variant='primary' text='Subir' icon={<Upload size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setIsUploading(true)} />
         </div>
       </div>
-      <div className='flex flex-col gap-4 mt-4 h-full'>
+      <div className='mt-4 flex h-full flex-col gap-4'>
         {items.map((item) => (
-          <div key={item.id} className='bg-white shadow-main border-2 border-green-main rounded-md p-2 lg:px-3 lg:py-2.5'>
+          <div key={item.id} className='shadow-main rounded-md border-2 border-green-main bg-white p-2 lg:px-3 lg:py-2.5'>
             <ItemFile
               title={item.title}
               description={item.description}
@@ -85,21 +85,21 @@ const UserActivitiesSection = <T,>({ title, icon, type, fetchItems, deleteItemBy
           </div>
         ))}
         {items.length === 0 && (
-          <div className='flex flex-col items-center justify-center h-full'>
+          <div className='flex h-full flex-col items-center justify-center'>
             <Typography text='No hay archivos disponibles' variant='p' color='default' size='sm' weight='normal' className='text-center' />
           </div>
         )}
 
       </div>
       {isUploading && (
-        <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center' onClick={() => setIsUploading(false)}>
+        <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white/50' onClick={() => setIsUploading(false)}>
           <div onClick={(e) => e.stopPropagation()}>
             <UploadFileModal type={type} setIsUploading={setIsUploading} />
           </div>
         </div>
       )}
       {isDeleting && (
-        <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center' onClick={() => setIsDeleting(false)}>
+        <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center bg-white/50' onClick={() => setIsDeleting(false)}>
           <div onClick={(e) => e.stopPropagation()}>
             <ConfirmUploadModal
               type='delete'

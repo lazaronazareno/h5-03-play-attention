@@ -96,15 +96,15 @@ export default function Navbar() {
 	}
 
 	return (
-		<header className='flex justify-center w-full px-4 lg:px-10 pt-[120px]'>
+		<header className='flex w-full justify-center px-4 pt-[120px] lg:px-10'>
 			<nav
 				ref={navbarRef}
-				className='flex flex-col lg:flex-row bg-neutral-white2 items-center justify-between p-4 rounded-xl shadow-xl fixed top-4 w-[96%] z-50'
+				className='fixed top-4 z-50 flex w-[96%] flex-col items-center justify-between rounded-xl bg-neutral-white2 p-4 shadow-xl lg:flex-row'
 			>
 				{/* Logo and main navigation container */}
-				<div className='w-full flex flex-col lg:flex-row lg:items-center lg:justify-between'>
+				<div className='flex w-full flex-col lg:flex-row lg:items-center lg:justify-between'>
 					{/* Logo and mobile menu button */}
-					<div className='w-full flex justify-between items-center lg:w-auto'>
+					<div className='flex w-full items-center justify-between lg:w-auto'>
 						<div className='relative'>
 							{/* Logo with dropdown */}
 							<div
@@ -118,7 +118,7 @@ export default function Navbar() {
 										alt='Logo'
 										width={180}
 										height={50}
-										className='w-auto h-auto'
+										className='h-auto w-auto'
 									/>
 								</Link>
 
@@ -126,7 +126,7 @@ export default function Navbar() {
 								{isMobile && menuOpen && (
 									<button
 										onClick={() => toggleDropdown('logo')}
-										className='absolute right-[-24px] top-1/2 transform -translate-y-1/2 lg:hidden'
+										className='absolute right-[-24px] top-1/2 -translate-y-1/2 transform lg:hidden'
 									>
 										<ChevronRight
 											size={20}
@@ -151,7 +151,7 @@ export default function Navbar() {
 											key={sublink.href}
 											href={sublink.href}
 											onClick={handleLinkClick}
-											className='block px-4 py-3 hover:bg-neutral-gray text-sm'
+											className='block px-4 py-3 text-sm hover:bg-neutral-gray'
 										>
 											{sublink.title}
 										</Link>
@@ -161,7 +161,7 @@ export default function Navbar() {
 						</div>
 
 						<button
-							className='lg:hidden p-2'
+							className='p-2 lg:hidden'
 							onClick={() => setMenuOpen(prev => !prev)}
 							aria-label='Toggle menu'
 						>
@@ -178,7 +178,7 @@ export default function Navbar() {
             `}
 					>
 						{/* Main links */}
-						<div className='flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-4'>
+						<div className='flex flex-col space-y-4 lg:flex-row lg:items-center lg:space-x-4 lg:space-y-0'>
 							{navLinks.map((link) => (
 								<div
 									key={link.title}
@@ -193,7 +193,7 @@ export default function Navbar() {
 										<Link
 											href={link.href}
 											onClick={handleLinkClick}
-											className=' text-blackneutral-main hover:text-violet-main font-semibold lg:text-[14px] '
+											className='text-blackneutral-main font-semibold hover:text-violet-main lg:text-[14px]'
 										>
 											{link.title}
 										</Link>
@@ -221,7 +221,7 @@ export default function Navbar() {
 													key={sublink.href}
 													href={sublink.href}
 													onClick={handleLinkClick}
-													className='block px-4 py-3 hover:bg-neutral-gray text-sm'
+													className='block px-4 py-3 text-sm hover:bg-neutral-gray'
 												>
 													{sublink.title}
 												</Link>
@@ -239,13 +239,13 @@ export default function Navbar() {
 								variant='secondary'
 								icon={<User size={18} />}
 								iconPosition='left'
-								className='border border-violet-main rounded-lg w-full lg:w-auto items-center justify-center lg:justify-start text-[12px]  h-[45px] '
+								className='h-[45px] w-full items-center justify-center rounded-lg border border-violet-main text-[12px] lg:w-auto lg:justify-start'
 								onClick={() => router.push('/auth')}
 							/>
 							<Button
 								text='Solicitar información'
 								variant='primary'
-								className='border border-violet-main rounded-lg w-full lg:w-auto items-center justify-center lg:justify-start text-[12px] h-[45px]'
+								className='h-[45px] w-full items-center justify-center rounded-lg border border-violet-main text-[12px] lg:w-auto lg:justify-start'
 								onClick={handleLeadClick}
 							/>
 						</div>
@@ -253,9 +253,9 @@ export default function Navbar() {
 				</div>
 			</nav>
 			{openLead && (
-				<div className='fixed top-0 left-0 w-full h-full z-50 bg-black/20 overflow-auto' onClick={handleLeadClick}>
-					<div className='absolute top-10 left-1/2 -translate-x-1/2 w-full max-w-[450px]' onClick={e => e.stopPropagation()}>
-						<button className='size-6 absolute top-2 right-2 m-2 rounded-full border-2 border-violet-main cursor-pointer' onClick={handleLeadClick}>
+				<div className='fixed left-0 top-0 z-50 h-full w-full overflow-auto bg-black/20' onClick={handleLeadClick}>
+					<div className='absolute left-1/2 top-10 w-full max-w-[450px] -translate-x-1/2' onClick={e => e.stopPropagation()}>
+						<button className='size-6 absolute right-2 top-2 m-2 cursor-pointer rounded-full border-2 border-violet-main' onClick={handleLeadClick}>
 							<X size={20} strokeWidth={3} className='text-violet-main' />
 						</button>
 						<LeadForm type={getLeadTypeByPath(path) as "PROFESSIONAL" | "INDIVIDUAL" | "CORPORATE"} handleLeadClick={handleLeadClick} />

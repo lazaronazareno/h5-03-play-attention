@@ -14,7 +14,7 @@ const ItemDefault = ({ title, icon, component }: ItemDefaultProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
-      <div className='flex bg-white hover:bg-green-main/10 shadow-main border-2 border-green-main rounded-md p-2 lg:px-3 lg:py-2.5 gap-2.5 items-center cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
+      <div className='shadow-main flex cursor-pointer items-center gap-2.5 rounded-md border-2 border-green-main bg-white p-2 hover:bg-green-main/10 lg:px-3 lg:py-2.5' onClick={() => setIsOpen(!isOpen)}>
         <div className='size-11 flex items-center justify-center rounded-full bg-green-main'>
           {icon ? icon : <Settings size={32} color='white' strokeWidth={2} />}
         </div>
@@ -33,7 +33,7 @@ const ItemDefault = ({ title, icon, component }: ItemDefaultProps) => {
         ) : (
           <RightArrow
             size={24}
-            className='ms-auto text-green-main rotate-90'
+            className='ms-auto rotate-90 text-green-main'
           />
         )}
       </div>

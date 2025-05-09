@@ -12,8 +12,8 @@ interface UserTableSectionProps {
 const UserTableSection = ({ users, setSelectedUser }: UserTableSectionProps) => {
 
   return (
-    <div className="py-9 px-4 bg-violet-main/20 rounded-md w-full min-h-[89vh] max-h-full">
-      <div className="bg-neutral-white2 px-4 h-full flex flex-col">
+    <div className="max-h-full min-h-[89vh] w-full rounded-md bg-violet-main/20 px-4 py-9">
+      <div className="flex h-full flex-col bg-neutral-white2 px-4">
         <div className="flex py-8">
           <Typography variant="h2" color="default" size="2xl" text={"Posibles Clientes"} weight="semibold" />
           {/* TODO: Reemplazar por componente */}
@@ -23,7 +23,7 @@ const UserTableSection = ({ users, setSelectedUser }: UserTableSectionProps) => 
               <input
                 type="text"
                 placeholder="Buscar"
-                className="outline-none bg-transparent text-gray-700 placeholder-violet-main flex-1"
+                className="flex-1 bg-transparent text-gray-700 placeholder-violet-main outline-none"
               />
             </div>
             <div className="flex items-center gap-2 bg-violet-secondary text-white rounded-md p-2">

@@ -106,7 +106,7 @@ export default function IndividualsPage() {
 			</div>
 
 
-			<Typography text='Tres veces más efectivo para mejorar el comportamiento, representando una alternativa reducir la dependencia a la medicación.' variant='h3' size='subtitle' color='violet' weight='semibold' className='text-center p-20 mx-auto' />
+			<Typography text='Tres veces más efectivo para mejorar el comportamiento, representando una alternativa reducir la dependencia a la medicación.' variant='h3' size='subtitle' color='violet' weight='semibold' className='mx-auto p-20 text-center' />
 
 			<div id='adults'>
 				<ImpactSection title={IMPACTSECTION_PROPS2.title} description={IMPACTSECTION_PROPS2.description} aditionalDescription={IMPACTSECTION_PROPS2.aditionalDescription}
@@ -115,9 +115,9 @@ export default function IndividualsPage() {
 
 			<TestimonySection title='Testimonios' type='people' />
 
-			<Typography text='Planes de pago' variant='h3' size='subtitle' color='violet' weight='medium' className='text-center p-20 mx-auto' />
+			<Typography text='Planes de pago' variant='h3' size='subtitle' color='violet' weight='medium' className='mx-auto p-20 text-center' />
 
-			<div id='plans' className='flex flex-col lg:flex-row items-center justify-center lg:items-start  gap-30 p-8 mx-auto'>
+			<div id='plans' className='gap-30 mx-auto flex flex-col items-center justify-center p-8 lg:flex-row lg:items-start'>
 				{PAYMENTCARD_PROPS.map((item, index) => (
 					<PaymentCard key={index} {...item} />)
 				)

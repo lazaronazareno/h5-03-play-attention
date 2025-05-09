@@ -18,10 +18,10 @@ const AdminNavbar = () => {
   }
 
   return (
-    <header className='z-50 bg-neutral-white2 shadow-main flex items-center justify-between py-3 px-9 text-sm'>
+    <header className='shadow-main z-50 flex items-center justify-between bg-neutral-white2 px-9 py-3 text-sm'>
       <div className='flex'>
         <Image src={"/branding/LogoWordAr.png"} alt='Avatar' width={32} height={24} className='me-6' />
-        <div className='flex gap-5 items-center'>
+        <div className='flex items-center gap-5'>
           {ADMIN_LINKS.map((link) => (
             <Link
               key={link.title}

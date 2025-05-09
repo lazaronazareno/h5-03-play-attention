@@ -59,11 +59,11 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
   }, [type, user]);
 
   return (
-    <div className='relative bg-neutral-white2 px-4 py-6 rounded-md shadow-main'>
-      <div className='flex justify-center items-center gap-2 pb-4 border-b border-violet-main'>
+    <div className='shadow-main relative rounded-md bg-neutral-white2 px-4 py-6'>
+      <div className='flex items-center justify-center gap-2 border-b border-violet-main pb-4'>
         {type === 'Correo Electrónico' && (
           <>
-            <Mail size={24} className='text-violet-main ms-4' />
+            <Mail size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='flex gap-2 ms-auto'>
               {selectedMessage && (
@@ -75,7 +75,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
         )}
         {type === 'WhatsApp' && (
           <>
-            <MessageCircle size={24} className='text-violet-main ms-4' />
+            <MessageCircle size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='flex gap-2 ms-auto'>
               {/*               <Button variant='secondary' text='Agregar nuevo WhatsApp' className='!py-3 items-center justify-center' />
@@ -91,46 +91,46 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
         )}
         {type === 'Reuniones' && (
           <>
-            <Coffee size={24} className='text-violet-main ms-4' />
+            <Coffee size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
-            <div className='flex gap-2 ms-auto'>
-              <Button variant='secondary' text='Agregar nueva reunión' className='!py-3 items-center justify-center' />
-              <Button variant='primary' text='Enviar nuevo mensaje' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setOpenSendEmailForm(true)} />
+            <div className='ms-auto flex gap-2'>
+              <Button variant='secondary' text='Agregar nueva reunión' className='items-center justify-center !py-3' />
+              <Button variant='primary' text='Enviar nuevo mensaje' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
         )}
         {type === 'Campaña' && (
           <>
-            <Disc2 size={24} className='text-violet-main ms-4' />
+            <Disc2 size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
-            <div className='flex gap-2 ms-auto'>
-              <Button variant='secondary' text='Agregar nueva' className='!py-3 items-center justify-center' />
-              <Button variant='primary' text='Enviar Campaña' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setOpenSendEmailForm(true)} />
+            <div className='ms-auto flex gap-2'>
+              <Button variant='secondary' text='Agregar nueva' className='items-center justify-center !py-3' />
+              <Button variant='primary' text='Enviar Campaña' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
         )}
         {type === 'Soporte' && (
           <>
-            <CircleHelp size={24} className='text-violet-main ms-4' />
+            <CircleHelp size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
-            <div className='flex gap-2 ms-auto'>
-              <Button variant='secondary' text='Rechazar' className='!py-3 items-center justify-center' />
-              <Button variant='primary' text='Enviar respuesta' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='!py-3 items-center justify-center' onClick={() => setOpenSendEmailForm(true)} />
+            <div className='ms-auto flex gap-2'>
+              <Button variant='secondary' text='Rechazar' className='items-center justify-center !py-3' />
+              <Button variant='primary' text='Enviar respuesta' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
         )}
       </div>
-      <table className="table-auto w-full border-collapse">
+      <table className="w-full table-auto border-collapse">
         <thead className='border-y border-violet-main text-start'>
           <tr>
-            <th className="text-start p-2">
+            <th className="p-2 text-start">
               <Inbox size={20} />
             </th>
-            <th className="text-start px-4 py-2">Asunto</th>
-            <th className="text-start px-4 py-2">Fecha</th>
-            <th className="text-start px-4 py-2">Usuario</th>
-            <th className="text-start px-4 py-2">Estado</th>
-            <th className="text-start px-4 py-2">Respuesta</th>
+            <th className="px-4 py-2 text-start">Asunto</th>
+            <th className="px-4 py-2 text-start">Fecha</th>
+            <th className="px-4 py-2 text-start">Usuario</th>
+            <th className="px-4 py-2 text-start">Estado</th>
+            <th className="px-4 py-2 text-start">Respuesta</th>
           </tr>
         </thead>
         <tbody>
@@ -166,11 +166,11 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
                 <td className="px-3">
                   <input type="checkbox" />
                 </td>
-                <td className=" px-4 py-2">Bienvenido</td>
-                <td className=" px-4 py-2">2023-10-01</td>
-                <td className=" px-4 py-2">asd</td>
-                <td className=" px-4 py-2">asd</td>
-                <td className=" px-4 py-2">Enviada</td>
+                <td className="px-4 py-2">Bienvenido</td>
+                <td className="px-4 py-2">2023-10-01</td>
+                <td className="px-4 py-2">asd</td>
+                <td className="px-4 py-2">asd</td>
+                <td className="px-4 py-2">Enviada</td>
               </tr>
             </>
           )}

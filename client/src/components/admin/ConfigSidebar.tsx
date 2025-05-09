@@ -18,9 +18,7 @@ const ConfigSidebar = () => {
   ]
   return (
     <aside
-      className={`
-        fixed top-16 left-0 font-poppins md:top-22 w-58 h-[calc(100vh-4rem)] bg-neutral-white2 border border-violet-main rounded-md z-40 transition-transform duration-300
-      `}
+      className={`md:top-22 w-58 fixed left-0 top-16 z-40 h-[calc(100vh-4rem)] rounded-md border border-violet-main bg-neutral-white2 font-poppins transition-transform duration-300`}
     >
       <nav className='flex flex-col gap-2 px-2 py-4'>
         {
@@ -28,7 +26,7 @@ const ConfigSidebar = () => {
             <Link
               key={title}
               href={href}
-              className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-violet-200 text-sm'
+              className='flex items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-violet-200'
             >
               {icon}
               <span>{title}</span>
@@ -37,7 +35,7 @@ const ConfigSidebar = () => {
 
         <button
           onClick={handleLogout}
-          className='mt-auto mb-6 cursor-pointer flex items-center gap-3 px-3 py-2 rounded-md hover:bg-violet-200 text-sm'
+          className='mb-6 mt-auto flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm hover:bg-violet-200'
         >
           <LogOut size={20} />
           <span>Salir</span>

@@ -30,9 +30,9 @@ export default function UserNavbar() {
 	// --------------------------------------------------
 	return (
 		<>
-			<header className="fixed top-0 left-0 right-0 z-50 bg-neutral-white2 shadow-xl flex items-center justify-between p-4 text-sm">
+			<header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between bg-neutral-white2 p-4 text-sm shadow-xl">
 				<div className="flex items-center gap-2">
-					<Image src={UserAvatar} alt="Avatar" width={24} height={24} className="rounded-full w-auto" />
+					<Image src={UserAvatar} alt="Avatar" width={24} height={24} className="w-auto rounded-full" />
 					<p>
 						{user.name} {user.lastName}
 					</p>
@@ -44,7 +44,7 @@ export default function UserNavbar() {
 				</div>
 				<div className="flex gap-4">
 					<button
-						className="text-violet-main cursor-pointer"
+						className="cursor-pointer text-violet-main"
 						onClick={() => {
 							console.log("notification");
 						}}
@@ -59,10 +59,10 @@ export default function UserNavbar() {
 						onClick={() => {
 							router.push("/dashboard/support");
 						}}
-						className="hidden md:flex items-center justify-center h-12 "
+						className="hidden h-12 items-center justify-center md:flex"
 					/>
 					{/* Mobile menu */}
-					<button className="md:hidden text-violet-main cursor-pointer" onClick={toggleSidebar}>
+					<button className="cursor-pointer text-violet-main md:hidden" onClick={toggleSidebar}>
 						{sidebarOpen ? <X size={24} /> : <Menu size={24} />}
 					</button>
 				</div>

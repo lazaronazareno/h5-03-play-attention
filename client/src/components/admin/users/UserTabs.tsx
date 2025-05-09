@@ -6,6 +6,7 @@ import { Book, BookOpenIcon, Calendar, CircleHelp, Disc2, Home, Layers, LayoutGr
 import { ILeads, IUser } from '@/interfaces/IAdmin.interfaces';
 import { deleteContentById } from '@/services/admin/deleteContent';
 import { getContentByType } from '@/services/admin/getContent';
+import TimelineComponent from './chronologyUser/chronologyUserSection';
 const ContactUserSection = dynamic(() => import('./ContactUserSection'));
 const UserContactTable = dynamic(() => import('../UserContactTable'));
 const UserActivitiesSection = dynamic(() => import('./UserActivitiesSection'));
@@ -35,13 +36,13 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
 
   const TABS: { [key: string]: (props: UserTabsProps) => React.JSX.Element } = {
     Inicio: () => <div>Inicio</div>,
-    Cronologia: () => <div>Cronologia</div>,
+    Cronologia: () => <TimelineComponent></TimelineComponent>,
     Contacto: () => <ContactUserSection user={user as IUser} />,
     Campaña: () => <UserContactTable type='Campaña' user={user} />,
     Soporte: () => <UserContactTable type='Soporte' user={user} />,
     Actividades: () => <UserActivitiesSection
       title='Actividades'
-      icon={<LayoutGrid size={24} className='text-violet-main ms-4' />}
+      icon={<LayoutGrid size={24} className='ms-4 text-violet-main' />}
       deleteItemById={deleteContentById}
       fetchItems={() => getContentByType('ACTIVITY')}
       type='ACTIVITY'
@@ -49,21 +50,21 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     Archivos: () => <div className='flex flex-col gap-4'>
       <UserActivitiesSection
         title='Material Educativo'
-        icon={<BookOpenIcon size={24} className='text-violet-main ms-4' />}
+        icon={<BookOpenIcon size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('DOCUMENT')}
         type='DOCUMENT'
       />
       <UserActivitiesSection
         title='Articulos Medicos'
-        icon={<Book size={24} className='text-violet-main ms-4' />}
+        icon={<Book size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('ARTICLE')}
         type='ARTICLE'
       />
       <UserActivitiesSection
         title='Marketing'
-        icon={<Star size={24} className='text-violet-main ms-4' />}
+        icon={<Star size={24} className='ms-4 text-violet-main' />}
         deleteItemById={deleteContentById}
         fetchItems={() => getContentByType('MARKETING')}
         type='MARKETING'
@@ -71,7 +72,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     </div>,
     Videos: () => <UserActivitiesSection
       title='Tutoriales'
-      icon={<Video size={24} className='text-violet-main ms-4' />}
+      icon={<Video size={24} className='ms-4 text-violet-main' />}
       deleteItemById={deleteContentById}
       fetchItems={() => getContentByType('VIDEO')}
       type='VIDEO'
@@ -86,13 +87,13 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
             {item.name === 'Inicio' ? (
               <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setSelectedUser!(null)}>
                 {item.icon}
-                <span className={`text-base `}>{item.name}</span>
+                <span className={`text-base`}>{item.name}</span>
               </button>
             ) : (
 
               <button className={`flex items-center gap-2 p-4 cursor-pointer hover:text-violet-main ${activeTab === item.name && 'text-violet-main'}`} onClick={() => setActiveTab(item.name)}>
                 {item.icon}
-                <span className={`text-base `}>{item.name}</span>
+                <span className={`text-base`}>{item.name}</span>
               </button>
             )}
           </div>

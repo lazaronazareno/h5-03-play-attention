@@ -13,10 +13,10 @@ const UserInfo = ({ user }: UserInfoProps) => {
   const [openEditForm, setOpenEditForm] = React.useState(false);
 
   return (
-    <div className='bg-white h-full rounded-md p-4 flex flex-col gap-4 relative'>
-      <div className='min-w-[400px] w-min'>
+    <div className='relative flex h-full flex-col gap-4 rounded-md bg-white p-4'>
+      <div className='w-min min-w-[400px]'>
         <div className='flex gap-2'>
-          <div className='bg-green-300 size-24 rounded-full p-4 flex items-center gap-4' />
+          <div className='size-24 flex items-center gap-4 rounded-full bg-green-300 p-4' />
           <div className='flex flex-col justify-center'>
             <Typography variant='p' color='default' size='sm' text={(user.name ?? 'Nombre') + ' ' + (user.lastName ?? 'Apellido')} weight='semibold' />
             <Typography variant='p' color='default' size='sm' text={user.userType} weight='semibold' />
@@ -62,7 +62,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
         </div>
       </div>
       {openEditForm && (
-        <div className='fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50' onClick={() => setOpenEditForm(false)}>
+        <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/50' onClick={() => setOpenEditForm(false)}>
           <EditUser user={user} externalSubmit={() => {
             setOpenEditForm(false)
           }} />

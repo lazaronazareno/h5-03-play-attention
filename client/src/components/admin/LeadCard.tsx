@@ -181,13 +181,13 @@ const UserCard = ({ data }: LeadCardProps) => {
         </>
       )}
 
-      <div className='flex gap-2 h-12 mt-4'>
-        <Button variant='primary' text='Editar' icon={<SquarePen size={20} />} iconPosition='right' onClick={() => setOpenEditForm(true)} className='flex-1 !py-0 items-center justify-center font-semibold' />
-        <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} />} iconPosition='right' onClick={() => console.log('Delete')} className='flex-1 !py-0 items-center justify-center font-semibold' />
+      <div className='mt-4 flex h-12 gap-2'>
+        <Button variant='primary' text='Editar' icon={<SquarePen size={20} />} iconPosition='right' onClick={() => setOpenEditForm(true)} className='flex-1 items-center justify-center !py-0 font-semibold' />
+        <Button variant='secondary' text='Eliminar' icon={<Trash2 size={20} />} iconPosition='right' onClick={() => console.log('Delete')} className='flex-1 items-center justify-center !py-0 font-semibold' />
       </div>
 
       {openEditForm && (
-        <div className='fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50' onClick={() => setOpenEditForm(false)}>
+        <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/50' onClick={() => setOpenEditForm(false)}>
           <EditLead lead={currentUser as ILeads} externalSubmit={() => {
             setOpenEditForm(false)
             handleReload()

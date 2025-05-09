@@ -46,7 +46,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background, dr
       {isOpen && (
         <ul className={`bg-neutral-white2 absolute flex flex-col gap-2 min-w-32 rounded-md shadow-main border p-2 z-10 ${dropUp ? '-top-40' : 'top-0'}`}>
           <li
-            className="flex justify-between text-violet-main border-b border-violet-main/50 font-semibold cursor-pointer"
+            className="flex cursor-pointer justify-between border-b border-violet-main/50 font-semibold text-violet-main"
             onClick={() => setIsOpen(!isOpen)}
           >
             {title}
@@ -61,7 +61,7 @@ const DropdownLead = ({ title, options, selectedOption, onSelect, background, dr
                   setSelected(value);
                   setIsOpen(false);
                 }}
-                className='hover:bg-violet-secondary/20 cursor-pointer rounded-md'
+                className='cursor-pointer rounded-md hover:bg-violet-secondary/20'
               >
                 {value}
               </li>

@@ -3,8 +3,8 @@ import NasaLogo from "/public/landing/nasaLogo.png";
 
 const NasaValidationSection = () => {
   return (
-    <div className="w-full max-w-[1470px] mx-auto h-full lg:px-4 py-10">
-      <h2 className="mx-auto text-2xl lg:text-5xl text-center text-violet-main font-medium font-roboto">
+    <div className="mx-auto h-full w-full max-w-[1470px] py-10 lg:px-4">
+      <h2 className="mx-auto text-center font-roboto text-2xl font-medium text-violet-main lg:text-5xl">
         Basado en más de 30 años de investigación de la
         <span className="inline-flex items-center">
           <Image src={NasaLogo} alt="Nasa Logo" className="ms-1 w-20 lg:w-32" />

@@ -9,7 +9,7 @@ interface ImageDoubleProps {
 
 const ImageDouble = ({ imageUrl1, imageUrl2, color }: ImageDoubleProps) => {
   return (
-    <div className='relative w-[330px] h-[270px] lg:w-[800px] lg:h-[650px]'>
+    <div className='relative h-[270px] w-[330px] lg:h-[650px] lg:w-[800px]'>
       <div className={`${color === "violet" && "bg-violet-main"} ${color === "green" && "bg-green-main"} w-[280px] h-[210px] lg:w-[670px] lg:h-[498px] rounded-2xl absolute top-1/2 left-1/2 -translate-1/2`} />
       <Image
         src={imageUrl1}

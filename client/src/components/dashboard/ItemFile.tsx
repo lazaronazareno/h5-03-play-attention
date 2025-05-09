@@ -32,8 +32,8 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
               <>
                 {
                   icon
-                    ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
-                    : <span className='bg-green-main rounded-full size-5 flex justify-center items-center mt-2'>
+                    ? <span className='mr-1 mt-2 lg:mr-2'>{icon}</span>
+                    : <span className='size-5 mt-2 flex items-center justify-center rounded-full bg-green-main'>
                       <CheckIcon size={18} color='white' strokeWidth={3} />
                     </span>
                 }
@@ -47,7 +47,7 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
                     type='checkbox'
                     checked={isSelected}
                     onChange={() => setSelectedFile?.(isSelected ? 0 : id!)}
-                    className='form-checkbox h-5 w-5 text-green-main border-gray-300 rounded focus:ring-green-main'
+                    className='form-checkbox h-5 w-5 rounded border-gray-300 text-green-main focus:ring-green-main'
                   />
                 </div>
               )
@@ -56,7 +56,7 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
               <Typography text={title} variant='h3' color='violet' size='small-title' weight='semibold' />
               <Typography text={description} variant='p' color='default' size='sm' weight='normal' />
             </div>
-            <div className='flex gap-1 lg:gap-2 ml-auto items-center'>
+            <div className='ml-auto flex items-center gap-1 lg:gap-2'>
               <Button
                 text='Descargar'
                 variant='primary'
@@ -98,8 +98,8 @@ const ItemFile = ({ title, description, type, icon, fileUrl, fileType, transcrip
             <div className='flex w-full gap-1 lg:gap-2'>
               {
                 icon
-                  ? <span className='mr-1 lg:mr-2 mt-2'>{icon}</span>
-                  : <span className='bg-green-main rounded-full size-5 flex justify-center items-center mt-2'>
+                  ? <span className='mr-1 mt-2 lg:mr-2'>{icon}</span>
+                  : <span className='size-5 mt-2 flex items-center justify-center rounded-full bg-green-main'>
                     <CheckIcon size={18} color='white' strokeWidth={3} />
                   </span>
               }

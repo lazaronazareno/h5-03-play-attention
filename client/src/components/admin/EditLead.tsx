@@ -72,8 +72,8 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 min-w-[345px] h-min bg-neutral-white2 border border-violet-main rounded-md shadow-main p-4" onClick={(e) => e.stopPropagation()} >
-      <div className="relative flex justify-center rounded-full w-max cursor-pointer border border-violet-main overflow-hidden self-center">
+    <div className="shadow-main flex h-min min-w-[345px] flex-col gap-4 rounded-md border border-violet-main bg-neutral-white2 p-4" onClick={(e) => e.stopPropagation()} >
+      <div className="relative flex w-max cursor-pointer justify-center self-center overflow-hidden rounded-full border border-violet-main">
         <Image
           src="/landing/testimonies/1.png"
           alt="Lead"
@@ -83,7 +83,7 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
         />
         <Camera
           size={24}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-green-300 rounded-b-full w-32 text-white"
+          className="absolute bottom-0 left-1/2 w-32 -translate-x-1/2 rounded-b-full bg-green-300 text-white"
         />
       </div>
 
@@ -192,12 +192,12 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
           )}
         </div>
 
-        <div className="flex gap-2 h-12 mt-4">
+        <div className="mt-4 flex h-12 gap-2">
           {!isLoading ? (
             <Button
               variant="primary"
               text="Aplicar"
-              className="flex-1 !py-0 items-center justify-center font-semibold"
+              className="flex-1 items-center justify-center !py-0 font-semibold"
             />
           ) : (
             <Button
@@ -205,14 +205,14 @@ const EditLead = ({ lead, externalSubmit }: EditLeadProps) => {
               variant="primary"
               icon={<Loader2 className="animate-spin" />}
               iconPosition="right"
-              className="flex-1 !py-0 items-center justify-center font-semibold"
+              className="flex-1 items-center justify-center !py-0 font-semibold"
               disabled={true}
             />
           )}
           <Button
             variant="secondary"
             text="Cancelar"
-            className="flex-1 !py-0 items-center justify-center font-semibold"
+            className="flex-1 items-center justify-center !py-0 font-semibold"
             onClick={() => {
               if (externalSubmit) {
                 externalSubmit();
