@@ -79,7 +79,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
     'Eventos y Notificaciones': () => <div>Eventos y Notificaciones</div>
   }
   return (
-    <div className='flex h-[89vh] w-full flex-col gap-8 rounded-md bg-violet-main/30 px-4 py-9'>
+    <div className='flex h-full w-3/4 overflow-x-scroll flex-col gap-8 rounded-md bg-violet-main/30 px-4 py-9'>
       <div className='flex justify-between'>
         {NAV_ITEMS.map((item) => (
           <div key={item.name} >
@@ -99,7 +99,7 @@ const UserTabs = ({ user, setSelectedUser }: UserTabsProps) => {
 
         ))}
       </div>
-      <div className='overflow-y-auto'>
+      <div >
         {TABS[activeTab]({ user })}
       </div>
     </div>

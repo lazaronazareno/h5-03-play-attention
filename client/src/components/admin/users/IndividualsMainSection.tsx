@@ -19,8 +19,8 @@ const UsersMainSection = ({ users, totalClients, porcentageClients, porcentageUs
   const [selectedUser, setSelectedUser] = React.useState<ILeads | IUser | null>(null);
 
   return (
-    <div className="flex">
-      <div className={`flex justify-center px-4`}>
+    <div className="flex gap-2 ">
+      <div className={`flex justify-center px-4 w-1/4`}>
         {selectedUser ? (
           <UserCard data={selectedUser} />
         ) : (
