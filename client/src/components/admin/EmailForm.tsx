@@ -48,6 +48,7 @@ const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => 
   const [error, setError] = useState(false);
   const [currentTemplate, setCurrentTemplate] = useState<IEmailTemplate | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [resize, setResize] = useState(false);
 
   const onSubmit = async (data: EmailFormData) => {
     console.log("Form Data:", data);
@@ -73,7 +74,7 @@ const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => 
   };
 
   return (
-    <div className="min-w-[500px] lg:min-w-[800px] h-full shadow-main">
+    <div className={`${resize ? 'min-w-[500px] lg:min-w-[800px]' : 'w-full'} h-full shadow-main transition-all duration-300 `}>
       <div className="h-full flex flex-col w-full border-b border-violet-main bg-violet-main/10">
         <div className="flex py-4 items-center gap-2">
           {type === "Correo Electrónico" && (
@@ -90,44 +91,48 @@ const EmailForm = ({ users, type, onClick, onChangeStatus }: EmailFormProps) => 
           )}
           <div className="flex ms-auto gap-2">
             <div className="relative min-w-[200px]">
-              <Button
-                variant="primary"
-                text={
-                  currentTemplate?.subject?.slice(0, 40) || "Seleccionar plantilla"
-                }
-                className="!py-0 items-center justify-center font-semibold "
-                onClick={() => setIsDropdownOpen((prev) => !prev)}
-              />
-              {isDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                  <div
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                    onClick={() => {
-                      setCurrentTemplate(null);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    Seleccionar plantilla
-                  </div>
-                  {Object.values(emailTemplates).map((template) => (
-                    <div
-                      key={template.subject}
-                      className="px-4 py-2 cursor-pointer hover:bg-violet-main/20"
-                      onClick={() => {
-                        setCurrentTemplate(template);
-                        setValue("subject", template.subject);
-                        setValue("message", template.message);
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      {template.subject}
+              {type === "Correo Electrónico" && (
+                <>
+                  <Button
+                    variant="primary"
+                    text={
+                      currentTemplate?.subject?.slice(0, 40) || "Seleccionar plantilla"
+                    }
+                    className="!py-0 items-center justify-center font-semibold "
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  />
+                  {isDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                      <div
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                        onClick={() => {
+                          setCurrentTemplate(null);
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        Seleccionar plantilla
+                      </div>
+                      {Object.values(emailTemplates).map((template) => (
+                        <div
+                          key={template.subject}
+                          className="px-4 py-2 cursor-pointer hover:bg-violet-main/20"
+                          onClick={() => {
+                            setCurrentTemplate(template);
+                            setValue("subject", template.subject);
+                            setValue("message", template.message);
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          {template.subject}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               )}
             </div>
-            <Maximize2 size={24} className="text-violet-main cursor-pointer" />
-            <Minus size={24} className="text-violet-main cursor-pointer" />
+            <Maximize2 size={24} className="text-violet-main cursor-pointer" onClick={() => setResize(true)} />
+            <Minus size={24} className="text-violet-main cursor-pointer" onClick={() => setResize(false)} />
             <X size={24} className="text-violet-main cursor-pointer" onClick={() => onClick?.(false)} />
           </div>
         </div>

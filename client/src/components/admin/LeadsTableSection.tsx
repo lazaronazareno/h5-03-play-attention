@@ -15,7 +15,15 @@ const UserTableSection = ({ users, setSelectedUser }: UserTableSectionProps) => 
     <div className="max-h-full min-h-[89vh] w-full rounded-md bg-violet-main/20 px-4 py-9">
       <div className="flex h-full flex-col bg-neutral-white2 px-4">
         <div className="flex py-8">
-          <Typography variant="h2" color="default" size="2xl" text={"Posibles Clientes"} weight="semibold" />
+          <Typography
+            variant="h2"
+            color="default"
+            size="2xl"
+            text={
+              'leadType' in users[0] && users[0].leadType ? "Posibles Clientes" : "Clientes"
+            }
+            weight="semibold"
+          />
           {/* TODO: Reemplazar por componente */}
           {/* <div className="flex gap-4 ms-auto">
             <div className="flex items-center gap-2 bg-white border border-violet-main rounded-md p-2">

@@ -8,6 +8,8 @@ import { LeadStatusNames, LeadTypeNames } from '@/constants/LeadNaming';
 import EmailForm from './EmailForm';
 import { getMailsById } from '@/services/mail/getMails';
 import { IEmailResponse } from '@/interfaces/IMails.interface';
+import { fakeSupportTickets } from '@/constants/fakeSupportTickets';
+import { ISupportTicket } from '@/interfaces/ISupport-interface';
 
 interface UserContactTableProps {
   type: 'WhatsApp' | 'Correo Electrónico' | 'Reuniones' | 'Campaña' | 'Soporte';
@@ -22,6 +24,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
   //TODO: Cambiar para que pueda seleccionar más de un mensaje
   const [selectedMessage, setSelectedMessage] = React.useState<IEmailResponse | null>(null);
   const [isOpenMessage, setIsOpenMessage] = React.useState(false);
+  const [selectedTicket, setSelectedTicket] = React.useState<ISupportTicket | null>(null);
 
   const isLead = (data: ILeads | IUser): data is ILeads => {
     return (data as ILeads).leadType !== undefined;
@@ -94,7 +97,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
             <Coffee size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='ms-auto flex gap-2'>
-              <Button variant='secondary' text='Agregar nueva reunión' className='items-center justify-center !py-3' />
+              {/* <Button variant='secondary' text='Agregar nueva reunión' className='items-center justify-center !py-3' /> */}
               <Button variant='primary' text='Enviar nuevo mensaje' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
@@ -104,7 +107,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
             <Disc2 size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='ms-auto flex gap-2'>
-              <Button variant='secondary' text='Agregar nueva' className='items-center justify-center !py-3' />
+              {/* <Button variant='secondary' text='Agregar nueva' className='items-center justify-center !py-3' /> */}
               <Button variant='primary' text='Enviar Campaña' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
             </div>
           </>
@@ -114,8 +117,10 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
             <CircleHelp size={24} className='ms-4 text-violet-main' />
             <Typography variant='h2' text={type} weight='bold' size='small-title' color='violet' />
             <div className='ms-auto flex gap-2'>
-              <Button variant='secondary' text='Rechazar' className='items-center justify-center !py-3' />
-              <Button variant='primary' text='Enviar respuesta' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
+              {/* <Button variant='secondary' text='Rechazar' className='items-center justify-center !py-3' /> */}
+              {selectedTicket && (
+                <Button variant='primary' text='Enviar respuesta' icon={<ChevronRight size={20} color='white' />} iconPosition='right' className='items-center justify-center !py-3' onClick={() => setOpenSendEmailForm(true)} />
+              )}
             </div>
           </>
         )}
@@ -154,7 +159,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
                   <td className=" px-4 py-2">Enviada</td>
                 </tr>
               ))}
-              {!messages && (
+              {!messages || messages.length === 0 && (
                 <tr>
                   <td colSpan={6} className="text-center py-4">No hay mensajes disponibles en este momento</td>
                 </tr>
@@ -162,16 +167,40 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
             </>
           ) : (
             <>
-              <tr>
-                <td className="px-3">
-                  <input type="checkbox" />
-                </td>
-                <td className="px-4 py-2">Bienvenido</td>
-                <td className="px-4 py-2">2023-10-01</td>
-                <td className="px-4 py-2">asd</td>
-                <td className="px-4 py-2">asd</td>
-                <td className="px-4 py-2">Enviada</td>
-              </tr>
+              {type === 'Soporte' ? (
+                <>
+                  {fakeSupportTickets.map((ticket, index) => (
+                    <tr key={index}>
+                      <td className="px-3">
+                        <input
+                          type="checkbox"
+                          onChange={(e) => {
+                            setSelectedTicket(e.target.checked ? ticket : null)
+                          }}
+                          checked={selectedTicket?.id === ticket.id}
+                        />
+                      </td>
+                      <td className="px-4 py-2">{ticket.subject}</td>
+                      <td className="px-4 py-2">{ticket.date}</td>
+                      <td className="px-4 py-2">{user.email}</td>
+                      <td className="px-4 py-2">{ticket.status}</td>
+                      <td className="px-4 py-2">{ticket.response}</td>
+                    </tr>
+                  ))}
+                </>
+              ) : (
+                <tr>
+                  <td className="px-3">
+                    <input type="checkbox" />
+                  </td>
+                  <td className="px-4 py-2">Bienvenido</td>
+                  <td className="px-4 py-2">2025-05-05</td>
+                  <td className="px-4 py-2">{user.email}</td>
+                  <td className="px-4 py-2">Pendiente</td>
+                  <td className="px-4 py-2">PENDIENTE</td>
+                </tr>
+
+              )}
             </>
           )}
         </tbody>
@@ -179,7 +208,7 @@ const UserContactTable = ({ type, user, onChangeStatus }: UserContactTableProps)
       {openSendEmailForm && (
         <div className='fixed top-0 right-0 w-full h-full bg-black/50 flex justify-end z-50' onClick={() => setOpenSendEmailForm(false)}>
           <div className='relative flex flex-col gap-4 bg-neutral-white2 border border-violet-main rounded-md shadow-main' onClick={(e) => e.stopPropagation()}>
-            <EmailForm type={type} users={[user.email]} onClick={setOpenSendEmailForm} onChangeStatus={onChangeStatus} />
+            <EmailForm type={type} users={[selectedTicket ? selectedTicket.user : user.email]} onClick={setOpenSendEmailForm} onChangeStatus={onChangeStatus} />
           </div>
         </div>
       )}
